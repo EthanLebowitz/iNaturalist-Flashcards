@@ -12,6 +12,8 @@
 </script>
 <title>Track Tool</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* Catppuccin Mocha */
 :root {
@@ -32,235 +34,29 @@
   --mauve:   #cba6f7;
 }
 
-* {box-sizing:border-box}
-body {font-family: Verdana,sans-serif;margin:0;background-color:var(--base);color:var(--text);}
-.mySlides {display:none}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-a {color:var(--blue);}
-a:hover {color:var(--lavender);}
-
-select {
-  background-color: var(--surface0);
+body {
+  font-family: 'Inter', Verdana, sans-serif;
+  background-color: var(--base);
   color: var(--text);
-  border: 1px solid var(--surface2);
+  line-height: 1.5;
 }
 
-/* Slideshow container */
-.slideshow-container {
-  max-width: 70vw;
-  position: relative;
-  margin: auto;
-}
+.mySlides { display: none; }
 
-/* Next & previous buttons */
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  padding: 16px;
-  margin-top: -22px;
-  color: var(--text);
-  font-weight: bold;
-  font-size: 18px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  background-color: rgba(17,17,27,0.6);
-}
+a { color: var(--blue); text-decoration: none; }
+a:hover { color: var(--lavender); text-decoration: underline; }
 
-/* Position the "next button" to the right */
-.next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
-}
-
-.prev {
-  left: 0;
-  border-radius: 3px 0 0 3px;
-}
-
-.prev:hover, .next:hover {
-  background-color: rgba(17,17,27,0.92);
-}
-
-/* Caption text */
-.text {
-  color: var(--text);
-  font-size: 15px;
-  padding: 8px 12px;
-  position: absolute;
-  bottom: 8px;
-  width: 100%;
-  text-align: center;
-}
-
-/* Number text (1/3 etc) */
-.numbertext {
-  color: var(--text);
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
-}
-
-/* The dots/bullets/indicators */
-.dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: var(--surface1);
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
-
-.active, .dot:hover {
-  background-color: var(--overlay1);
-}
-
-/* Fading animation */
-.fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
-}
-
-@-webkit-keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
-}
-
-@keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
-}
-
-/* On smaller screens, decrease text size */
-@media only screen and (max-width: 300px) {
-  .prev, .next,.text {font-size: 11px}
-}
-
-/* buttons for options */
-.options {
-  font-family: Arial;
-  color: var(--text);
-  font-size: 20px;
-  background: var(--surface1);
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-}
-
-.options:hover {
-  background: var(--surface0);
-  text-decoration: none;
-}
-
-.wide {width: 100%;}
-
-.subOptions {
-  -webkit-border-radius: 5;
-  -moz-border-radius: 5;
-  border-radius: 5px;
-  font-family: Arial;
-  color: var(--base);
-  font-size: 20px;
-  background: var(--blue);
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-}
-
-.subOptions:hover {
-  background: var(--lavender);
-  text-decoration: none;
-}
-
-.slideshow-container {
-   width: 100%;
-   /*height:80vh;*/
-}
-.img {
-   max-height: 92vh;
-   max-width: 100%;
-   transition: 0.3s;
-}
-
-.img:hover {opacity: .8;}
-
-.modal {/* The Modal (background) */
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 15px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: var(--crust);
-    background-color: rgba(17,17,27,0.92);
-}
-
-/* Modal Content (Image) */
-.modal-content {
-    margin: auto;
-    display: block;
-    /*width: 80%;*/
-    max-width: 80%;
-}
-
-/* The Close Button */
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: var(--subtext0);
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.close:hover,
-.close:focus {
-    color: var(--text);
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
-    .modal-content {
-        width: 100%;
-    }
-}
-
-.filterContent, .infoContent{
-    background-color: var(--mantle);
-    margin: 0% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid var(--surface1);
-    width: 70%; /* Could be more or less, depending on screen size */
-	min-height: 80%;
-	color: var(--text);
-}
-
-#about{text-align:left !important; padding:5%;}
-
-#species{width:70%;}
-
-/* Responsive layout */
+/* ── Page layout ── */
 .page-layout {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 16px;
-  gap: 16px;
+  padding: 20px;
+  gap: 20px;
   flex-wrap: wrap;
+  min-height: 100vh;
 }
 
 .slideshow-panel {
@@ -270,30 +66,305 @@ select {
 }
 
 .controls-panel {
-  flex: 0 0 260px;
-  text-align: center;
-}
-
-.btn-row {
+  flex: 0 0 280px;
   display: flex;
-  gap: 4px;
-  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--mantle);
+  border: 1px solid var(--surface1);
+  border-radius: 14px;
+  padding: 16px;
 }
 
-.btn-row .options {
-  flex: 1;
+/* ── Slideshow ── */
+.slideshow-container {
+  position: relative;
+  width: 100%;
+  margin: auto;
 }
 
+.img {
+  max-height: 90vh;
+  max-width: 100%;
+  border-radius: 10px;
+  transition: opacity 0.2s;
+  display: block;
+  margin: auto;
+}
+
+.img:hover { opacity: 0.85; cursor: zoom-in; }
+
+/* ── Slide arrows ── */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 13px 17px;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 8px;
+  background-color: rgba(17,17,27,0.65);
+  transition: background 0.2s;
+  user-select: none;
+}
+
+.next { right: 8px; }
+.prev { left: 8px; }
+.prev:hover, .next:hover { background-color: rgba(17,17,27,0.92); }
+
+/* ── Image counter badge ── */
+.numbertext {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--subtext0);
+  background: rgba(17,17,27,0.65);
+  border-radius: 20px;
+  padding: 3px 9px;
+  letter-spacing: 0.04em;
+}
+
+/* ── Dots ── */
+.dot {
+  cursor: pointer;
+  height: 7px;
+  width: 7px;
+  margin: 10px 3px 0;
+  background-color: var(--surface2);
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.25s, transform 0.25s;
+}
+
+.active, .dot:hover {
+  background-color: var(--blue);
+  transform: scale(1.5);
+}
+
+/* ── Fade animation ── */
+.fade { animation: fade 0.35s ease; }
+
+@keyframes fade {
+  from { opacity: 0.25; }
+  to   { opacity: 1; }
+}
+
+/* ── Buttons ── */
+.options {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--surface1);
+  padding: 9px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.options:hover  { background: var(--surface2); }
+.options:active { transform: scale(0.97); }
+
+.wide { width: 100%; }
+
+.subOptions {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--base);
+  background: var(--blue);
+  padding: 9px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.subOptions:hover  { background: var(--lavender); }
+.subOptions:active { transform: scale(0.97); }
+
+/* ── Prev / Next row ── */
+.btn-row { display: flex; gap: 6px; }
+.btn-row .options { flex: 1; }
+
+/* ── Location ── */
+#location {
+  font-size: 12px;
+  color: var(--subtext0);
+  font-style: italic;
+  min-height: 1.2em;
+}
+
+/* ── Answer box ── */
+#answer {
+  background: var(--surface0);
+  border-left: 3px solid var(--teal);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--teal);
+  text-align: left;
+}
+
+/* ── Divider ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--surface1);
+}
+
+/* ── Share section ── */
+.share-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--overlay1);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: left;
+}
+
+#shareLink {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  background: var(--surface0);
+  color: var(--subtext0);
+  border-radius: 6px;
+  padding: 6px 10px;
+  word-break: break-all;
+  text-align: left;
+}
+
+/* ── Select ── */
+select {
+  background-color: var(--surface0);
+  color: var(--text);
+  border: 1px solid var(--surface2);
+  border-radius: 6px;
+  padding: 4px 6px;
+}
+
+/* ── Add Filters button ── */
+#addFiltersButton {
+  background: var(--surface1);
+  color: var(--text);
+  border: none;
+  border-radius: 6px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 8px;
+  transition: background 0.15s;
+}
+#addFiltersButton:hover { background: var(--surface2); }
+
+/* ── Modal backdrop ── */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  padding-top: 40px;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: auto;
+  background-color: rgba(17,17,27,0.88);
+  backdrop-filter: blur(4px);
+}
+
+/* ── Modal image ── */
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 85%;
+  border-radius: 8px;
+}
+
+/* ── Modal panels ── */
+.filterContent, .infoContent {
+  background-color: var(--mantle);
+  margin: 0 auto;
+  padding: 28px 32px;
+  border: 1px solid var(--surface1);
+  border-radius: 14px;
+  width: 70%;
+  min-height: 80%;
+  color: var(--text);
+  position: relative;
+}
+
+/* ── Close button ── */
+.close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  color: var(--overlay1);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.close:hover, .close:focus {
+  color: var(--text);
+  cursor: pointer;
+}
+
+/* ── Info modal data box ── */
+#datInfo {
+  float: right;
+  background: var(--surface0);
+  color: var(--subtext0);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  line-height: 1.9;
+  margin-left: 16px;
+  margin-bottom: 12px;
+}
+
+.infoContent {
+  padding-top: 50px;
+}
+
+#about h2 {
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+#about p {
+  margin-bottom: 10px;
+  color: var(--subtext0);
+  line-height: 1.7;
+}
+
+#about { padding: 0; }
+#species { width: 70%; }
+
+/* ── Action button row (Filters / More Info) ── */
+.action-btn-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Responsive ── */
 @media (max-width: 768px) {
-  .controls-panel {
-    flex: 1 1 100%;
-    width: 100%;
-  }
-  .filterContent, .infoContent {
-    width: 95%;
-  }
+  .controls-panel { flex: 1 1 100%; width: 100%; }
+  .filterContent, .infoContent { width: 95%; padding: 20px; }
+  .infoContent { padding-top: 50px; }
   #species { width: 95%; }
+  .action-btn-row { flex-direction: row; }
+  .action-btn-row .subOptions { flex: 1; }
 }
+
+@media (max-width: 700px) { .modal-content { width: 100%; } }
+@media (max-width: 300px) { .prev, .next { font-size: 11px; } }
 
 </style>
 <script
@@ -310,22 +381,24 @@ select {
 
 
 	</div>
-	<br>
-	<div style="text-align:center" id="dots"></div>
+	<div id="dots" style="margin-top:10px;"></div>
 
 </div></div>
 <div class="controls-panel">
   <div id="location"></div>
   <button type="submit" onclick="nextEntry(2)" class="subOptions wide">Shuffle Cards</button>	
 	<div class="btn-row">
-	<button type="submit" onclick="nextEntry(0)" class="options">Previous</button>
-	<button type="submit" onclick="nextEntry(1)" class="options">Next</button>
+	<button type="submit" onclick="nextEntry(0)" class="options">&#8592; Prev</button>
+	<button type="submit" onclick="nextEntry(1)" class="options">Next &#8594;</button>
 	</div>
-	<br><br>
-	<button type="submit" onclick="showAnswer()" class="options" id="showAnswer">Show Answer</button>
-	<div id="answer"></div>	
-  <br><br>
+	<hr class="divider">
+	<button type="submit" onclick="showAnswer()" class="options wide" id="showAnswer">Show Answer</button>
+	<div id="answer"></div>
+  <hr class="divider">
+  <div class="action-btn-row">
   <button type="submit" id="filterButton" class="subOptions wide">Filters (None)</button>
+  <button type="submit" class="subOptions wide" id="infoButton">More Info</button>
+  </div>
   <div class="modal" id="filterModal"><div class="filterContent">
 	<span class="close">&times;</span>
 	Hold ctrl (windows) or cmd (mac) to select more than one.
@@ -370,16 +443,15 @@ select {
 	<div id="entryTotal"></div>
 	<div id="filterDisplay"></div>
   </div></div>
-  <button type="submit" class="subOptions wide" id="infoButton">More Info</button>
   <div class="modal" id="infoModal"><div class="infoContent">
 	<span class="close">&times;</span>
-  <div id="datInfo" style="float:right; background-color: #313244; color: #cdd6f4; padding: 7px;">
+  <div id="datInfo">
     <div id="linkObs"></div>
     <div id="totalObs"></div>
     <div id="currentObs"></div>
 	<div id="shuffled"></div>
   </div>
-  <div id="about"><p>
+  <div id="about">
 	  <h2>About</h2>
       <p>
         This project is essentially crowd sourced tracking flashcards. All cards are generated from observations in the iNaturalist <a href="https://www.inaturalist.org/projects/north-american-animal-tracking-database">North American Animal Tracking Database</a>.
@@ -395,10 +467,9 @@ select {
         Please send questions, bug reports, and words of encouragement to duckunreal@gmail.com
       </p><p>I hope you enjoy! </p><p>Ethan</p>
   </div></div></div>
-  <p>
-  <br>
-  </p>
-  Share This Card: <div id="shareLink" style="background-color: #313244; color: #cdd6f4; padding: 3px;"></div>
+  <hr class="divider">
+  <div class="share-label">Share This Card</div>
+  <div id="shareLink"></div>
 </div>
 </div>
 
