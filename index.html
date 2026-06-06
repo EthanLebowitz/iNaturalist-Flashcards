@@ -258,21 +258,84 @@ select {
   padding: 4px 6px;
 }
 
-/* ── Add Filters button ── */
-#addFiltersButton {
-  background: var(--surface1);
+/* ── Filter checkbox list ── */
+.filter-heading {
+  font-size: 15px;
+  font-weight: 600;
   color: var(--text);
-  border: none;
-  border-radius: 6px;
-  padding: 7px 14px;
-  cursor: pointer;
-  font-family: 'Inter', Arial, sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  margin-top: 8px;
-  transition: background 0.15s;
+  margin-bottom: 10px;
 }
-#addFiltersButton:hover { background: var(--surface2); }
+
+.filter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 55vh;
+  overflow-y: auto;
+  margin-bottom: 12px;
+  padding-right: 4px;
+}
+
+.filter-list::-webkit-scrollbar { width: 6px; }
+.filter-list::-webkit-scrollbar-track { background: transparent; }
+.filter-list::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--subtext0);
+  transition: background 0.12s, color 0.12s;
+  user-select: none;
+}
+
+.filter-item:hover { background: var(--surface1); color: var(--text); }
+
+.filter-item--all {
+  font-weight: 600;
+  color: var(--text);
+  border-bottom: 1px solid var(--surface1);
+  margin-bottom: 4px;
+  padding-bottom: 12px;
+}
+
+.filter-item input[type="checkbox"] { display: none; }
+
+.filter-check {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border: 2px solid var(--surface2);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.filter-item input:checked ~ .filter-check {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.filter-item input:checked ~ .filter-check::after {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 7px;
+  border: 2px solid var(--base);
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg) translate(0, -1px);
+}
+
+.filter-item input:checked ~ span.filter-check + span,
+.filter-item:has(input:checked) { color: var(--text); }
+
 
 /* ── Modal backdrop ── */
 .modal {
@@ -354,7 +417,6 @@ select {
 }
 
 #about { padding: 0; }
-#species { width: 70%; }
 
 /* ── Action button row (Filters / More Info) ── */
 .action-btn-row {
@@ -368,7 +430,6 @@ select {
   .controls-panel { flex: 1 1 100%; width: 100%; }
   .filterContent, .infoContent { width: 95%; padding: 20px; }
   .infoContent { padding-top: 50px; }
-  #species { width: 95%; }
   .action-btn-row { flex-direction: row; }
   .action-btn-row .subOptions { flex: 1; }
 }
@@ -411,47 +472,47 @@ select {
   </div>
   <div class="modal" id="filterModal"><div class="filterContent">
 	<span class="close">&times;</span>
-	Hold ctrl (windows) or cmd (mac) to select more than one.
-	<select id="species" size="9" multiple>
-    	<option value="&taxon_id=41799">Fisher Cat</option>
-    	<option value="&taxon_id=41663">Common Raccoon</option>
-		<option value="&taxon_id=42223">White Tailed Deer</option>
-		<option value="&taxon_id=41638">Black Bear</option>
-    	<option value="&taxon_id=42051">Coyote</option>
-    	<option value="&taxon_id=41976">Bobcat</option>
-    	<option value="&taxon_id=43794">American Beaver</option>
-    	<option value="&taxon_id=42652">Virginia Opossum</option>
-		<option value="&taxon_id=41777">North American River Otter</option>
-    	<option value="&taxon_id=42220">Mule Deer</option>
-    	<option value="&taxon_id=42007">Mountain Lion</option>
-    	<option value="&taxon_id=906">Wild Turkey</option>
-    	<option value="&taxon_id=41880">Striped Skunk</option>
-    	<option value="&taxon_id=42076">Gray Fox</option>
-    	<option value="&taxon_id=74048">Moose</option>
-    	<option value="&taxon_id=47075">Nine-banded Armadillo</option>
-    	<option value="&taxon_id=74758">American Mink</option>
-    	<option value="&taxon_id=42069">Red Fox</option>
-    	<option value="&taxon_id=43111">Eastern Cottontail</option>
-    	<option value="&taxon_id=44026">North American Porcupine</option>
-    	<option value="&taxon_id=4956">Great Blue Heron</option>
-    	<option value="&taxon_id=17855">Pileated Woodpecker</option>
-    	<option value="&taxon_id=42134">Wild Boar</option>
-    	<option value="&taxon_id=8010">Common Raven</option>
-    	<option value="&taxon_id=43130">Black-tailed Jackrabbit</option>
-    	<option value="&taxon_id=1986">Greater Roadrunner</option>
-    	<option value="&taxon_id=46020">Fox Squirrel</option>
-    	<option value="&taxon_id=8021">American Crow</option>
-    	<option value="&taxon_id=18463">Yellow-bellied Sapsucker</option>
-    	<option value="&taxon_id=118552">Domestic Cat</option>
-    	<option value="&taxon_id=42113">Collared Peccary</option>
-    	<option value="&taxon_id=41676">Ringtail</option>
-    	<option value="&taxon_id=46017">Eastern Gray Squirrel</option>
-		<option value="&taxon_id=42048">Gray Wolf</option>
-		<option value="&taxon_id=18236">Northern Flicker</option>
-		<option value="&taxon_id=41789">American Badger</option>
-    </select><br><button type="submit" onclick="getFilters()" class="" id="addFiltersButton">Add Filters</button><div id="processing"></div>
+	<h3 class="filter-heading">Filter by Species</h3>
+	<div class="filter-list" id="speciesList">
+		<label class="filter-item filter-item--all"><input type="checkbox" id="allSpecies" checked><span class="filter-check"></span>All Species</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=41799" data-name="Fisher Cat"><span class="filter-check"></span>Fisher Cat</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=41663" data-name="Common Raccoon"><span class="filter-check"></span>Common Raccoon</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=42223" data-name="White Tailed Deer"><span class="filter-check"></span>White Tailed Deer</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=41638" data-name="Black Bear"><span class="filter-check"></span>Black Bear</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=42051" data-name="Coyote"><span class="filter-check"></span>Coyote</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=41976" data-name="Bobcat"><span class="filter-check"></span>Bobcat</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=43794" data-name="American Beaver"><span class="filter-check"></span>American Beaver</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=42652" data-name="Virginia Opossum"><span class="filter-check"></span>Virginia Opossum</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=41777" data-name="North American River Otter"><span class="filter-check"></span>North American River Otter</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=42220" data-name="Mule Deer"><span class="filter-check"></span>Mule Deer</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=42007" data-name="Mountain Lion"><span class="filter-check"></span>Mountain Lion</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=906" data-name="Wild Turkey"><span class="filter-check"></span>Wild Turkey</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=41880" data-name="Striped Skunk"><span class="filter-check"></span>Striped Skunk</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=42076" data-name="Gray Fox"><span class="filter-check"></span>Gray Fox</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=74048" data-name="Moose"><span class="filter-check"></span>Moose</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=47075" data-name="Nine-banded Armadillo"><span class="filter-check"></span>Nine-banded Armadillo</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=74758" data-name="American Mink"><span class="filter-check"></span>American Mink</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=42069" data-name="Red Fox"><span class="filter-check"></span>Red Fox</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=43111" data-name="Eastern Cottontail"><span class="filter-check"></span>Eastern Cottontail</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=44026" data-name="North American Porcupine"><span class="filter-check"></span>North American Porcupine</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=4956" data-name="Great Blue Heron"><span class="filter-check"></span>Great Blue Heron</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=17855" data-name="Pileated Woodpecker"><span class="filter-check"></span>Pileated Woodpecker</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=42134" data-name="Wild Boar"><span class="filter-check"></span>Wild Boar</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=8010" data-name="Common Raven"><span class="filter-check"></span>Common Raven</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=43130" data-name="Black-tailed Jackrabbit"><span class="filter-check"></span>Black-tailed Jackrabbit</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=1986" data-name="Greater Roadrunner"><span class="filter-check"></span>Greater Roadrunner</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=46020" data-name="Fox Squirrel"><span class="filter-check"></span>Fox Squirrel</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=8021" data-name="American Crow"><span class="filter-check"></span>American Crow</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=18463" data-name="Yellow-bellied Sapsucker"><span class="filter-check"></span>Yellow-bellied Sapsucker</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=118552" data-name="Domestic Cat"><span class="filter-check"></span>Domestic Cat</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=42113" data-name="Collared Peccary"><span class="filter-check"></span>Collared Peccary</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=41676" data-name="Ringtail"><span class="filter-check"></span>Ringtail</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=46017" data-name="Eastern Gray Squirrel"><span class="filter-check"></span>Eastern Gray Squirrel</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=42048" data-name="Gray Wolf"><span class="filter-check"></span>Gray Wolf</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=18236" data-name="Northern Flicker"><span class="filter-check"></span>Northern Flicker</label>
+		<label class="filter-item"><input type="checkbox" value="&taxon_id=41789" data-name="American Badger"><span class="filter-check"></span>American Badger</label>
+	</div>
 	<div id="entryTotal"></div>
-	<div id="filterDisplay"></div>
   </div></div>
   <div class="modal" id="infoModal"><div class="infoContent">
 	<span class="close">&times;</span>
@@ -662,59 +723,50 @@ window.onunload = function(event){
 var speciesChoices=[];
 var taxonIdChoices=[];	
 	
-function removeFilter(N){ //when a minus or clear is clicked in filter table
-	if(N==-1){ //if clear clicked
-		console.log("C");
-		speciesChoices=[];
-		taxonIdChoices=[];
-		filterURLs=[];
-		generateFilterTable(); //clear every list and generate table
-	}
-	else{ //if minus is clicked
-		speciesChoices.splice(N, 1); //delete that item from each list
-		taxonIdChoices.splice(N, 1);
-		generateFilterTable(); //regenerate table again
-	}
-}	
-	
-function getFilters(){ //gets new filters from select element. Adds the names and taxon ids to their respective lists
-	var element = document.getElementById("species"); 
-	console.log(element);
-	var speciesChoicesN = element.selectedOptions.length;
-	for(i=0;i<speciesChoicesN;i++){if(!speciesChoices.includes(element.selectedOptions[i].text)){speciesChoices.push(element.selectedOptions[i].text)};}
-	for(i=0;i<speciesChoicesN;i++){if(!taxonIdChoices.includes(element.selectedOptions[i].value)){ taxonIdChoices.push(element.selectedOptions[i].value); }}
-	generateFilterTable(); //generates table
-}
-	
-async function generateFilterTable(){ //this is where both additions and subtractions from the filters lead to so it's a bit more than just generate the html
-	if(anchored){anchored=false; iteration=0;}
-	if(!speciesChoices.length<1){ //if there are filters
-		var HTML = "<br><table><tr><td>Active Filters</td></tr>"; //table header
-		i=0
-		speciesChoices.forEach(function(species){
-			HTML = HTML + "<tr><td>"+species+"</td><td><button class='minus' type='submit' onclick='removeFilter("+i+")'>-</button></td></tr>" //adds each species name and a minus button associated with it.
-			i++ //to keep minus buttons associated
-		});
-		HTML = HTML + "<tr><td><button class='minus' type='submit' onclick='removeFilter(-1)'>Clear Filters</button></td></tr>" //adds clear button
-		document.getElementById("filterButton").innerHTML = "Filters ("+speciesChoices.length+" Active)"; 
-	}
-	else{ //if no filters
-		HTML="" //filter table is blank
-		var URL = baseUrl;
-		shuffled = false; 
-		document.getElementById("filterButton").innerHTML = "Filters (None)"; 
-	}
-	document.getElementById("filterDisplay").innerHTML = HTML; //inject html
-	console.log(HTML);
-	$("#species").val([]); //clear selections
-	generateURLs(); //generates filter URLs
-	i=0;
-	iteration = 0 //sets iteration and page to 0
+function applyCheckboxFilters(){
+	if(anchored){anchored=false;}
+	speciesChoices=[];
+	taxonIdChoices=[];
+	document.querySelectorAll('#speciesList input[type="checkbox"]:not(#allSpecies):checked').forEach(function(cb){
+		speciesChoices.push(cb.dataset.name);
+		taxonIdChoices.push(cb.value);
+	});
+	document.getElementById("filterButton").innerHTML = speciesChoices.length > 0
+		? "Filters (" + speciesChoices.length + " Active)"
+		: "Filters (None)";
+	shuffled = false;
+	iteration = 0;
 	page = 1;
 	linkIndex = 0;
-	generateEntryIndexesList(); //generates list of secondary indexes and associated link ids
+	generateURLs();
+	generateEntryIndexesList();
 	$('#answer').hide();
 }
+
+// Wire up filter checkboxes
+$(function(){
+	var allCb = document.getElementById('allSpecies');
+	var speciesCbs = document.querySelectorAll('#speciesList input[type="checkbox"]:not(#allSpecies)');
+	allCb.checked = true;
+	speciesCbs.forEach(function(cb){ cb.checked = false; });
+
+	allCb.addEventListener('change', function(){
+		if(this.checked){
+			speciesCbs.forEach(function(cb){ cb.checked = false; });
+		} else {
+			this.checked = true; // prevent unchecking All directly
+		}
+		applyCheckboxFilters();
+	});
+
+	speciesCbs.forEach(function(cb){
+		cb.addEventListener('change', function(){
+			var anyChecked = document.querySelectorAll('#speciesList input[type="checkbox"]:not(#allSpecies):checked').length > 0;
+			allCb.checked = !anyChecked;
+			applyCheckboxFilters();
+		});
+	});
+});
 	
 function generateHTML(images, entryID, entry, total){ //generates html for a new entry
 	var answer = entry.taxon.preferred_common_name;
