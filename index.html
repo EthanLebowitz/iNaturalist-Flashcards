@@ -639,6 +639,14 @@ select {
 
 
 <script>
+(function() {
+	var params = new URLSearchParams(location.search);
+	var tracking = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid','msclkid'];
+	tracking.forEach(function(p){ params.delete(p); });
+	var clean = location.pathname + (params.toString() ? '?' + params.toString() : '') + location.hash;
+	history.replaceState(null, '', clean);
+})();
+
 var iteration = 0;
 var page = 1;
 var data; //container for json
