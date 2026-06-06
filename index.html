@@ -259,21 +259,44 @@ select {
 }
 
 /* ── Filter checkbox list ── */
+.filter-section {
+  width: 75%;
+  margin: 0 auto;
+}
+
 .filter-heading {
   font-size: 15px;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 10px;
+  text-align: center;
+}
+
+.filter-section-divider {
+  border: none;
+  border-top: 2px solid var(--surface2);
+  margin: 12px 0;
 }
 
 .filter-list {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  max-height: 55vh;
+  max-height: 30vh;
   overflow-y: auto;
   margin-bottom: 12px;
   padding-right: 4px;
+}
+
+.filter-list--short {
+  max-height: none;
+}
+
+#entryTotal {
+  text-align: center;
+  font-size: 12px;
+  color: var(--subtext0);
+  margin-top: 12px;
 }
 
 .filter-list::-webkit-scrollbar { width: 6px; }
@@ -283,8 +306,8 @@ select {
 .filter-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
+  gap: 8px;
+  padding: 4px 8px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
@@ -299,8 +322,8 @@ select {
   font-weight: 600;
   color: var(--text);
   border-bottom: 1px solid var(--surface1);
-  margin-bottom: 4px;
-  padding-bottom: 12px;
+  margin-bottom: 2px;
+  padding-bottom: 6px;
 }
 
 .filter-item input[type="checkbox"] { display: none; }
@@ -425,6 +448,13 @@ select {
   gap: 8px;
 }
 
+/* ── Share section ── */
+.share-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .controls-panel { flex: 1 1 100%; width: 100%; }
@@ -472,6 +502,7 @@ select {
   </div>
   <div class="modal" id="filterModal"><div class="filterContent">
 	<span class="close">&times;</span>
+	<div class="filter-section">
 	<h3 class="filter-heading">Filter by Species</h3>
 	<div class="filter-list" id="speciesList">
 		<label class="filter-item filter-item--all"><input type="checkbox" id="allSpecies" checked><span class="filter-check"></span>All Species</label>
@@ -512,6 +543,22 @@ select {
 		<label class="filter-item"><input type="checkbox" value="&taxon_id=18236" data-name="Northern Flicker"><span class="filter-check"></span>Northern Flicker</label>
 		<label class="filter-item"><input type="checkbox" value="&taxon_id=41789" data-name="American Badger"><span class="filter-check"></span>American Badger</label>
 	</div>
+	</div>
+	<hr class="filter-section-divider">
+	<div class="filter-section">
+	<h3 class="filter-heading">Filter by Region</h3>
+	<div class="filter-list filter-list--short" id="regionList">
+		<label class="filter-item filter-item--all"><input type="checkbox" id="allRegions" checked><span class="filter-check"></span>All Regions</label>
+		<label class="filter-item"><input type="checkbox" value="&place_id=1" data-name="United States"><span class="filter-check"></span>United States</label>
+		<label class="filter-item"><input type="checkbox" value="&place_id=6712" data-name="Canada"><span class="filter-check"></span>Canada</label>
+		<label class="filter-item"><input type="checkbox" value="&place_id=6793" data-name="Mexico"><span class="filter-check"></span>Mexico</label>
+		<label class="filter-item"><input type="checkbox" value="&place_id=1&swlat=38.9&swlng=-82.6&nelat=47.5&nelng=-66.9" data-name="Northeast US"><span class="filter-check"></span>Northeast US</label>
+		<label class="filter-item"><input type="checkbox" value="&place_id=1&swlat=24.5&swlng=-94.6&nelat=39.0&nelng=-75.5" data-name="Southeast US"><span class="filter-check"></span>Southeast US</label>
+		<label class="filter-item"><input type="checkbox" value="&place_id=1&swlat=24.5&swlng=-124.5&nelat=39.0&nelng=-94.6" data-name="Southwest US"><span class="filter-check"></span>Southwest US</label>
+		<label class="filter-item"><input type="checkbox" value="&place_id=1&swlat=36.0&swlng=-104.1&nelat=49.0&nelng=-80.5" data-name="Midwest US"><span class="filter-check"></span>Midwest US</label>
+		<label class="filter-item"><input type="checkbox" value="&place_id=1&swlat=39.0&swlng=-124.5&nelat=49.0&nelng=-104.1" data-name="Northwest US"><span class="filter-check"></span>Northwest US</label>
+	</div>
+	</div>
 	<div id="entryTotal"></div>
   </div></div>
   <div class="modal" id="infoModal"><div class="infoContent">
@@ -538,9 +585,11 @@ select {
         Please send questions, bug reports, and words of encouragement to duckunreal@gmail.com
       </p><p>I hope you enjoy! </p><p>Ethan</p>
   </div></div></div>
-  <hr class="divider">
-  <div class="share-label">Share This Card</div>
-  <div id="shareLink"></div>
+  <div class="share-section">
+    <hr class="divider">
+    <div class="share-label">Share This Card</div>
+    <div id="shareLink"></div>
+  </div>
 </div>
 </div>
 
@@ -578,10 +627,15 @@ var baseUrl = "https://api.inaturalist.org/v1/observations?identified=true&photo
 var entryIndexes = [];  //where secondary iteration and associated url indexes are stored
 var filterURLs = [];  //where species filtered urls are stored
 	
-function generateURLs(){ //generate filter urls from filters
-	filterURLs = []; 
-	taxonIdChoices.forEach(function(taxonID){
-		filterURLs.push("https://api.inaturalist.org/v1/observations?identified=true&photos=true&project_id=962&quality_grade=research&page=${page}&per_page=${perpage}&order=desc&order_by=created_at&callback=?"+taxonID);
+function generateURLs(){ //generate filter urls — cross-product of species × regions
+	filterURLs = [];
+	var speciesParams = taxonIdChoices.length > 0 ? taxonIdChoices : [""];
+	var regionParams  = regionIdChoices.length  > 0 ? regionIdChoices  : [""];
+	speciesParams.forEach(function(sp){
+		regionParams.forEach(function(rp){
+			if(sp === "" && rp === "") return;
+			filterURLs.push("https://api.inaturalist.org/v1/observations?identified=true&photos=true&project_id=962&quality_grade=research&page=${page}&per_page=${perpage}&order=desc&order_by=created_at&callback=?" + sp + rp);
+		});
 	});
 }
 	
@@ -641,7 +695,7 @@ async function generateEntryIndexesList(){ //generates list of secondary iterati
 				entryIndexes.push(indexCat);
 			}
 			URLindex++;
-			if(URLindex==speciesChoices.length){ // this contains things that must be executed after entryIndexes[] is generated. It takes some time to get a response from the server so some things get executed out of turn if kept somewhere else.
+			if(URLindex==filterURLs.length){ // this contains things that must be executed after entryIndexes[] is generated. It takes some time to get a response from the server so some things get executed out of turn if kept somewhere else.
 				shuffle(entryIndexes); 
 				initializePostIndexGen(true);
 			}
@@ -721,8 +775,10 @@ window.onunload = function(event){
     };*/
 	
 var speciesChoices=[];
-var taxonIdChoices=[];	
-	
+var taxonIdChoices=[];
+var regionChoices=[];
+var regionIdChoices=[];
+
 function applyCheckboxFilters(){
 	if(anchored){anchored=false;}
 	speciesChoices=[];
@@ -731,8 +787,15 @@ function applyCheckboxFilters(){
 		speciesChoices.push(cb.dataset.name);
 		taxonIdChoices.push(cb.value);
 	});
-	document.getElementById("filterButton").innerHTML = speciesChoices.length > 0
-		? "Filters (" + speciesChoices.length + " Active)"
+	regionChoices=[];
+	regionIdChoices=[];
+	document.querySelectorAll('#regionList input[type="checkbox"]:not(#allRegions):checked').forEach(function(cb){
+		regionChoices.push(cb.dataset.name);
+		regionIdChoices.push(cb.value);
+	});
+	var totalActive = speciesChoices.length + regionChoices.length;
+	document.getElementById("filterButton").innerHTML = totalActive > 0
+		? "Filters (" + totalActive + " Active)"
 		: "Filters (None)";
 	shuffled = false;
 	iteration = 0;
@@ -754,7 +817,7 @@ $(function(){
 		if(this.checked){
 			speciesCbs.forEach(function(cb){ cb.checked = false; });
 		} else {
-			this.checked = true; // prevent unchecking All directly
+			this.checked = true;
 		}
 		applyCheckboxFilters();
 	});
@@ -763,6 +826,28 @@ $(function(){
 		cb.addEventListener('change', function(){
 			var anyChecked = document.querySelectorAll('#speciesList input[type="checkbox"]:not(#allSpecies):checked').length > 0;
 			allCb.checked = !anyChecked;
+			applyCheckboxFilters();
+		});
+	});
+
+	var allRegionsCb = document.getElementById('allRegions');
+	var regionCbs = document.querySelectorAll('#regionList input[type="checkbox"]:not(#allRegions)');
+	allRegionsCb.checked = true;
+	regionCbs.forEach(function(cb){ cb.checked = false; });
+
+	allRegionsCb.addEventListener('change', function(){
+		if(this.checked){
+			regionCbs.forEach(function(cb){ cb.checked = false; });
+		} else {
+			this.checked = true;
+		}
+		applyCheckboxFilters();
+	});
+
+	regionCbs.forEach(function(cb){
+		cb.addEventListener('change', function(){
+			var anyChecked = document.querySelectorAll('#regionList input[type="checkbox"]:not(#allRegions):checked').length > 0;
+			allRegionsCb.checked = !anyChecked;
 			applyCheckboxFilters();
 		});
 	});
