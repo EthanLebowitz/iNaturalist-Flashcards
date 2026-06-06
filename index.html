@@ -237,6 +237,16 @@ a:hover { color: var(--lavender); text-decoration: underline; }
   padding: 6px 10px;
   word-break: break-all;
   text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+#shareLink:hover {
+  background: var(--surface1);
+  color: var(--text);
 }
 
 /* ── Select ── */
@@ -710,7 +720,16 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 	var answer = entry.taxon.preferred_common_name;
 	document.getElementById("answer").innerHTML = answer; //puts entry.species_guess in the answer div
 	var shareLink = "https://ethanlebowitz.github.io/trackingCards/#"+entry.id;
-	document.getElementById("shareLink").innerHTML = shareLink; //link in div
+	var shareLinkEl = document.getElementById("shareLink");
+	var iconClipboard = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="9" y="2" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+	var iconCheck = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:#94e2d5"><polyline points="20 6 9 17 4 12"/></svg>';
+	shareLinkEl.innerHTML = iconClipboard + '<span>' + shareLink + '</span>';
+	shareLinkEl.onclick = function() {
+		navigator.clipboard.writeText(shareLink).then(function() {
+			shareLinkEl.innerHTML = iconCheck + '<span>Copied!</span>';
+			setTimeout(function() { shareLinkEl.innerHTML = iconClipboard + '<span>' + shareLink + '</span>'; }, 1500);
+		});
+	};
 	var location = entry.place_guess;
 	document.getElementById("location").innerHTML = location; //displays location
 	var link = entry.uri;
