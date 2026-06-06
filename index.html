@@ -181,13 +181,12 @@ select {
 }
 
 .slideshow-container {
-   width:70vw;
+   width: 100%;
    /*height:80vh;*/
 }
 .img {
-   /*max-width:100%;*/
-   max-height:92vh;
-   max-width:70vw;
+   max-height: 92vh;
+   max-width: 100%;
    transition: 0.3s;
 }
 
@@ -254,6 +253,48 @@ select {
 
 #species{width:70%;}
 
+/* Responsive layout */
+.page-layout {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 16px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.slideshow-panel {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+}
+
+.controls-panel {
+  flex: 0 0 260px;
+  text-align: center;
+}
+
+.btn-row {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+
+.btn-row .options {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .controls-panel {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+  .filterContent, .infoContent {
+    width: 95%;
+  }
+  #species { width: 95%; }
+}
+
 </style>
 <script
 			  src="https://code.jquery.com/jquery-3.5.1.js"
@@ -263,21 +304,23 @@ select {
 </head> 
 <body>
 	
-<table align="center"><tr>
-<td><div class="show" align="center">
+<div class="page-layout">
+<div class="slideshow-panel"><div class="show">
   	<div class="slideshow-container" id="slideshowContainer">
 
-		
+
 	</div>
 	<br>
 	<div style="text-align:center" id="dots"></div>
 
-</div></td>
-<td width="30%" style="text-align:center" valign="top">
+</div></div>
+<div class="controls-panel">
   <div id="location"></div>
   <button type="submit" onclick="nextEntry(2)" class="subOptions wide">Shuffle Cards</button>	
+	<div class="btn-row">
 	<button type="submit" onclick="nextEntry(0)" class="options">Previous</button>
 	<button type="submit" onclick="nextEntry(1)" class="options">Next</button>
+	</div>
 	<br><br>
 	<button type="submit" onclick="showAnswer()" class="options" id="showAnswer">Show Answer</button>
 	<div id="answer"></div>	
@@ -356,8 +399,8 @@ select {
   <br>
   </p>
   Share This Card: <div id="shareLink" style="background-color: #313244; color: #cdd6f4; padding: 3px;"></div>
-</td>
-</tr></table>
+</div>
+</div>
 
 
 <script>
