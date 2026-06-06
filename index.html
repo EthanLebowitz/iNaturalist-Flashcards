@@ -195,9 +195,18 @@ a:hover { color: var(--lavender); text-decoration: underline; }
 /* ── Location ── */
 #location {
   font-size: 12px;
+  font-weight: 500;
   color: var(--subtext0);
-  font-style: italic;
-  min-height: 1.2em;
+  background: var(--mantle);
+  border: 1px solid var(--surface1);
+  border-radius: 8px;
+  padding: 6px 14px;
+  margin-bottom: 10px;
+  text-align: center;
+  min-height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ── Answer box ── */
@@ -479,6 +488,7 @@ select {
 	
 <div class="page-layout">
 <div class="slideshow-panel"><div class="show">
+	<div id="location"></div>
   	<div class="slideshow-container" id="slideshowContainer">
 
 
@@ -487,7 +497,6 @@ select {
 
 </div></div>
 <div class="controls-panel">
-  <div id="location"></div>
   <button type="submit" onclick="nextEntry(2)" class="subOptions wide">Shuffle Cards</button>	
 	<div class="btn-row">
 	<button type="submit" onclick="nextEntry(0)" class="options">&#8592; Prev</button>
