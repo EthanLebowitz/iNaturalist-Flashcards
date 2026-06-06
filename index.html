@@ -203,12 +203,12 @@ a:hover { color: var(--lavender); text-decoration: underline; }
 /* ── Answer box ── */
 #answer {
   background: var(--surface0);
-  border-left: 3px solid var(--teal);
-  border-radius: 0 8px 8px 0;
+  border: 1px solid var(--teal);
+  border-radius: 8px;
   padding: 10px 14px;
   font-size: 16px;
   font-weight: 600;
-  color: var(--teal);
+  color: var(--text);
   text-align: left;
 }
 
@@ -615,11 +615,11 @@ function showInfo(){ //function triggered when info button clicked. Slides info 
 function showAnswer(){ //function toggled by Show Answer button. Hides if shown, shows if hidden. Toggles between button text as well.
 	var isVisible = document.getElementById("answer").offsetWidth > 0 || document.getElementById("answer").offsetHeight > 0;
 	if(isVisible){
-		$("#answer").hide();
+		$("#answer").slideUp(200);
 		document.getElementById("showAnswer").innerHTML = "Show Answer";
 	}
 	else{
-		$("#answer").show();
+		$("#answer").slideDown(200);
 		document.getElementById("showAnswer").innerHTML = "Hide Answer";
 	}
 }
