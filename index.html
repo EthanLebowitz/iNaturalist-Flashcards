@@ -18,11 +18,11 @@
 <meta name="keywords" content="animal tracking, track identification, animal tracks, North America, wildlife tracking, iNaturalist, flashcards, fisher cat, raccoon, deer, bear, coyote, bobcat">
 <meta name="author" content="Ethan Lebowitz">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://ethanlebowitz.github.io/trackingCards/">
+<link rel="canonical" href="https://track-cards.ethleb.com/">
 
 <!-- Open Graph / social sharing -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://ethanlebowitz.github.io/trackingCards/">
+<meta property="og:url" content="https://track-cards.ethleb.com/">
 <meta property="og:title" content="Animal Track Identification Flashcards">
 <meta property="og:description" content="Practice identifying North American animal tracks with flashcards generated from the iNaturalist tracking database. Filter by species and region.">
 
@@ -38,7 +38,7 @@
   "@type": "WebApplication",
   "name": "Animal Track Identification Flashcards",
   "description": "Practice identifying North American animal tracks with flashcards generated from the iNaturalist tracking database.",
-  "url": "https://ethanlebowitz.github.io/trackingCards/",
+  "url": "https://track-cards.ethleb.com/",
   "author": { "@type": "Person", "name": "Ethan Lebowitz" },
   "applicationCategory": "EducationalApplication",
   "operatingSystem": "All"
@@ -898,7 +898,7 @@ $(function(){
 function generateHTML(images, entryID, entry, total){ //generates html for a new entry
 	var answer = entry.taxon.preferred_common_name;
 	document.getElementById("answer").innerHTML = answer; //puts entry.species_guess in the answer div
-	var shareLink = "https://ethanlebowitz.github.io/trackingCards/#"+entry.id;
+	var shareLink = "https://track-cards.ethleb.com/#"+entry.id;
 	var shareLinkEl = document.getElementById("shareLink");
 	var iconClipboard = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="9" y="2" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 	var iconCheck = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:#94e2d5"><polyline points="20 6 9 17 4 12"/></svg>';
