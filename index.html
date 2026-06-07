@@ -850,11 +850,7 @@ function markSeen(id){
 
 $('#answer').hide(); //hide the answer
 
-function showInfo(){ //function triggered when info button clicked. Slides info down
-	$('#info').slideToggle(); 
-}
-
-function showAnswer(){ //function toggled by Show Answer button. Hides if shown, shows if hidden. Toggles between button text as well.
+function showAnswer(){
 	var isVisible = document.getElementById("answer").offsetWidth > 0 || document.getElementById("answer").offsetHeight > 0;
 	if(isVisible){
 		$("#answer").slideUp(200);
@@ -866,7 +862,15 @@ function showAnswer(){ //function toggled by Show Answer button. Hides if shown,
 	}
 }
 	
-var baseUrl = "https://api.inaturalist.org/v1/observations?identified=true&photos=true&project_id=962&quality_grade=research&page=${page}&per_page=${perpage}&order=desc&order_by=created_at&callback=?"; //generated from https://api.inaturalist.org/v1/docs/#/ 
+var INAT_BASE = "https://api.inaturalist.org/v1/observations?identified=true&photos=true&project_id=962&quality_grade=research&order=desc&order_by=created_at&callback=?";
+function buildObsUrl(opts) {
+	var url = INAT_BASE + "&page=" + opts.page + "&per_page=" + (opts.perPage || 1);
+	if(opts.marker) url += "&id_below=" + opts.marker;
+	if(opts.filter) url += opts.filter;
+	return url;
+}
+// kept for legacy callers in generateEntryIndexesList; uses buildObsUrl internally
+var baseUrl = INAT_BASE + "&page=${page}&per_page=${perpage}";
 var entryIndexes = [];  //where secondary iteration and associated url indexes are stored
 var filterURLs = [];  //where species filtered urls are stored
 	
@@ -882,40 +886,27 @@ function generateURLs(){ //generate filter urls — cross-product of species × 
 	});
 }
 	
-function initializePostIndexGen(filtered){ //sets up first slideshow and shuffles indexes after indexes are generated
-	iteration = 0;
+function initializePostIndexGen(){ //sets up first card fetch after index generation
+	iteration = -1; // fetchAndPushCard increments to 0 on first call, so entryIndexes[0] is used correctly
 	sessionHistory = [];
 	historyIndex = -1;
-	var secondaryIteration = entryIndexes[iteration].split(":");
-	linkIndex = secondaryIteration[0];
-	console.log("finished gening indexes");
+	data = null; //clear stale fetch data so fetchAndPushCard always does a fresh request on reinit
 	document.getElementById("totalObs").innerHTML = totalEntries+" Cards Generated";
-	if(filtered){
-		page = parseFloat(secondaryIteration[1])+1;
-	} else if(shuffled){
-		var safeMax = Math.min(totalEntries, 10000);
-		page = Math.ceil(Math.random() * safeMax);
-	} else {
-		page = 1;
-	}
 	document.getElementById("entryTotal").innerHTML = totalEntries+" Cards Generated";
 	if(!anchored){ fetchAndPushCard(); }
 }
 
-async function getIDsAt10kMarkers(){ //can't retrieve entries over 10,000 without a filter so we deal with that by getting the ids of every 10,000th entry and using those to filter when we need something over the first 10,000th
+// The iNat API won't return results past page 10,000. To reach entries beyond that,
+// we fetch the ID of the 10,000th entry, then use id_below to start a fresh 10k window.
+async function getIDsAt10kMarkers(){
 	var numberOf10ks = Math.floor(totalEntries / 10000);
-	var URL=baseUrl.replace("${page}", 1).replace("${perpage}", 1);
-	data = await getData(URL, 0);
-	var id = data.results[0].id;
-	var lastMarker = id;
+	data = await getData(buildObsUrl({ page: 1, perPage: 1 }));
+	var lastMarker = data.results[0].id;
 	for(var i = 0; i < numberOf10ks; i++){
-		var URL="https://api.inaturalist.org/v1/observations?identified=true&photos=true&project_id=962&quality_grade=research&page=${page}&per_page=${perpage}&order=desc&order_by=created_at&id_below=${marker}&callback=?".replace("${page}", 10000).replace("${perpage}", 1).replace("${marker}", lastMarker);
-		data = await getData(URL, 0);
-		var id = data.results[0].id;
-		IDsAt10kMarkers.push(id);
-		lastMarker = id;
+		data = await getData(buildObsUrl({ page: 10000, perPage: 1, marker: lastMarker }));
+		lastMarker = data.results[0].id;
+		IDsAt10kMarkers.push(lastMarker);
 	}
-	console.log(IDsAt10kMarkers);
 }	
 	
 async function generateEntryIndexesList(){ //generates list of secondary iterations (indexes) using the filterURLs list
@@ -924,97 +915,71 @@ async function generateEntryIndexesList(){ //generates list of secondary iterati
 	var URLindex = 0; //tacks onto beginning of each secondary index so that it can be associated with an ID
 	if(filterURLs.length!=0){ //if there are filters
 		document.getElementById("entryTotal").innerHTML = "processing..."; //indicates that it's processing
-		for(a=0; a<filterURLs.length; a++){ //for each filter URL
+		for(var a=0; a<filterURLs.length; a++){
 			var dat;
 			var internalTotalEntries=0;
-			var URL=filterURLs[a].replace("${page}", page).replace("${perpage}", 1); 
-			dat = await $.getJSON(URL, function(rData) { //gets info from server
-				return rData;
-			});
-			console.log(filterURLs[URLindex]);
+			var URL=filterURLs[a].replace("${page}", page).replace("${perpage}", 1);
+			dat = await $.getJSON(URL); //gets total count from server
 			internalTotalEntries = Math.min(await dat.total_results, 10000); //cap at API limit
-			console.log("total",internalTotalEntries, typeof internalTotalEntries, dat);
-			totalEntries+=internalTotalEntries; //adds number of entries in filtered URL to the other numbers of entries from the other URLs
-			console.log(URLindex);
-			for(i=0; i<internalTotalEntries; i++){ //adds secondary indexes equal to the ammount of primary (actual) indexes. tacks what URL it's associated with on the beginning
-				indexCat = URLindex+":"+i;
-				entryIndexes.push(indexCat);
+			totalEntries += internalTotalEntries;
+			for(var i=0; i<internalTotalEntries; i++){ //build index list: "urlIndex:entryOffset" per card
+				entryIndexes.push(URLindex+":"+i);
 			}
 			URLindex++;
-			if(URLindex==filterURLs.length){ // this contains things that must be executed after entryIndexes[] is generated. It takes some time to get a response from the server so some things get executed out of turn if kept somewhere else.
+			if(URLindex==filterURLs.length){ // must run after all filter URLs are processed; async response timing makes this unreliable if placed outside the loop
 				shuffle(entryIndexes); 
-				initializePostIndexGen(true);
+				initializePostIndexGen();
 			}
 		}
 	}
 	else{ //if there are no filters
-		var URL=baseUrl.replace("${page}", 1).replace("${perpage}", 1); //fetch 1 result just to learn total_results
+		var URL=baseUrl.replace("${page}", 1).replace("${perpage}", 1); //fetch just 1 result to read total_results count
 		var dat = $.getJSON(URL, function(rData) {
 			var internalTotalEntries = rData.total_results;
-			totalEntries+=internalTotalEntries; //get total entries
-			for(i=0; i<internalTotalEntries; i++){ //do the whole indexing thing. Only 0 gets tacked onto the beginning because there's only the one link.
+			totalEntries += internalTotalEntries;
+			for(var i=0; i<internalTotalEntries; i++){ //only one URL so URLindex is always 0
 				entryIndexes.push(URLindex+":"+i);
 			}
 
-			if(totalEntries > 10000){
-				console.log("10k");
-				getIDsAt10kMarkers();
-			}
+			if(totalEntries > 10000){ getIDsAt10kMarkers(); }
 
-			if(shuffled){ shuffle(entryIndexes); }
-			initializePostIndexGen(false);
+			shuffle(entryIndexes); //always shuffle
+			initializePostIndexGen();
 		});
 	}
 }
 	
 generateEntryIndexesList();
 	
-function getData(URL, URLindex) { //retrieves data from inat
-	console.log(URL);
-	var dat = $.getJSON(URL, function(rData) {
-		console.log(rData);
-	});
-	return dat;
+function getData(URL) {
+	return $.getJSON(URL);
 }
 	
-async function sendQueries(){ //decides what link to use and then gets Data
-	if(filterURLs.length==0){ //if no filters use base URL
-		if(page > 10000){ //just assume shuffled I think. Otherwise that would be a lot of clicking for the user.
-			var URL="https://api.inaturalist.org/v1/observations?identified=true&photos=true&project_id=962&quality_grade=research&page=${page}&per_page=${perpage}&order=desc&order_by=created_at&id_below=${marker}&callback=?".replace("${page}", page % 10000).replace("${perpage}", 1).replace("${marker}", IDsAt10kMarkers[Math.floor(page / 10000) - 1]); //-1 to convert to indexes
-		}else{
-			var URL=baseUrl.replace("${page}", page).replace("${perpage}", function(){if(!shuffled){return 30;}else{return 1;}});
+async function sendQueries(){ //decides what URL to use then fetches
+	var url;
+	if(filterURLs.length === 0){ //no filters: use base URL
+		if(page > 10000){ //need id_below marker to reach past the 10k API limit
+			url = buildObsUrl({ page: page % 10000, perPage: 1, marker: IDsAt10kMarkers[Math.floor(page / 10000) - 1] });
+		} else {
+			url = buildObsUrl({ page: page, perPage: shuffled ? 1 : 30 });
 		}
-		data = await getData(URL, 0);
+		data = await getData(url);
+	} else { //filters active: use filter URL for this linkIndex; always 1 per page because it's shuffled
+		url = filterURLs[linkIndex].replace("${page}", page).replace("${perpage}", 1);
+		data = await getData(url);
 	}
-	else{ //if there are filters use the filter URL associated with the linkIndex
-		var URL=filterURLs[linkIndex].replace("${page}", page).replace("${perpage}", 1); //will always be shuffled with filters so we only get 1 per page
-		data = await getData(URL, linkIndex);
-	}
-	
 	return data;
 }	
 	
-async function anchorCheck(){//check if there's an anchor and if there is go to the entry
+async function anchorCheck(){
 	var anchor = location.hash.replace('#','');
-	console.log(anchor);
-	if(anchor != ""){
-		var URL="https://api.inaturalist.org/v1/observations/"+anchor;
-		var prelimData = await getData(URL, 0);
-		console.log("anchored",prelimData);
+	if(anchor !== ""){
+		var prelimData = await getData("https://api.inaturalist.org/v1/observations/"+anchor);
 		pushToHistory(prelimData.results[0]);
 	}
-	// else: initializePostIndexGen calls fetchAndPushCard once entryIndexes is populated
 }
-	
+
 anchorCheck();
-	
-/*function clearAnchor(){
-	window.location.hash="";
-}	
-	
-window.onunload = function(event){
-        clearAnchor();
-    };*/
 	
 var speciesChoices=[];
 var taxonIdChoices=[];
@@ -1039,7 +1004,6 @@ function applyCheckboxFilters(){
 	document.getElementById("filterButton").innerHTML = totalActive > 0
 		? "Filters (" + totalActive + " Active)"
 		: "Filters (None)";
-	shuffled = false;
 	iteration = 0;
 	sessionHistory = [];
 	historyIndex = -1;
@@ -1111,32 +1075,29 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 			setTimeout(function() { shareLinkEl.innerHTML = iconClipboard + '<span>' + shareLink + '</span>'; }, 1500);
 		});
 	};
-	var location = entry.place_guess;
-	document.getElementById("location").innerHTML = location; //displays location
-	var link = entry.uri;
-	document.getElementById("linkObs").innerHTML = "<a href='"+link+"'>Go To Observation</a>"; //puts link to observation on inat in info
-	var total = entry.uri;
-	document.getElementById("totalObs").innerHTML = totalEntries+" Cards"; //puts total entries in info
+	document.getElementById("location").innerHTML = entry.place_guess;
+	document.getElementById("linkObs").innerHTML = "<a href='"+entry.uri+"'>Go To Observation</a>";
+	document.getElementById("totalObs").innerHTML = totalEntries+" Cards";
 	document.getElementById("currentObs").innerHTML = "Current Card: "+(historyIndex+1);
 	document.getElementById("shuffled").innerHTML = "Shuffled: "+shuffled; //displays whether or not shuffled
-	var HTML=""; //container for generated html
-	for(i=0; i<images.length; i++){ //list of images is a list of image ids. For each id injects in links generated in block of html. objects with backup links serve to cover in case of jpg & JPG rather than jpeg. Ugly solution, I know.
+	var HTML="";
+	for(var i=0; i<images.length; i++){
 		var currentImage = i+1;
-		var thumbnailURL=entry.observation_photos[i].photo.url; //get extention
+		// iNat photo URLs use /square.jpg but original URLs use /original.jpg or /original.JPG;
+		// we parse the extension from the thumbnail URL to handle both cases
+		var thumbnailURL=entry.observation_photos[i].photo.url;
 		var intermediateItem = thumbnailURL.split("/square.");
 		var thumbnailURLbase = thumbnailURL.split("photos/")[0] + "photos/"
 		var extention = intermediateItem[1].split("?")[0];
-		console.log(extention);
 		HTML=HTML+"<div class='mySlides fade'>\n<div class='numbertext'>" + currentImage +"/" + images.length + "</div><img src='"+thumbnailURLbase+images[i]+"/original."+extention+"?' class='img' id='img"+i+"'></div>\n<div id='modal"+i+"' class='modal'><span class='close'>&times;</span><img class='modal-content' id='modalImg"+i+"'><div id='caption'></div></div>";
 	}
-	if(images.length>1){//only add next and prev if there is more than 1 image
+	if(images.length>1){ //only add prev/next arrows if there is more than 1 image
 		HTML=HTML+"\n\n<a class='prev' onclick='plusSlides(-1)'>&#10094;</a>\n<a class='next' onclick='plusSlides(1)'>&#10095;</a>\n"; //add next and prev buttons
 	}
 	document.getElementById("slideshowContainer").innerHTML = HTML; //inject generated html into page
-	HTML=""; //reset container
-	for(i=0; i<images.length; i++){//generate dots
-		var it=i+1;
-		HTML=HTML+"<span class='dot' onclick='currentSlide("+it+")'></span>\n"
+	HTML="";
+	for(var i=0; i<images.length; i++){
+		HTML=HTML+"<span class='dot' onclick='currentSlide("+(i+1)+")'></span>\n";
 	}
 	document.getElementById("dots").innerHTML = HTML; //inject into page
 	showSlides(slideIndex); //show slides
@@ -1149,12 +1110,10 @@ function parseEntry(entry) { //gets list of photo ids from entry
 	window.currentEntry = entry;
 	markSeen(entryID);
 	window.location.hash=""; //set anchor as id
-	var images = [];//list of image ids
-	for(i=0; i<entry.photos.length; i++){ //compiling list
-		var id = entry.photos[i].id
-		images.push(id);
+	var images = [];
+	for(var i=0; i<entry.photos.length; i++){
+		images.push(entry.photos[i].id);
 	}
-	console.log(images);
 	generateHTML(images, entryID, entry);
 	if (typeof window.loadRating === 'function') window.loadRating(entryID);
 }
@@ -1164,7 +1123,6 @@ function shuffle(a) { //shuffles a list
         const j = Math.floor(Math.random() * (i + 1));
         [a[i], a[j]] = [a[j], a[i]];
     }
-	console.log("shuff")
 	shuffled = true;
     return a;
 }
@@ -1210,7 +1168,7 @@ async function fetchAndPushCard() {
 		var candidates = window.getFilteredPoolA(taxonIdChoices, regionIdChoices, seenCards);
 		var winner = thompsonDraw(candidates);
 		if(winner){
-			var result = await getData("https://api.inaturalist.org/v1/observations/" + winner.id, 0);
+			var result = await getData("https://api.inaturalist.org/v1/observations/" + winner.id);
 			if(result && result.results && result.results[0]){
 				pushToHistory(result.results[0]);
 				return;
@@ -1242,8 +1200,13 @@ async function fetchAndPushCard() {
 		else { fetchedData = data; }
 	}
 	var entry = fetchedData.results[internalIteration];
+	// API occasionally returns empty results despite total_results > 0 (stale count); skip and try next slot
+	if(!entry){
+		if(iteration < totalEntries - 1) return fetchAndPushCard();
+		return;
+	}
 	// Skip cards already seen in a prior session; recurse until we find an unseen one or exhaust the deck
-	if(entry && isSeen(entry.id) && iteration < totalEntries - 1){
+	if(isSeen(entry.id) && iteration < totalEntries - 1){
 		return fetchAndPushCard();
 	}
 	pushToHistory(entry);
@@ -1308,28 +1271,15 @@ function showSlides(n) {
 $('#modal').hide();
 	
 function setupFilterModal(){
-	// Get the modal
 	var filterModal = document.getElementById('filterModal');
-
-	// Get the button that opens the modal
-	var filterBtn = document.getElementById("filterButton");
-
-	// Get the <span> element that closes the modal
-	var filterSpan = document.getElementsByClassName("close");
-	filterSpan=filterSpan[filterSpan.length - 2];
-
-	// When the user clicks on the button, open the modal
-	filterBtn.onclick = function() {
-		console.log("filt");
+	document.getElementById("filterButton").onclick = function() {
 		filterModal.style.display = "block";
-	}
-
-	// When the user clicks on <span> (x), close the modal
-	filterSpan.onclick = function() {
+	};
+	filterModal.querySelector('.close').onclick = function() {
 		filterModal.style.display = "none";
-	} 
+	};
 }
-	
+
 setupFilterModal();
 
 // More section toggle
@@ -1343,72 +1293,47 @@ document.getElementById('moreToggle').addEventListener('click', function(){
 });
 
 function setupInfoModal(){
-	// Get the modal
 	var infoModal = document.getElementById('infoModal');
-
-	// Get the button that opens the modal
-	var infoBtn = document.getElementById("infoButton");
-
-	// Get the <span> element that closes the modal
-	var infoSpan = document.getElementsByClassName("close");
-	infoSpan=infoSpan[infoSpan.length - 1];
-
-	// When the user clicks on the button, open the modal
-	infoBtn.onclick = function() {
-		console.log("info");
+	document.getElementById("infoButton").onclick = function() {
 		infoModal.style.display = "block";
-	}
-
-	// When the user clicks on <span> (x), close the modal
-	infoSpan.onclick = function() {
+	};
+	infoModal.querySelector('.close').onclick = function() {
 		infoModal.style.display = "none";
-	} 
+	};
 }
-	
+
 setupInfoModal();
 	
 function generateModals(imageCount){
-	for(i=0;i<imageCount;i++){
-		// Get the modal
+	for(let i = 0; i < imageCount; i++){
 		var modal = document.getElementById('modal'+i);
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
 		var img = document.getElementById('img'+i);
 		var modalImg = document.getElementById("modalImg"+i);
 		img.onclick = function(){
 			modal.style.display = "block";
 			modalImg.src = this.src;
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[i];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() {
+		};
+		modal.querySelector('.close').onclick = function() {
 			modal.style.display = "none";
-		} 
-		
-		// When the user clicks anywhere outside of the modal, close it
-		window.onclick = function(event) {
-			if (event.target == modal) {
-				modal.style.display = "none";
-			}
-			if (event.target == filterModal) {
-				filterModal.style.display = "none";
-			}
-			if (event.target == infoModal) {
-				infoModal.style.display = "none";
-			}
-		} 
-		$(document).keyup(function(e) {
-			 if (e.keyCode == 27) { // escape key maps to keycode `27`
-					modal.style.display = "none";
-					filterModal.style.display = "none";
-					infoModal.style.display = "none";
-				}
-		});
+		};
 	}
 }
+
+// Single global modal-dismiss handlers (bound once, not per card)
+window.onclick = function(event) {
+	['filterModal','infoModal'].forEach(function(id){
+		var m = document.getElementById(id);
+		if(m && event.target === m) m.style.display = "none";
+	});
+	document.querySelectorAll('.modal[id^="modal"]').forEach(function(m){
+		if(event.target === m) m.style.display = "none";
+	});
+};
+$(document).keyup(function(e) {
+	if(e.keyCode === 27){
+		document.querySelectorAll('.modal').forEach(function(m){ m.style.display = "none"; });
+	}
+});
 
 </script>
 </body>
