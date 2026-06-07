@@ -527,6 +527,22 @@ select {
   align-items: center;
   margin-top: 16px;
 }
+.near-me-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 8px;
+}
+.near-me-within {
+  font-size: 12px;
+  color: var(--subtext0);
+}
+.near-me-msg {
+  font-size: 12px;
+  color: var(--red);
+  margin: 0 0 8px;
+}
 
 /* ── Info modal data box ── */
 #datInfo {
@@ -1294,6 +1310,17 @@ window.DEFAULT_DECK = "tracking";
 	<hr class="filter-section-divider" id="speciesDivider">
 	<div class="filter-section">
 	<h3 class="filter-heading">Filter by Region</h3>
+	<div class="near-me-row">
+		<button class="subOptions" id="filterNearMeBtn">Use my location</button>
+		<span class="near-me-within">within</span>
+		<div class="sr-interval-stepper">
+			<button class="sr-stepper-btn" id="filterRadiusStepDown" aria-label="Decrease">&minus;</button>
+			<input class="sr-stepper-display" id="filterRadiusDisplay" type="number" min="50" max="5000" step="50" value="600" style="width:52px;background:none;border:none;color:inherit;text-align:center;font:inherit;-moz-appearance:textfield">
+			<button class="sr-stepper-btn" id="filterRadiusStepUp" aria-label="Increase">+</button>
+		</div>
+		<span class="near-me-within">mi</span>
+	</div>
+	<div class="near-me-msg" id="filterNearMeMsg"></div>
 	<div class="filter-list filter-list--short" id="regionList">
 		<label class="filter-item filter-item--all"><input type="checkbox" id="allRegions" checked><span class="filter-check"></span>All Regions</label>
 		<label class="filter-item"><input type="checkbox" value="&place_id=97394" data-name="North America"><span class="filter-check"></span>North America</label>
@@ -2120,30 +2147,90 @@ $(function(){
 	var regionSelect = document.getElementById('locationRegionSelect');
 	var msgEl = document.getElementById('locationModalMsg');
 
-	// Radius stepper (stored in miles; converted to km for iNat API)
+	// Radius control (miles; converted to km for iNat API). The radius appears in two places
+	// — the first-visit location modal and the Filters modal — so the value and both inputs
+	// are kept in sync here, and a live "Near me" filter re-applies when the radius changes.
 	var RADIUS_STEP = 50;
 	var RADIUS_MIN = 50;
 	var RADIUS_MAX = 5000;
 	var nearMeRadiusMi = 600;
 	try { var saved = parseInt(localStorage.getItem('nearMeRadiusMi'), 10); if(saved >= RADIUS_MIN) nearMeRadiusMi = saved; } catch(e){}
-	var radiusDisplay = document.getElementById('radiusDisplay');
-	radiusDisplay.value = nearMeRadiusMi;
+	var lastNearMeCoords = null;
+	try { var c = JSON.parse(localStorage.getItem('nearMeCoords') || 'null'); if(c && c.lat && c.lng) lastNearMeCoords = c; } catch(e){}
+
+	var radiusInputs = ['radiusDisplay', 'filterRadiusDisplay']
+		.map(function(id){ return document.getElementById(id); })
+		.filter(Boolean);
 	function clampRadius(v){ return Math.min(RADIUS_MAX, Math.max(RADIUS_MIN, v || RADIUS_MIN)); }
-	radiusDisplay.addEventListener('change', function(){
-		nearMeRadiusMi = clampRadius(parseInt(this.value, 10));
-		this.value = nearMeRadiusMi;
-	});
-	document.getElementById('radiusStepDown').onclick = function(){
-		nearMeRadiusMi = clampRadius(nearMeRadiusMi - RADIUS_STEP);
-		radiusDisplay.value = nearMeRadiusMi;
-	};
-	document.getElementById('radiusStepUp').onclick = function(){
-		nearMeRadiusMi = clampRadius(nearMeRadiusMi + RADIUS_STEP);
-		radiusDisplay.value = nearMeRadiusMi;
-	};
+	function syncRadiusDisplays(){ radiusInputs.forEach(function(el){ el.value = nearMeRadiusMi; }); }
+	syncRadiusDisplays();
+
+	function isNearMeActive(){
+		var cb = document.getElementById('dynamicLocationCb');
+		return !!(cb && cb.checked);
+	}
+	var radiusApplyTimer = null;
+	function applyRadiusChange(){
+		if(!(lastNearMeCoords && isNearMeActive())) return; // only re-apply a live near-me filter
+		clearTimeout(radiusApplyTimer);
+		radiusApplyTimer = setTimeout(function(){
+			var loc = { value: buildNearMeValue(lastNearMeCoords.lat, lastNearMeCoords.lng), name: 'Near me (' + nearMeRadiusMi + ' mi)' };
+			saveLocationFilter(loc);
+			window.applyLocationFilter(loc);
+		}, 400);
+	}
+	function setRadius(v){
+		nearMeRadiusMi = clampRadius(v);
+		try { localStorage.setItem('nearMeRadiusMi', String(nearMeRadiusMi)); } catch(e){}
+		syncRadiusDisplays();
+		applyRadiusChange();
+	}
+	function wireStepper(displayId, downId, upId){
+		var d = document.getElementById(displayId);
+		if(d) d.addEventListener('change', function(){ setRadius(parseInt(this.value, 10)); });
+		var down = document.getElementById(downId);
+		if(down) down.onclick = function(){ setRadius(nearMeRadiusMi - RADIUS_STEP); };
+		var up = document.getElementById(upId);
+		if(up) up.onclick = function(){ setRadius(nearMeRadiusMi + RADIUS_STEP); };
+	}
+	wireStepper('radiusDisplay', 'radiusStepDown', 'radiusStepUp');
+	wireStepper('filterRadiusDisplay', 'filterRadiusStepDown', 'filterRadiusStepUp');
+
 	function buildNearMeValue(lat, lng){
 		var radiusKm = Math.round(nearMeRadiusMi * 1.60934);
 		return '&lat=' + lat + '&lng=' + lng + '&radius=' + radiusKm;
+	}
+
+	// Shared geolocation request used by both the location modal and the Filters modal.
+	function requestNearMe(msgEl, onSuccess){
+		msgEl.textContent = 'Getting location…';
+		msgEl.style.color = 'var(--subtext0)';
+		if(!navigator.geolocation){ msgEl.textContent = 'Geolocation is not supported by your browser.'; msgEl.style.color = 'var(--red)'; return; }
+		navigator.geolocation.getCurrentPosition(
+			function(pos){
+				var lat = pos.coords.latitude.toFixed(4);
+				var lng = pos.coords.longitude.toFixed(4);
+				lastNearMeCoords = { lat: lat, lng: lng };
+				try { localStorage.setItem('nearMeCoords', JSON.stringify(lastNearMeCoords)); } catch(e){}
+				try { localStorage.setItem('nearMeRadiusMi', String(nearMeRadiusMi)); } catch(e){}
+				try { localStorage.setItem('locationPrompted', '1'); } catch(e){}
+				var loc = { value: buildNearMeValue(lat, lng), name: 'Near me (' + nearMeRadiusMi + ' mi)' };
+				saveLocationFilter(loc);
+				window.applyLocationFilter(loc);
+				msgEl.textContent = '';
+				if(onSuccess) onSuccess();
+			},
+			function(err){
+				var msg = err.code === 1 ? 'Location access was denied. Choose a region below.' : 'Could not get your location. Choose a region below.';
+				msgEl.textContent = msg;
+				msgEl.style.color = 'var(--red)';
+			},
+			{ timeout: 10000 }
+		);
+	}
+	var filterNearMeBtn = document.getElementById('filterNearMeBtn');
+	if(filterNearMeBtn){
+		filterNearMeBtn.onclick = function(){ requestNearMe(document.getElementById('filterNearMeMsg')); };
 	}
 
 	// Populate dropdown from existing regionList checkboxes (single source of truth)
@@ -2164,6 +2251,9 @@ $(function(){
 			var cb = [...document.querySelectorAll('#regionList input[type="checkbox"]:not(#allRegions)')]
 				.find(function(c){ return c.value === loc.value; });
 			if(!cb){
+				// Remove any stale near-me checkbox (e.g. when the radius changed, the value differs)
+				var staleDyn = document.getElementById('dynamicLocationCb');
+				if(staleDyn){ var staleLabel = staleDyn.closest('label'); if(staleLabel) staleLabel.remove(); }
 				// Dynamic checkbox for current-location lat/lng filter
 				cb = document.createElement('input');
 				cb.type = 'checkbox';
@@ -2196,27 +2286,7 @@ $(function(){
 	}
 
 	document.getElementById('useCurrentLocBtn').onclick = function(){
-		msgEl.textContent = 'Getting location…';
-		msgEl.style.color = 'var(--subtext0)';
-		if(!navigator.geolocation){ msgEl.textContent = 'Geolocation is not supported by your browser.'; msgEl.style.color = 'var(--red)'; return; }
-		navigator.geolocation.getCurrentPosition(
-			function(pos){
-				var lat = pos.coords.latitude.toFixed(4);
-				var lng = pos.coords.longitude.toFixed(4);
-				try { localStorage.setItem('nearMeRadiusMi', String(nearMeRadiusMi)); } catch(e){}
-				var loc = { value: buildNearMeValue(lat, lng), name: 'Near me (' + nearMeRadiusMi + ' mi)' };
-				saveLocationFilter(loc);
-				try { localStorage.setItem('locationPrompted', '1'); } catch(e){}
-				window.applyLocationFilter(loc);
-				closeModal();
-			},
-			function(err){
-				var msg = err.code === 1 ? 'Location access was denied. Choose a region below.' : 'Could not get your location. Choose a region below.';
-				msgEl.textContent = msg;
-				msgEl.style.color = 'var(--red)';
-			},
-			{ timeout: 10000 }
-		);
+		requestNearMe(msgEl, closeModal);
 	};
 
 	document.getElementById('saveLocationBtn').onclick = function(){
