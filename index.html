@@ -553,6 +553,10 @@ select {
 .more-body { display: flex; flex-direction: column; gap: 8px; }
 
 /* ── Responsive ── */
+@media (min-width: 769px) {
+  .controls-panel { margin-top: 48px; }
+}
+
 @media (max-width: 768px) {
   .controls-panel { flex: 1 1 100%; width: 100%; }
   .filterContent, .infoContent { width: 95%; padding: 20px; }
