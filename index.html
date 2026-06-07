@@ -741,8 +741,9 @@ select {
 	history.replaceState(null, '', clean);
 })();
 
-var iteration = 0;
-var maxIteration = 0; //furthest position reached this session; seen-skip only applies past this frontier
+var iteration = 0;      // fetch cursor: position in entryIndexes of the last card fetched from iNat
+var sessionHistory = []; // ordered list of entry objects shown this session
+var historyIndex = -1;  // pointer into sessionHistory; -1 means nothing shown yet
 var page = 1;
 var data; //container for json
 var totalEntries=0;
@@ -801,24 +802,22 @@ function generateURLs(){ //generate filter urls — cross-product of species × 
 	
 function initializePostIndexGen(filtered){ //sets up first slideshow and shuffles indexes after indexes are generated
 	iteration = 0;
-	maxIteration = 0;
-	var secondaryIteration = entryIndexes[iteration].split(":"); //this and the next line are explained in the nextEntry function
-	linkIndex=secondaryIteration[0];
-	console.log("secondaryit",secondaryIteration);
+	sessionHistory = [];
+	historyIndex = -1;
+	var secondaryIteration = entryIndexes[iteration].split(":");
+	linkIndex = secondaryIteration[0];
 	console.log("finished gening indexes");
-	document.getElementById("totalObs").innerHTML = totalEntries+" Cards Generated"; //puts total entries in info
+	document.getElementById("totalObs").innerHTML = totalEntries+" Cards Generated";
 	if(filtered){
 		page = parseFloat(secondaryIteration[1])+1;
 	} else if(shuffled){
-		// For the first card pick a random offset within the first 10k so we never need markers yet.
-		// Subsequent cards use the full shuffled entryIndexes (markers load in background).
 		var safeMax = Math.min(totalEntries, 10000);
 		page = Math.ceil(Math.random() * safeMax);
 	} else {
-		page=1;
+		page = 1;
 	}
-	document.getElementById("entryTotal").innerHTML = totalEntries+" Cards Generated"; //puts total entries in info
-	if(!anchored){sendQueries();}
+	document.getElementById("entryTotal").innerHTML = totalEntries+" Cards Generated";
+	if(!anchored){ fetchAndPushCard(); }
 }
 
 async function getIDsAt10kMarkers(){ //can't retrieve entries over 10,000 without a filter so we deal with that by getting the ids of every 10,000th entry and using those to filter when we need something over the first 10,000th
@@ -910,10 +909,6 @@ async function sendQueries(){ //decides what link to use and then gets Data
 		data = await getData(URL, linkIndex);
 	}
 	
-	if(iteration == 0){//if the page just loaded put up first entry
-		var entry = data.results[0];//defines entry as the 0th entry on the page
-		parseEntry(entry); //sets up starting slideshow
-	}
 	return data;
 }	
 	
@@ -921,13 +916,12 @@ async function anchorCheck(){//check if there's an anchor and if there is go to 
 	var anchor = location.hash.replace('#','');
 	console.log(anchor);
 	if(anchor != ""){
-		iteration = -1; //so when next is clicked it will go to the first entry.	
-		var URL="https://api.inaturalist.org/v1/observations/"+anchor
+		var URL="https://api.inaturalist.org/v1/observations/"+anchor;
 		var prelimData = await getData(URL, 0);
-		console.log("anchored",prelimData);	
-		await parseEntry(prelimData.results[0]);
+		console.log("anchored",prelimData);
+		pushToHistory(prelimData.results[0]);
 	}
-	else{sendQueries();}
+	// else: initializePostIndexGen calls fetchAndPushCard once entryIndexes is populated
 }
 	
 anchorCheck();
@@ -965,6 +959,8 @@ function applyCheckboxFilters(){
 		: "Filters (None)";
 	shuffled = false;
 	iteration = 0;
+	sessionHistory = [];
+	historyIndex = -1;
 	page = 1;
 	linkIndex = 0;
 	generateURLs();
@@ -1039,8 +1035,7 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 	document.getElementById("linkObs").innerHTML = "<a href='"+link+"'>Go To Observation</a>"; //puts link to observation on inat in info
 	var total = entry.uri;
 	document.getElementById("totalObs").innerHTML = totalEntries+" Cards"; //puts total entries in info
-	var currentEntry = iteration+1;
-	document.getElementById("currentObs").innerHTML = "Current Card: "+currentEntry; //puts total entries in info
+	document.getElementById("currentObs").innerHTML = "Current Card: "+(historyIndex+1);
 	document.getElementById("shuffled").innerHTML = "Shuffled: "+shuffled; //displays whether or not shuffled
 	var HTML=""; //container for generated html
 	for(i=0; i<images.length; i++){ //list of images is a list of image ids. For each id injects in links generated in block of html. objects with backup links serve to cover in case of jpg & JPG rather than jpeg. Ugly solution, I know.
@@ -1069,9 +1064,8 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 function parseEntry(entry) { //gets list of photo ids from entry
 	var entryID = entry.id; //gets entry ID
 	window.currentCardId = entryID;
-	window.currentEntry = entry; //expose full entry so the rating write can store filter metadata
-	markSeen(entryID); //record that this user has now seen this card
-	if(iteration > maxIteration) maxIteration = iteration;
+	window.currentEntry = entry;
+	markSeen(entryID);
 	window.location.hash=""; //set anchor as id
 	var images = [];//list of image ids
 	for(i=0; i<entry.photos.length; i++){ //compiling list
@@ -1093,65 +1087,70 @@ function shuffle(a) { //shuffles a list
     return a;
 }
   
-async function nextEntry(direction) { //triggered by buttons next entry, prev entry, and rand entry.
-	if(anchored){anchored=false;}
-	var secondaryIteration = 0;//entryIndexes uses iteration as index and becomes the coresponding value in array
-	if(iteration<1 && !shuffled){ //if it's the first button press of the session getData()
-		window.location.hash=""
-		data = await sendQueries(); //await can be used in async functions to pause operations until functions promise is resolved into a value.
-	}
-	if(direction==1){ //next entry clicked
-		if(iteration<(totalEntries-1)){ //if not the last entry
-			iteration++; //iterate one forward
-		}
-	}
-	else if(direction==0){ //prev entry clicked
-		if(iteration>0){ //if not the first entry
-			iteration--; //iterate one back
-		}	
-	}
-	else{ //if shuffle clicked
-		iteration = 0;
-		maxIteration = 0;
-		entryIndexes=shuffle(entryIndexes); //shuffles secondary indexes
-		console.log("shuffled");
-	}
-	secondaryIteration = entryIndexes[iteration].split(":"); //gets secondary iteration (index) that is associated with actual iteration. If not filtered or shuffled they will be the same.
-	console.log("second",secondaryIteration)
-	linkIndex=secondaryIteration[0]; //first item is link index, second item is secondary iteration. Split deletes the :
-	if(!shuffled){ //if not shuffled (and by extention not filtered) uses 30 entry pages
-		var internalIteration = secondaryIteration[1] % 30; //used to iterate through photos in a page
-		page = Math.floor((secondaryIteration[1]/30))+1; //derives page number from iteration
-	}
-	else{//if shuffled use 1 entry pages, because we have to switch page every iteration anyway
-		var internalIteration = 0;
-		page = parseFloat(secondaryIteration[1])+1; //derives page number from iteration
-		data = await sendQueries(); //send query and get data
-		console.log("gotten");
-	}
-	if(internalIteration == 0 && !shuffled){ //iterates page if iteration is devisable by 30. (30 items a page)
-		page = (iteration/30)+1; 
-		console.log("page",page);
-		data = await sendQueries(); //send query and get data
-		console.log(data.results);
-	}
-	if(internalIteration == 29 && !shuffled){ //used in case user is going backwards. Wouldn't be caught by prev if statement.
-		page = ((iteration+1)/30); 
-		console.log("page",page);
-		data = await sendQueries(); 
-		console.log(data.results);
-	}
-	$('#answer').hide(); //rehide answer in case it was showing and change button text to show answer again
+function pushToHistory(entry) {
+	sessionHistory.push(entry);
+	historyIndex = sessionHistory.length - 1;
+	$('#answer').hide();
 	document.getElementById("showAnswer").innerHTML = "Show Answer";
-	console.log("iteration",iteration);
-	var entry = data.results[internalIteration];//defines entry as the xth entry on the page
-	// Skip cards already seen in a prior session, but only when pushing past the frontier —
-	// cards within the session's navigation history (iteration <= maxIteration) must stay reachable.
-	if(direction !== 0 && iteration > maxIteration && entry && isSeen(entry.id) && iteration < (totalEntries - 1)){
-		iteration++;
-		return nextEntry(direction);
-	}
 	parseEntry(entry);
+}
+
+async function fetchAndPushCard() {
+	// Advance fetch cursor and derive page from the shuffled index list
+	if(iteration < totalEntries - 1) iteration++;
+	var secondaryIteration = entryIndexes[iteration].split(":");
+	linkIndex = secondaryIteration[0];
+	var internalIteration, fetchedData;
+	if(shuffled){
+		page = parseFloat(secondaryIteration[1]) + 1;
+		// If this page needs a 10k marker that hasn't loaded yet, fall back to the accessible range
+		if(page > 10000){
+			var markerIdx = Math.floor(page / 10000) - 1;
+			if(IDsAt10kMarkers[markerIdx] === undefined){
+				var safeMax = Math.min(totalEntries, 10000 * (IDsAt10kMarkers.length + 1));
+				page = Math.ceil(Math.random() * safeMax);
+			}
+		}
+		fetchedData = await sendQueries();
+		internalIteration = 0;
+	} else {
+		internalIteration = parseFloat(secondaryIteration[1]) % 30;
+		page = Math.floor(parseFloat(secondaryIteration[1]) / 30) + 1;
+		if(internalIteration === 0 || !data){ fetchedData = await sendQueries(); }
+		else { fetchedData = data; }
+	}
+	var entry = fetchedData.results[internalIteration];
+	// Skip cards already seen in a prior session; recurse until we find an unseen one or exhaust the deck
+	if(entry && isSeen(entry.id) && iteration < totalEntries - 1){
+		return fetchAndPushCard();
+	}
+	pushToHistory(entry);
+}
+
+async function nextEntry(direction) {
+	if(anchored){ anchored = false; }
+	window.location.hash = "";
+	if(direction === 0){ // Prev — always use session history, never fetch
+		if(historyIndex > 0){
+			historyIndex--;
+			$('#answer').hide();
+			document.getElementById("showAnswer").innerHTML = "Show Answer";
+			parseEntry(sessionHistory[historyIndex]);
+		}
+		return;
+	}
+	if(direction === 1){ // Next
+		if(historyIndex < sessionHistory.length - 1){
+			// Still within session history — just move the pointer, no fetch needed
+			historyIndex++;
+			$('#answer').hide();
+			document.getElementById("showAnswer").innerHTML = "Show Answer";
+			parseEntry(sessionHistory[historyIndex]);
+			return;
+		}
+		// Past the frontier — fetch a new card
+		await fetchAndPushCard();
+	}
 }
 	
 
