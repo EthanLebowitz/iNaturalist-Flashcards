@@ -818,6 +818,54 @@ window.MODES = {
     label: "Skulls & Bones",
     query: { project_id: 488 },
     filters: { species: false, region: true }
+  },
+  mushrooms: {
+    type: "deck",
+    label: "Mushrooms",
+    query: { taxon_id: 47170 },               // Fungi
+    filters: { species: false, region: true }
+  },
+  butterflies: {
+    type: "deck",
+    label: "Butterflies & Moths",
+    query: { taxon_id: 47157 },               // Lepidoptera
+    filters: { species: false, region: true }
+  },
+  dragonflies: {
+    type: "deck",
+    label: "Dragonflies & Damselflies",
+    query: { taxon_id: 47792 },               // Odonata
+    filters: { species: false, region: true }
+  },
+  spiders: {
+    type: "deck",
+    label: "Spiders",
+    query: { taxon_id: 47118 },               // Araneae
+    filters: { species: false, region: true }
+  },
+  bees: {
+    type: "deck",
+    label: "Bees",
+    query: { taxon_id: 630955 },              // Anthophila
+    filters: { species: false, region: true }
+  },
+  snakes: {
+    type: "deck",
+    label: "Snakes",
+    query: { taxon_id: 85553 },               // Serpentes
+    filters: { species: false, region: true }
+  },
+  herps: {
+    type: "deck",
+    label: "Reptiles & Amphibians",
+    query: { taxon_id: "26036,20978" },       // Reptilia + Amphibia
+    filters: { species: false, region: true }
+  },
+  edibles: {
+    type: "deck",
+    label: "Wild Edible Plants",
+    query: { project_id: 35019 },             // Wild Edible Plants of North America (curated ~272 taxa)
+    filters: { species: false, region: true }
   }
 };
 window.DEFAULT_DECK = "tracking";
@@ -1469,10 +1517,10 @@ var regionIdChoices=[];
 	var df = (window.MODES[window.currentDeckKey] && window.MODES[window.currentDeckKey].filters) || {};
 	var savedLoc = df.region ? loadLocationFilter() : null;
 	if(savedLoc){
-		// applyLocationFilter is defined later in the page; defer one tick so DOM is ready
-		setTimeout(function(){
-			if(typeof window.applyLocationFilter === 'function') window.applyLocationFilter(savedLoc);
-		}, 0);
+		// applyLocationFilter is defined later (in the jQuery ready handler). Stash the
+		// pending filter so that handler applies it once the function exists — avoids a
+		// setTimeout race where the timer could fire before applyLocationFilter is defined.
+		window.__pendingLocationRestore = savedLoc;
 	} else {
 		generateURLs();
 		generateEntryIndexesList();
@@ -2139,6 +2187,13 @@ $(function(){
 		}
 		applyCheckboxFilters();
 	};
+
+	// Apply a location filter persisted from a previous visit. The startup IIFE runs during
+	// parsing (before this function is defined) and stashes the pending filter here.
+	if(window.__pendingLocationRestore){
+		window.applyLocationFilter(window.__pendingLocationRestore);
+		window.__pendingLocationRestore = null;
+	}
 
 	document.getElementById('useCurrentLocBtn').onclick = function(){
 		msgEl.textContent = 'Getting location…';
