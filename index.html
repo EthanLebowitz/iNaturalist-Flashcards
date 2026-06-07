@@ -1527,7 +1527,7 @@ function sampleBeta(a, b) {
 	return ga / (ga + gb);
 }
 
-// Thompson sampling over Pool A candidates.
+// Thompson sampling over Pool A candidates (quality turn).
 // Returns the winning card object, or null if a random iNat card (Beta(1,1)) won.
 function thompsonDraw(candidates) {
 	if(!candidates || candidates.length === 0) return null;
@@ -1539,6 +1539,37 @@ function thompsonDraw(candidates) {
 	// A random unseen iNat card is modelled as Beta(1,1) = Math.random().
 	// If the best Pool A card can't beat that, serve a fresh random card instead.
 	return bestScore > Math.random() ? bestCard : null;
+}
+
+// Weighted draw favouring cards with shaky ELO (few reports), penalising downvoted cards (refine turn).
+// ratingBoost decays from 1.0 → 0 as n approaches ELO_TARGET, then holds at EXPLORE_WEIGHT.
+// thumbsQuality = Beta expected value in (0,1] — penalises downvoted cards smoothly.
+var ELO_TARGET = 8;
+var EXPLORE_WEIGHT = 0.3;
+function ratingDrawWeight(card) {
+	var n = (card.correctCount || 0) + (card.incorrectCount || 0);
+	var boost = n > 0 && n < ELO_TARGET ? (1 - n / ELO_TARGET) : EXPLORE_WEIGHT;
+	var thumbsQuality = ((card.thumbsUp || 0) + 1) / ((card.thumbsUp || 0) + (card.thumbsDown || 0) + 2);
+	return boost * thumbsQuality;
+}
+function weightedDraw(candidates) {
+	if(!candidates || candidates.length === 0) return null;
+	var weights = candidates.map(ratingDrawWeight);
+	var total = weights.reduce(function(s, w) { return s + w; }, 0);
+	if(total <= 0) return null;
+	// Compete against the same Beta(1,1) baseline as thompsonDraw.
+	var bestScore = Math.random();
+	var winner = null;
+	var cumulative = 0;
+	var r = Math.random() * total;
+	for(var i = 0; i < candidates.length; i++){
+		cumulative += weights[i];
+		if(r <= cumulative){ winner = candidates[i]; break; }
+	}
+	if(!winner) winner = candidates[candidates.length - 1];
+	// Only serve if the best normalised weight beats the baseline.
+	var normalised = Math.max.apply(null, weights) / (total / candidates.length);
+	return normalised > bestScore ? winner : null;
 }
 
 async function fetchAndPushCard() {
@@ -1560,10 +1591,10 @@ async function fetchAndPushCard() {
 	}
 	sessionFetchCount++;
 
-	// Tier 2: Thompson Pool A
+	// Tier 2: Pool A — coin-flip between refine turn (shaky ELO boost) and quality turn (thumbs Thompson)
 	if(typeof window.getFilteredPoolA === 'function'){
 		var candidates = window.getFilteredPoolA(taxonIdChoices, regionIdChoices, seenCards);
-		var winner = thompsonDraw(candidates);
+		var winner = Math.random() < 0.5 ? weightedDraw(candidates) : thompsonDraw(candidates);
 		if(winner){
 			var result = await getData("https://api.inaturalist.org/v1/observations/" + winner.id);
 			if(result && result.results && result.results[0]){
