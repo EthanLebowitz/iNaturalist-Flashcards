@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthed() {
+      return request.auth != null;
+    }
+    function isUser(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    // Global card stats — any authenticated user can read and write.
+    // Written by submitRating (thumbsUp/thumbsDown) and submitReport (elo, counts).
+    match /cards/{cardId} {
+      allow read: if isAuthed();
+      allow write: if isAuthed();
+      allow delete: if false;
+    }
+
+    match /users/{userId} {
+
+      // User ELO document — private, written by submitReport.
+      allow read, write: if isUser(userId);
+      allow delete: if false;
+
+      // Thumbs ratings — write-once, validated server-side.
+      match /ratings/{cardId} {
+        allow read: if isUser(userId);
+        allow create: if isUser(userId)
+          && request.resource.data.rating in [1, -1];
+        allow update, delete: if false;
+      }
+
+      // SR + ELO attempt records — private, read covers the dueAt <= now query.
+      match /attempts/{cardId} {
+        allow read, write: if isUser(userId);
+        allow delete: if false;
+      }
+    }
+  }
+}

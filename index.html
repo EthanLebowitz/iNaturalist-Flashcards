@@ -173,7 +173,7 @@ a:hover { color: var(--lavender); text-decoration: underline; }
   transition: background-color 0.25s, transform 0.25s;
 }
 
-.active, .dot:hover {
+.dot.active, .dot:hover {
   background-color: var(--blue);
   transform: scale(1.5);
 }
@@ -552,6 +552,124 @@ select {
 .more-toggle.open .chevron { transform: rotate(180deg); }
 .more-body { display: flex; flex-direction: column; gap: 8px; }
 
+/* ── Self-report section ── */
+.self-report-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: max-height 0.2s ease, opacity 0.15s;
+}
+.self-report-section.is-visible {
+  max-height: 120px;
+  opacity: 1;
+  pointer-events: auto;
+}
+.self-report-label {
+  font-size: 13px;
+  color: var(--subtext0);
+}
+.self-report-btn-row { display: flex; gap: 6px; }
+.report-btn {
+  flex: 1;
+  min-width: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: none;
+  outline: none;
+  transition: background 0.15s, opacity 0.15s, box-shadow 0.15s;
+}
+.report-btn:focus { outline: none; box-shadow: none; }
+.report-btn:active { transform: none; }
+.report-btn:disabled { opacity: 0.45; cursor: default; }
+.report-btn--correct { background: rgba(148,226,213,0.15); color: var(--teal); }
+.report-btn--correct:hover:not(:disabled) { background: rgba(148,226,213,0.28); }
+.report-btn--correct.active { background: rgba(148,226,213,0.3); box-shadow: inset 0 0 0 1.5px var(--teal); }
+.report-btn--incorrect { background: rgba(243,139,168,0.15); color: #f38ba8; }
+.report-btn--incorrect:hover:not(:disabled) { background: rgba(243,139,168,0.28); }
+.report-btn--incorrect.active { background: rgba(243,139,168,0.3); box-shadow: inset 0 0 0 1.5px #f38ba8; }
+.self-report-feedback {
+  font-size: 12px;
+  color: var(--subtext0);
+  min-height: 1.4em;
+  text-align: center;
+}
+
+/* ── SR slide toggle ── */
+.sr-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--subtext0);
+  padding: 2px 2px;
+  cursor: pointer;
+  user-select: none;
+}
+.sr-toggle-row:hover { color: var(--text); }
+.toggle-switch {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: var(--surface2);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  left: 3px;
+  top: 3px;
+  background: var(--text);
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+.toggle-switch input:checked + .toggle-slider { background: var(--blue); }
+.toggle-switch input:checked + .toggle-slider::before { transform: translateX(16px); }
+
+/* ── Session grid ── */
+.session-grid {
+  width: 100%;
+  flex-basis: 100%;
+  display: none;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 12px 4px 0;
+}
+.grid-tile {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.1s;
+  flex-shrink: 0;
+}
+.grid-tile:hover { transform: scale(1.2); }
+.grid-tile--unseen { background: var(--surface1); }
+.grid-tile--correct { background: #40a02b; }
+.grid-tile--incorrect { background: #d20f39; }
+.grid-tile--active { outline: 2px solid var(--blue); outline-offset: 2px; }
+
 /* ── Responsive ── */
 @media (min-width: 769px) {
   .controls-panel { margin-top: 48px; }
@@ -577,7 +695,7 @@ select {
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
   import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-  import { getFirestore, doc, getDoc, setDoc, getDocs, collection, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+  import { getFirestore, doc, getDoc, setDoc, getDocs, collection, increment, serverTimestamp, runTransaction, query, where, Timestamp, deleteField } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyD_StgI5Ka3wdHFVjjfxH7p2_W1P4eUpJg",
@@ -592,7 +710,10 @@ select {
   const auth = getAuth(app);
   const db = getFirestore(app);
   let currentUser = null;
-  let poolACache = null; // all rated cards, loaded once per session
+  let poolACache = null;
+  let srDueCards = new Map(); // cardId (number) → attemptData for currently-due SR cards
+
+  const SR_INTERVALS_MS = [60000, 600000, 86400000, 259200000, 604800000, 1814400000];
 
   async function loadPoolA() {
     const snap = await getDocs(collection(db, 'cards'));
@@ -601,15 +722,51 @@ select {
     console.log('Pool A loaded:', poolACache.length, 'cards');
   }
 
+  async function loadDueSRCards() {
+    if (!currentUser) return;
+    srDueCards = new Map();
+    const q = query(
+      collection(db, 'users', currentUser.uid, 'attempts'),
+      where('dueAt', '<=', Timestamp.now())
+    );
+    const snap = await getDocs(q);
+    snap.forEach(d => srDueCards.set(Number(d.id), { id: Number(d.id), ...d.data() }));
+    console.log('SR due cards loaded:', srDueCards.size);
+  }
+
   onAuthStateChanged(auth, (user) => {
     currentUser = user;
-    if (user) loadPoolA();
+    if (user) { loadPoolA(); loadDueSRCards(); }
   });
   signInAnonymously(auth);
 
+  function _formatDuration(ms) {
+    var s = Math.round(ms / 1000);
+    if (s < 60) return s + 's';
+    var m = Math.round(s / 60);
+    if (m < 60) return m + 'm';
+    var h = Math.round(m / 60);
+    if (h < 24) return h + 'h';
+    return Math.round(h / 24) + 'd';
+  }
+
+  function _applyAttemptUI(result, dueAtMs) {
+    const gotBtn = document.getElementById('gotItBtn');
+    const missedBtn = document.getElementById('missedItBtn');
+    const feedback = document.getElementById('selfReportFeedback');
+    gotBtn.disabled = true;
+    missedBtn.disabled = true;
+    gotBtn.classList.remove('active');
+    missedBtn.classList.remove('active');
+    if (result === 'correct') gotBtn.classList.add('active');
+    else if (result === 'incorrect') missedBtn.classList.add('active');
+    if (dueAtMs && feedback) {
+      var diff = dueAtMs - Date.now();
+      feedback.textContent = diff > 0 ? 'Review in ' + _formatDuration(diff) : 'Due for review';
+    }
+  }
+
   // Returns Pool A candidates matching the active filters, excluding already-seen cards.
-  // taxonIdChoices / regionIdChoices are the raw checkbox values ("&taxon_id=41799" etc.)
-  // seenSet is the Set of seen card IDs from the main script.
   window.getFilteredPoolA = function(taxonIdChoices, regionIdChoices, seenSet) {
     if (!poolACache) return [];
     const activeTaxonIds = taxonIdChoices.map(v => parseInt(v.split('=')[1]));
@@ -626,6 +783,149 @@ select {
       }
       return true;
     });
+  };
+
+  // Returns the most-overdue due SR card matching active filters, or null. Removes it from the
+  // local cache to prevent double-serving within the same session.
+  window.getDueCard = function(taxonIdChoices, regionIdChoices) {
+    if (!srDueCards.size) return null;
+    const activeTaxonIds = taxonIdChoices.map(v => parseInt(v.split('=')[1]));
+    const activePlaceIds = regionIdChoices.map(v => parseInt(v.split('=')[1]));
+    var candidates = [];
+    srDueCards.forEach(function(card) {
+      if (activeTaxonIds.length > 0) {
+        const ancestors = card.ancestorIds || [];
+        if (!activeTaxonIds.some(id => ancestors.includes(id))) return;
+      }
+      if (activePlaceIds.length > 0) {
+        const places = card.placeIds || [];
+        if (!activePlaceIds.some(id => places.includes(id))) return;
+      }
+      candidates.push(card);
+    });
+    if (!candidates.length) return null;
+    candidates.sort((a, b) => a.dueAt.toMillis() - b.dueAt.toMillis());
+    var winner = candidates[0];
+    srDueCards.delete(winner.id);
+    return winner;
+  };
+
+  // Hydrates the self-report button state when navigating to a card.
+  window.loadAttempt = async function(cardId) {
+    const feedback = document.getElementById('selfReportFeedback');
+    if (feedback) feedback.textContent = '';
+    // Session cache: due time was saved in window.lastReportDueAt on submission
+    if (window.reportResults && window.reportResults[Number(cardId)]) {
+      var cachedDueMs = window.lastReportDueAt && window.lastReportDueAt[Number(cardId)];
+      _applyAttemptUI(window.reportResults[Number(cardId)], cachedDueMs || null);
+      return;
+    }
+    if (!currentUser) return;
+    const snap = await getDoc(doc(db, 'users', currentUser.uid, 'attempts', String(cardId)));
+    if (!snap.exists()) return;
+    const d = snap.data();
+    // Only update if the card hasn't changed since the async read started
+    if (window.currentCardId !== Number(cardId) && window.currentCardId !== cardId) return;
+    _applyAttemptUI(d.lastResult, d.dueAt ? d.dueAt.toMillis() : null);
+  };
+
+  // Records a self-report: updates ELO (first time only) and SR schedule.
+  window.submitReport = async function(result) {
+    const cardId = window.currentCardId;
+    const entry = window.currentEntry;
+    if (!cardId) return;
+
+    const gotBtn = document.getElementById('gotItBtn');
+    const missedBtn = document.getElementById('missedItBtn');
+    const feedback = document.getElementById('selfReportFeedback');
+
+    // Optimistic UI
+    gotBtn.disabled = true;
+    missedBtn.disabled = true;
+    gotBtn.classList.remove('active');
+    missedBtn.classList.remove('active');
+    if (result === 'correct') gotBtn.classList.add('active');
+    else missedBtn.classList.add('active');
+    if (feedback) feedback.textContent = 'Saving…';
+
+    // Update session cache so the grid and button state restore correctly on navigation
+    if (!window.reportResults) window.reportResults = {};
+    window.reportResults[Number(cardId)] = result;
+    if (typeof window.renderSessionGrid === 'function') window.renderSessionGrid();
+
+    if (!currentUser) {
+      if (feedback) feedback.textContent = '';
+      return;
+    }
+
+    const taxonId = entry && entry.taxon ? entry.taxon.id : null;
+    const ancestorIds = entry && entry.taxon && entry.taxon.ancestor_ids ? entry.taxon.ancestor_ids : [];
+    const placeIds = entry && entry.place_ids ? entry.place_ids : [];
+
+    const userRef  = doc(db, 'users', currentUser.uid);
+    const cardRef  = doc(db, 'cards', String(cardId));
+    const attemptRef = doc(db, 'users', currentUser.uid, 'attempts', String(cardId));
+
+    var newDueAtMs;
+
+    await runTransaction(db, async (txn) => {
+      const [userSnap, cardSnap, attemptSnap] = await Promise.all([
+        txn.get(userRef), txn.get(cardRef), txn.get(attemptRef)
+      ]);
+
+      const S = result === 'correct' ? 1 : 0;
+      const userElo     = userSnap.exists()    ? (userSnap.data().elo    || 1500) : 1500;
+      const cardElo     = cardSnap.exists()    ? (cardSnap.data().elo    || 1500) : 1500;
+      const eloScored   = attemptSnap.exists() ? (attemptSnap.data().eloScored || false) : false;
+      const reviewCount = attemptSnap.exists() ? (attemptSnap.data().reviewCount || 0) : 0;
+      const firstResult = attemptSnap.exists() ? (attemptSnap.data().firstResult || result) : result;
+      const history     = attemptSnap.exists() ? (attemptSnap.data().history || []) : [];
+
+      // ELO — applied once per (user, card)
+      var newUserElo = userElo, newCardElo = cardElo;
+      if (!eloScored) {
+        const K = 24;
+        const E = 1 / (1 + Math.pow(10, (cardElo - userElo) / 400));
+        newUserElo = Math.round(userElo + K * (S - E));
+        newCardElo = Math.round(cardElo - K * (S - E));
+      }
+
+      txn.set(userRef, { elo: newUserElo, eloGames: increment(eloScored ? 0 : 1) }, { merge: true });
+
+      txn.set(cardRef, {
+        elo: newCardElo, taxonId, ancestorIds, placeIds,
+        correctCount:   increment(result === 'correct'   ? 1 : 0),
+        incorrectCount: increment(result === 'incorrect' ? 1 : 0)
+      }, { merge: true });
+
+      // SR — incorrect queues the card (always 1-minute interval); correct removes it from the queue
+      const attemptData = {
+        eloScored: true,
+        firstResult,
+        lastResult: result,
+        reviewCount: reviewCount + 1,
+        ancestorIds, placeIds,
+        history: [...history, { result, ts: Date.now() }],
+        updatedAt: serverTimestamp()
+      };
+      if (result === 'incorrect') {
+        newDueAtMs = Date.now() + SR_INTERVALS_MS[0];
+        attemptData.dueAt = Timestamp.fromMillis(newDueAtMs);
+      } else if (attemptSnap.exists() && attemptSnap.data().dueAt) {
+        // Was in SR queue from a prior miss — clear it
+        attemptData.dueAt = deleteField();
+      }
+      txn.set(attemptRef, attemptData, { merge: true });
+    });
+
+    // Cache due time (incorrect only) so loadAttempt can restore feedback without a second read
+    if (!window.lastReportDueAt) window.lastReportDueAt = {};
+    if (newDueAtMs) {
+      window.lastReportDueAt[Number(cardId)] = newDueAtMs;
+      if (feedback) feedback.textContent = 'Review in ' + _formatDuration(newDueAtMs - Date.now());
+    } else {
+      if (feedback) feedback.textContent = '';
+    }
   };
 
   window.loadRating = async function(cardId) {
@@ -665,11 +965,8 @@ select {
     await setDoc(doc(db, 'cards', String(cardId)), {
       thumbsUp: increment(value === 1 ? 1 : 0),
       thumbsDown: increment(value === -1 ? 1 : 0),
-      taxonId: taxonId,
-      ancestorIds: ancestorIds,
-      placeIds: placeIds
+      taxonId, ancestorIds, placeIds
     }, { merge: true });
-    // Keep local Pool A cache in sync so Thompson sampling stays accurate this session
     if (poolACache) {
       const existing = poolACache.find(c => c.id === Number(cardId));
       if (existing) {
@@ -701,6 +998,14 @@ select {
 <div class="controls-panel">	
 	<button type="submit" onclick="showAnswer()" class="options wide" id="showAnswer">Show Answer</button>
 	<div id="answer"></div>
+  <div class="self-report-section" id="selfReport">
+    <span class="self-report-label">Did you get it right?</span>
+    <div class="self-report-btn-row">
+      <button class="report-btn report-btn--correct" id="gotItBtn" onclick="submitReport('correct')">✓ Got it</button>
+      <button class="report-btn report-btn--incorrect" id="missedItBtn" onclick="submitReport('incorrect')">✗ Missed it</button>
+    </div>
+    <div class="self-report-feedback" id="selfReportFeedback"></div>
+  </div>
   <div class="rating-section">
     <span class="rating-label">Is this a good flashcard?</span>
     <button id="thumbsUp" class="rating-btn" onclick="submitRating(1)" title="Thumbs up">👍</button>
@@ -717,6 +1022,13 @@ select {
   <button type="submit" id="filterButton" class="subOptions wide">Filters (None)</button>
   <button type="submit" class="subOptions wide" id="infoButton">More Info</button>
   </div>
+  <label class="sr-toggle-row">
+    <span>Spaced Repetition</span>
+    <div class="toggle-switch">
+      <input type="checkbox" id="srToggle">
+      <span class="toggle-slider"></span>
+    </div>
+  </label>
   <div class="modal" id="filterModal"><div class="filterContent">
 	<span class="close">&times;</span>
 	<div class="filter-section">
@@ -811,6 +1123,7 @@ select {
     <span>More</span><span class="chevron"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
   </button>
 </div>
+<div id="sessionGrid" class="session-grid"></div>
 </div>
 
 
@@ -833,6 +1146,15 @@ var linkIndex=0;
 var internalTotalEntries;
 var anchored = (location.hash != "");
 var IDsAt10kMarkers = []; //entry ID for the 10,000th entry, the 20,000th entry, etc.
+
+window.reportResults = {};    // cardId → 'correct'|'incorrect', session-scoped for grid rendering
+window.lastReportDueAt = {};  // cardId → dueAt ms, populated by submitReport for loadAttempt feedback
+var selfReportShownForCurrentCard = false;
+var srEnabled = (function(){
+  try { return localStorage.getItem('srEnabled') !== 'false'; } catch(e) { return true; }
+})();
+var sessionFetchCount = 0; // total fetchAndPushCard calls this session (for SR 1-in-3 cap)
+var sessionSRCount = 0;    // SR cards served this session
 
 // ---- seen-card tracking (localStorage; anon UID is per-browser anyway, so no Firestore needed) ----
 var SEEN_KEY = "seenCards";
@@ -858,6 +1180,10 @@ function showAnswer(){
 	else{
 		$("#answer").slideDown(200);
 		document.getElementById("showAnswer").innerHTML = "Hide Answer";
+		if(!selfReportShownForCurrentCard){
+			selfReportShownForCurrentCard = true;
+			document.getElementById('selfReport').classList.add('is-visible');
+		}
 	}
 }
 	
@@ -888,8 +1214,13 @@ function initializePostIndexGen(){ //sets up first card fetch after index genera
 	sessionHistory = [];
 	historyIndex = -1;
 	data = null; //clear stale fetch data so fetchAndPushCard always does a fresh request on reinit
+	sessionFetchCount = 0;
+	sessionSRCount = 0;
+	window.reportResults = {};
+	window.lastReportDueAt = {};
 	document.getElementById("totalObs").innerHTML = totalEntries+" Cards Generated";
 	document.getElementById("entryTotal").innerHTML = totalEntries+" Cards Generated";
+	renderSessionGrid();
 	if(!anchored){ fetchAndPushCard(); }
 }
 
@@ -1103,14 +1434,61 @@ function parseEntry(entry) { //gets list of photo ids from entry
 	window.currentEntry = entry;
 	markSeen(entryID);
 	window.location.hash=""; //set anchor as id
+
+	// Reset self-report UI for the new card
+	selfReportShownForCurrentCard = false;
+	document.getElementById('selfReport').classList.remove('is-visible');
+	var gotBtn = document.getElementById('gotItBtn');
+	var missedBtn = document.getElementById('missedItBtn');
+	gotBtn.classList.remove('active');
+	missedBtn.classList.remove('active');
+	gotBtn.disabled = false;
+	missedBtn.disabled = false;
+	document.getElementById('selfReportFeedback').textContent = '';
+	// Restore session-cached report state synchronously to avoid flicker on back-navigation
+	if(window.reportResults[entryID]){
+		gotBtn.disabled = true;
+		missedBtn.disabled = true;
+		if(window.reportResults[entryID] === 'correct') gotBtn.classList.add('active');
+		else missedBtn.classList.add('active');
+	}
+
 	var images = [];
 	for(var i=0; i<entry.photos.length; i++){
 		images.push(entry.photos[i].id);
 	}
 	generateHTML(images, entryID, entry);
-	if (typeof window.loadRating === 'function') window.loadRating(entryID);
+	if(typeof window.loadRating === 'function') window.loadRating(entryID);
+	if(typeof window.loadAttempt === 'function') window.loadAttempt(entryID);
+	renderSessionGrid();
 }
   
+window.renderSessionGrid = function renderSessionGrid() {
+	var grid = document.getElementById('sessionGrid');
+	if(!grid) return;
+	if(sessionHistory.length === 0){ grid.style.display = 'none'; return; }
+	grid.style.display = 'flex';
+	var html = '';
+	for(var i = 0; i < sessionHistory.length; i++){
+		var entry = sessionHistory[i];
+		var result = window.reportResults[entry.id];
+		var colorClass = result === 'correct' ? 'grid-tile--correct' : result === 'incorrect' ? 'grid-tile--incorrect' : 'grid-tile--unseen';
+		var activeClass = i === historyIndex ? ' grid-tile--active' : '';
+		var name = entry.taxon && entry.taxon.preferred_common_name ? entry.taxon.preferred_common_name : '?';
+		html += '<div class="grid-tile ' + colorClass + activeClass + '" onclick="navigateToHistoryIndex(' + i + ')" title="' + name + '"></div>';
+	}
+	grid.innerHTML = html;
+};
+
+function navigateToHistoryIndex(i) {
+	if(i < 0 || i >= sessionHistory.length) return;
+	historyIndex = i;
+	window.location.hash = '';
+	$('#answer').hide();
+	document.getElementById('showAnswer').innerHTML = 'Show Answer';
+	parseEntry(sessionHistory[i]);
+}
+
 function shuffle(a) { //shuffles a list
     for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -1155,7 +1533,24 @@ function thompsonDraw(candidates) {
 }
 
 async function fetchAndPushCard() {
-	// Thompson sampling: give Pool A a chance before the normal iNat positional fetch
+	// Tier 1: Due SR card — capped at 1-in-3 of total fetches this session
+	if(srEnabled && typeof window.getDueCard === 'function'){
+		if(sessionSRCount / (sessionFetchCount + 1) < 1/3){
+			var dueCard = window.getDueCard(taxonIdChoices, regionIdChoices);
+			if(dueCard){
+				var srResult = await getData("https://api.inaturalist.org/v1/observations/" + dueCard.id);
+				if(srResult && srResult.results && srResult.results[0]){
+					sessionSRCount++;
+					sessionFetchCount++;
+					pushToHistory(srResult.results[0]);
+					return;
+				}
+			}
+		}
+	}
+	sessionFetchCount++;
+
+	// Tier 2: Thompson Pool A
 	if(typeof window.getFilteredPoolA === 'function'){
 		var candidates = window.getFilteredPoolA(taxonIdChoices, regionIdChoices, seenCards);
 		var winner = thompsonDraw(candidates);
@@ -1164,10 +1559,10 @@ async function fetchAndPushCard() {
 			if(result && result.results && result.results[0]){
 				pushToHistory(result.results[0]);
 				return;
-				// Note: iteration is NOT advanced — we haven't consumed an iNat slot
 			}
 		}
 	}
+	// Tier 3: Shuffled deck
 	// Advance fetch cursor and derive page from the shuffled deck
 	if(iteration < totalEntries - 1) iteration++;
 	var slot = entryIndexes[iteration];
@@ -1264,6 +1659,16 @@ function setupFilterModal(){
 }
 
 setupFilterModal();
+
+// SR toggle
+(function(){
+	var toggle = document.getElementById('srToggle');
+	toggle.checked = srEnabled;
+	toggle.addEventListener('change', function(){
+		srEnabled = this.checked;
+		try { localStorage.setItem('srEnabled', String(srEnabled)); } catch(e) {}
+	});
+})();
 
 // More section toggle
 document.getElementById('moreToggle').addEventListener('click', function(){
