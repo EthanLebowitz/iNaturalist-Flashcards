@@ -64,6 +64,8 @@
   --blue:    #89b4fa;
   --sapphire:#74c7ec;
   --teal:    #94e2d5;
+  --green:   #a6e3a1;
+  --red:     #f38ba8;
   --mauve:   #cba6f7;
 }
 
@@ -286,7 +288,7 @@ a:hover { color: var(--lavender); text-decoration: underline; }
 .rating-btn:hover:not(:disabled) { background: var(--surface2); }
 .rating-btn:disabled { opacity: 0.45; cursor: default; }
 .rating-btn.active-up { background: rgba(148,226,213,0.2); outline: 1px solid var(--teal); }
-.rating-btn.active-down { background: rgba(243,139,168,0.2); outline: 1px solid #f38ba8; }
+.rating-btn.active-down { background: rgba(243,139,168,0.2); outline: 1px solid var(--red); }
 
 /* ── Divider ── */
 .divider {
@@ -596,9 +598,9 @@ select {
 .report-btn--correct { background: rgba(148,226,213,0.15); color: var(--teal); }
 .report-btn--correct:hover:not(:disabled) { background: rgba(148,226,213,0.28); }
 .report-btn--correct.active { background: rgba(148,226,213,0.3); box-shadow: inset 0 0 0 1.5px var(--teal); }
-.report-btn--incorrect { background: rgba(243,139,168,0.15); color: #f38ba8; }
+.report-btn--incorrect { background: rgba(243,139,168,0.15); color: var(--red); }
 .report-btn--incorrect:hover:not(:disabled) { background: rgba(243,139,168,0.28); }
-.report-btn--incorrect.active { background: rgba(243,139,168,0.3); box-shadow: inset 0 0 0 1.5px #f38ba8; }
+.report-btn--incorrect.active { background: rgba(243,139,168,0.3); box-shadow: inset 0 0 0 1.5px var(--red); }
 .self-report-feedback {
   font-size: 12px;
   color: var(--subtext0);
@@ -666,8 +668,8 @@ select {
 }
 .grid-tile:hover { transform: scale(1.2); }
 .grid-tile--unseen { background: var(--surface1); }
-.grid-tile--correct { background: #40a02b; }
-.grid-tile--incorrect { background: #d20f39; }
+.grid-tile--correct { background: var(--green); }
+.grid-tile--incorrect { background: var(--red); }
 .grid-tile--active { outline: 2px solid var(--blue); outline-offset: 2px; }
 
 /* ── Responsive ── */
@@ -814,6 +816,8 @@ select {
   window.loadAttempt = async function(cardId) {
     const feedback = document.getElementById('selfReportFeedback');
     if (feedback) feedback.textContent = '';
+    // SR re-reviews always get fresh buttons regardless of prior submission
+    if (window.srReviewCards && window.srReviewCards.has(Number(cardId))) return;
     // Session cache: due time was saved in window.lastReportDueAt on submission
     if (window.reportResults && window.reportResults[Number(cardId)]) {
       var cachedDueMs = window.lastReportDueAt && window.lastReportDueAt[Number(cardId)];
@@ -917,6 +921,9 @@ select {
       }
       txn.set(attemptRef, attemptData, { merge: true });
     });
+
+    // Card has been reported — remove SR re-review flag so back-navigation shows submitted state
+    if (window.srReviewCards) window.srReviewCards.delete(Number(cardId));
 
     // Cache due time (incorrect only) so loadAttempt can restore feedback without a second read
     if (!window.lastReportDueAt) window.lastReportDueAt = {};
@@ -1149,6 +1156,7 @@ var IDsAt10kMarkers = []; //entry ID for the 10,000th entry, the 20,000th entry,
 
 window.reportResults = {};    // cardId → 'correct'|'incorrect', session-scoped for grid rendering
 window.lastReportDueAt = {};  // cardId → dueAt ms, populated by submitReport for loadAttempt feedback
+window.srReviewCards = new Set(); // card IDs currently being shown as SR re-reviews; gets fresh buttons
 var selfReportShownForCurrentCard = false;
 var srEnabled = (function(){
   try { return localStorage.getItem('srEnabled') !== 'false'; } catch(e) { return true; }
@@ -1218,6 +1226,7 @@ function initializePostIndexGen(){ //sets up first card fetch after index genera
 	sessionSRCount = 0;
 	window.reportResults = {};
 	window.lastReportDueAt = {};
+	window.srReviewCards = new Set();
 	document.getElementById("totalObs").innerHTML = totalEntries+" Cards Generated";
 	document.getElementById("entryTotal").innerHTML = totalEntries+" Cards Generated";
 	renderSessionGrid();
@@ -1445,8 +1454,8 @@ function parseEntry(entry) { //gets list of photo ids from entry
 	gotBtn.disabled = false;
 	missedBtn.disabled = false;
 	document.getElementById('selfReportFeedback').textContent = '';
-	// Restore session-cached report state synchronously to avoid flicker on back-navigation
-	if(window.reportResults[entryID]){
+	// Restore session-cached report state on back-navigation; SR re-reviews get fresh buttons
+	if(window.reportResults[entryID] && !window.srReviewCards.has(entryID)){
 		gotBtn.disabled = true;
 		missedBtn.disabled = true;
 		if(window.reportResults[entryID] === 'correct') gotBtn.classList.add('active');
@@ -1540,6 +1549,7 @@ async function fetchAndPushCard() {
 			if(dueCard){
 				var srResult = await getData("https://api.inaturalist.org/v1/observations/" + dueCard.id);
 				if(srResult && srResult.results && srResult.results[0]){
+					window.srReviewCards.add(srResult.results[0].id);
 					sessionSRCount++;
 					sessionFetchCount++;
 					pushToHistory(srResult.results[0]);
