@@ -256,6 +256,38 @@ a:hover { color: var(--lavender); text-decoration: underline; }
   text-align: left;
 }
 
+/* ── Card rating ── */
+.rating-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rating-section .rating-btn + .rating-btn {
+  margin-left: -8px;
+}
+
+.rating-label {
+  font-size: 13px;
+  color: var(--subtext0);
+}
+
+.rating-btn {
+  background: var(--surface1);
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  line-height: 1;
+}
+
+.rating-btn:hover:not(:disabled) { background: var(--surface2); }
+.rating-btn:disabled { opacity: 0.45; cursor: default; }
+.rating-btn.active-up { background: rgba(148,226,213,0.2); outline: 1px solid var(--teal); }
+.rating-btn.active-down { background: rgba(243,139,168,0.2); outline: 1px solid #f38ba8; }
+
 /* ── Divider ── */
 .divider {
   border: none;
@@ -518,6 +550,64 @@ select {
 			  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 			  crossorigin="anonymous">
 </script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+  import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc, setDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD_StgI5Ka3wdHFVjjfxH7p2_W1P4eUpJg",
+    authDomain: "track-cards-585dc.firebaseapp.com",
+    projectId: "track-cards-585dc",
+    storageBucket: "track-cards-585dc.firebasestorage.app",
+    messagingSenderId: "170711990598",
+    appId: "1:170711990598:web:3cd6655ee8ec9a1b84e547"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  let currentUser = null;
+
+  onAuthStateChanged(auth, (user) => { currentUser = user; });
+  signInAnonymously(auth);
+
+  window.loadRating = async function(cardId) {
+    const upBtn = document.getElementById('thumbsUp');
+    const downBtn = document.getElementById('thumbsDown');
+    upBtn.className = 'rating-btn';
+    downBtn.className = 'rating-btn';
+    upBtn.disabled = false;
+    downBtn.disabled = false;
+    if (!currentUser) return;
+    const snap = await getDoc(doc(db, 'users', currentUser.uid, 'ratings', String(cardId)));
+    if (snap.exists()) {
+      const val = snap.data().rating;
+      if (val === 1) upBtn.classList.add('active-up');
+      else downBtn.classList.add('active-down');
+      upBtn.disabled = true;
+      downBtn.disabled = true;
+    }
+  };
+
+  window.submitRating = async function(value) {
+    const cardId = window.currentCardId;
+    if (!currentUser || !cardId) return;
+    const upBtn = document.getElementById('thumbsUp');
+    const downBtn = document.getElementById('thumbsDown');
+    upBtn.disabled = true;
+    downBtn.disabled = true;
+    if (value === 1) upBtn.classList.add('active-up');
+    else downBtn.classList.add('active-down');
+    const ratingRef = doc(db, 'users', currentUser.uid, 'ratings', String(cardId));
+    if ((await getDoc(ratingRef)).exists()) return;
+    await setDoc(ratingRef, { rating: value, timestamp: serverTimestamp() });
+    await setDoc(doc(db, 'cards', String(cardId)), {
+      thumbsUp: increment(value === 1 ? 1 : 0),
+      thumbsDown: increment(value === -1 ? 1 : 0)
+    }, { merge: true });
+  };
+</script>
 </head> 
 <body>
 	
@@ -531,16 +621,21 @@ select {
 	<div id="dots" style="margin-top:10px;"></div>
 
 </div></div>
-<div class="controls-panel">
-  <button type="submit" onclick="nextEntry(2)" class="subOptions wide">Shuffle Cards</button>	
+<div class="controls-panel">	
+	<button type="submit" onclick="showAnswer()" class="options wide" id="showAnswer">Show Answer</button>
+	<div id="answer"></div>
+  <div class="rating-section">
+    <span class="rating-label">Is this a good flashcard?</span>
+    <button id="thumbsUp" class="rating-btn" onclick="submitRating(1)" title="Thumbs up">👍</button>
+    <button id="thumbsDown" class="rating-btn" onclick="submitRating(-1)" title="Thumbs down">👎</button>
+  </div>
+	<hr class="divider">
 	<div class="btn-row">
 	<button type="submit" onclick="nextEntry(0)" class="options">&#8592; Prev</button>
 	<button type="submit" onclick="nextEntry(1)" class="options">Next &#8594;</button>
 	</div>
-	<hr class="divider">
-	<button type="submit" onclick="showAnswer()" class="options wide" id="showAnswer">Show Answer</button>
-	<div id="answer"></div>
   <hr class="divider">
+  <button type="submit" onclick="nextEntry(2)" class="subOptions wide">Shuffle Cards</button>
   <div class="action-btn-row">
   <button type="submit" id="filterButton" class="subOptions wide">Filters (None)</button>
   <button type="submit" class="subOptions wide" id="infoButton">More Info</button>
@@ -954,6 +1049,7 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 	
 function parseEntry(entry) { //gets list of photo ids from entry
 	var entryID = entry.id; //gets entry ID
+	window.currentCardId = entryID;
 	window.location.hash=""; //set anchor as id
 	var images = [];//list of image ids
 	for(i=0; i<entry.photos.length; i++){ //compiling list
@@ -962,6 +1058,7 @@ function parseEntry(entry) { //gets list of photo ids from entry
 	}
 	console.log(images);
 	generateHTML(images, entryID, entry);
+	if (typeof window.loadRating === 'function') window.loadRating(entryID);
 }
   
 function shuffle(a) { //shuffles a list
