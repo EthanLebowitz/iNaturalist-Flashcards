@@ -715,7 +715,7 @@ select {
   let poolACache = null;
   let srDueCards = new Map(); // cardId (number) → attemptData for currently-due SR cards
 
-  const SR_INTERVALS_MS = [60000, 600000, 86400000, 259200000, 604800000, 1814400000];
+  const SR_INTERVALS_MS = 60000 * 5; // 5 minutes
 
   async function loadPoolA() {
     const snap = await getDocs(collection(db, 'cards'));
@@ -913,7 +913,7 @@ select {
         updatedAt: serverTimestamp()
       };
       if (result === 'incorrect') {
-        newDueAtMs = Date.now() + SR_INTERVALS_MS[0];
+        newDueAtMs = Date.now() + SR_INTERVALS_MS;
         attemptData.dueAt = Timestamp.fromMillis(newDueAtMs);
       } else if (attemptSnap.exists() && attemptSnap.data().dueAt) {
         // Was in SR queue from a prior miss — clear it
@@ -1030,7 +1030,7 @@ select {
   <button type="submit" class="subOptions wide" id="infoButton">More Info</button>
   </div>
   <label class="sr-toggle-row">
-    <span>Spaced Repetition</span>
+    <span>Show missed cards again</span>
     <div class="toggle-switch">
       <input type="checkbox" id="srToggle">
       <span class="toggle-slider"></span>
