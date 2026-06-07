@@ -1401,13 +1401,13 @@ async function generateEntryIndexesList(){ //generates list of deck slots using 
 		}
 	}
 	else{ //if there are no filters
-		var rData = await getData(buildObsUrl({ page: 1, perPage: 1 }));
-		var internalTotalEntries = rData.total_results;
+		var internalTotalEntries = await getData(buildObsUrl({ page: 1, perPage: 1 }))
+			.then(function(rData){ return Math.min(rData.total_results, 10000); })
+			.catch(function(e){ console.error('deck count fetch failed:', e); return 0; });
 		totalEntries += internalTotalEntries;
 		for(var i=0; i<internalTotalEntries; i++){ //only one URL so urlIndex is always 0
 			entryIndexes.push([0, i]);
 		}
-		if(totalEntries > 10000){ getIDsAt10kMarkers(); }
 		shuffle(entryIndexes);
 		initializePostIndexGen();
 	}
@@ -1920,6 +1920,13 @@ setupFilterModal();
 		p.set('deck', key);
 		history.pushState(null, '', location.pathname + '?' + p.toString());
 
+		document.getElementById('slideshowContainer').innerHTML = '';
+		document.getElementById('dots').innerHTML = '';
+		document.getElementById('answer').innerHTML = '';
+		$('#answer').hide();
+		document.getElementById('showAnswer').innerHTML = 'Show Answer';
+		document.getElementById('entryTotal').innerHTML = 'Loading…';
+
 		resetFilterCheckboxes();
 		applyDeckFilterVisibility();
 
@@ -1933,11 +1940,11 @@ setupFilterModal();
 		window.reportResults = {}; window.lastReportDueAt = {}; window.srReviewCards = new Set();
 		renderSessionGrid();
 
-		if(typeof window.reloadDeckData === 'function') await window.reloadDeckData();
+		try {
+			if(typeof window.reloadDeckData === 'function') await window.reloadDeckData();
+		} catch(e) { console.error('reloadDeckData:', e); }
 		generateURLs();
 		generateEntryIndexesList();
-		$('#answer').hide();
-		document.getElementById('showAnswer').innerHTML = 'Show Answer';
 	}
 
 	sel.addEventListener('change', function(){ switchDeck(this.value); });
