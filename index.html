@@ -1148,7 +1148,47 @@ function pushToHistory(entry) {
 	parseEntry(entry);
 }
 
+// Sample from Gamma(a) using the log-sum method (exact for integer a >= 1)
+function sampleGamma(a) {
+	var s = 0;
+	for(var i = 0; i < a; i++) s -= Math.log(Math.random() || 1e-10);
+	return s;
+}
+
+// Sample from Beta(a, b) via the Gamma ratio
+function sampleBeta(a, b) {
+	var ga = sampleGamma(a), gb = sampleGamma(b);
+	return ga / (ga + gb);
+}
+
+// Thompson sampling over Pool A candidates.
+// Returns the winning card object, or null if a random iNat card (Beta(1,1)) won.
+function thompsonDraw(candidates) {
+	if(!candidates || candidates.length === 0) return null;
+	var bestCard = null, bestScore = -1;
+	candidates.forEach(function(card) {
+		var score = sampleBeta((card.thumbsUp || 0) + 1, (card.thumbsDown || 0) + 1);
+		if(score > bestScore){ bestScore = score; bestCard = card; }
+	});
+	// A random unseen iNat card is modelled as Beta(1,1) = Math.random().
+	// If the best Pool A card can't beat that, serve a fresh random card instead.
+	return bestScore > Math.random() ? bestCard : null;
+}
+
 async function fetchAndPushCard() {
+	// Thompson sampling: give Pool A a chance before the normal iNat positional fetch
+	if(typeof window.getFilteredPoolA === 'function'){
+		var candidates = window.getFilteredPoolA(taxonIdChoices, regionIdChoices, seenCards);
+		var winner = thompsonDraw(candidates);
+		if(winner){
+			var result = await getData("https://api.inaturalist.org/v1/observations/" + winner.id, 0);
+			if(result && result.results && result.results[0]){
+				pushToHistory(result.results[0]);
+				return;
+				// Note: iteration is NOT advanced — we haven't consumed an iNat slot
+			}
+		}
+	}
 	// Advance fetch cursor and derive page from the shuffled index list
 	if(iteration < totalEntries - 1) iteration++;
 	var secondaryIteration = entryIndexes[iteration].split(":");
