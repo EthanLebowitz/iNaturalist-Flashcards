@@ -532,6 +532,26 @@ select {
   gap: 6px;
 }
 
+/* ── More section ── */
+.more-toggle {
+  background: none;
+  border: none;
+  color: var(--subtext0);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 2px 0;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.more-toggle:hover { color: var(--text); background: var(--surface0); border-radius: 8px; }
+.more-toggle .chevron { display: inline-flex; align-items: center; transition: transform 0.2s; }
+.more-toggle.open .chevron { transform: rotate(180deg); }
+.more-body { display: flex; flex-direction: column; gap: 8px; }
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .controls-panel { flex: 1 1 100%; width: 100%; }
@@ -688,6 +708,7 @@ select {
 	<button type="submit" onclick="nextEntry(1)" class="options">Next &#8594;</button>
 	</div>
   <hr class="divider">
+  <div class="more-body" id="moreBody" style="display:none">
 <div class="action-btn-row">
   <button type="submit" id="filterButton" class="subOptions wide">Filters (None)</button>
   <button type="submit" class="subOptions wide" id="infoButton">More Info</button>
@@ -781,6 +802,10 @@ select {
     <div class="share-label">Share This Card</div>
     <div id="shareLink"></div>
   </div>
+  </div><!-- end more-body -->
+  <button class="more-toggle" id="moreToggle">
+    <span>More</span><span class="chevron"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+  </button>
 </div>
 </div>
 
@@ -1301,8 +1326,18 @@ function setupFilterModal(){
 	} 
 }
 	
-setupFilterModal();	
-	
+setupFilterModal();
+
+// More section toggle
+document.getElementById('moreToggle').addEventListener('click', function(){
+	var $body = $('#moreBody');
+	var isOpen = $body.is(':visible');
+	if(isOpen){ $body.slideUp(200); }
+	else { $body.slideDown(200); }
+	this.classList.toggle('open', !isOpen);
+	this.querySelector('span:first-child').textContent = isOpen ? 'More' : 'Less';
+});
+
 function setupInfoModal(){
 	// Get the modal
 	var infoModal = document.getElementById('infoModal');
