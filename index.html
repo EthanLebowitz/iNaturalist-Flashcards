@@ -635,8 +635,7 @@ select {
 	<button type="submit" onclick="nextEntry(1)" class="options">Next &#8594;</button>
 	</div>
   <hr class="divider">
-  <button type="submit" onclick="nextEntry(2)" class="subOptions wide">Shuffle Cards</button>
-  <div class="action-btn-row">
+<div class="action-btn-row">
   <button type="submit" id="filterButton" class="subOptions wide">Filters (None)</button>
   <button type="submit" class="subOptions wide" id="infoButton">More Info</button>
   </div>
@@ -716,7 +715,7 @@ select {
         All observations used to generate cards have "research grade" identifications (meaning a critical mass of identifiers have aggreed on an identification) assuring for some degree of recognizability. As of the time of this writing there are about 27500 observations with research grade identifications. Clicking Show Answer will reveal iNaturalist's identification of the tracks. I can't guarantee that 100% of these will be right.
       </p><p>
         By default Next runs through the cards from newest to oldest. Some cards will have more than one image associated with them. These can be navigated using the arrows. Clicking on an image will enlarge it. 
-        When the Shuffle Cards button is clicked the cards are reordered randomly. Filtering for species can be done with the Filter button. Filtered cards are automatically shuffled. I've only included filters for the most common species.
+        Cards are automatically shuffled. Filtering for species can be done with the Filter button. Filtered cards are also shuffled. I've only included filters for the most common species.
 	  </p><p>
         If you like this site, check out my other projects or get in touch at <a href="https://ethleb.com?utm_source=drugstats&utm_medium=referral&utm_campaign=footer_link" target="_blank" className="text-[#89b4fa]">ethleb.com</a>.
       </p><p>
@@ -743,14 +742,28 @@ select {
 })();
 
 var iteration = 0;
+var maxIteration = 0; //furthest position reached this session; seen-skip only applies past this frontier
 var page = 1;
 var data; //container for json
 var totalEntries=0;
-var shuffled = false;
+var shuffled = true; //default to shuffled on load
 var linkIndex=0;
 var internalTotalEntries;
 var anchored = (location.hash != "");
 var IDsAt10kMarkers = []; //entry ID for the 10,000th entry, the 20,000th entry, etc.
+
+// ---- seen-card tracking (localStorage; anon UID is per-browser anyway, so no Firestore needed) ----
+var SEEN_KEY = "seenCards";
+var seenCards = (function(){
+	try { return new Set(JSON.parse(localStorage.getItem(SEEN_KEY) || "[]")); }
+	catch(e){ return new Set(); }
+})();
+function isSeen(id){ return seenCards.has(Number(id)); }
+function markSeen(id){
+	if(id == null) return;
+	seenCards.add(Number(id));
+	try { localStorage.setItem(SEEN_KEY, JSON.stringify([...seenCards])); } catch(e){}
+}
 
 $('#answer').hide(); //hide the answer
 
@@ -788,15 +801,20 @@ function generateURLs(){ //generate filter urls — cross-product of species × 
 	
 function initializePostIndexGen(filtered){ //sets up first slideshow and shuffles indexes after indexes are generated
 	iteration = 0;
+	maxIteration = 0;
 	var secondaryIteration = entryIndexes[iteration].split(":"); //this and the next line are explained in the nextEntry function
 	linkIndex=secondaryIteration[0];
 	console.log("secondaryit",secondaryIteration);
 	console.log("finished gening indexes");
 	document.getElementById("totalObs").innerHTML = totalEntries+" Cards Generated"; //puts total entries in info
 	if(filtered){
-		page = parseFloat(secondaryIteration[1])+1;	
-	}
-	else{
+		page = parseFloat(secondaryIteration[1])+1;
+	} else if(shuffled){
+		// For the first card pick a random offset within the first 10k so we never need markers yet.
+		// Subsequent cards use the full shuffled entryIndexes (markers load in background).
+		var safeMax = Math.min(totalEntries, 10000);
+		page = Math.ceil(Math.random() * safeMax);
+	} else {
 		page=1;
 	}
 	document.getElementById("entryTotal").innerHTML = totalEntries+" Cards Generated"; //puts total entries in info
@@ -848,20 +866,21 @@ async function generateEntryIndexesList(){ //generates list of secondary iterati
 			}
 		}
 	}
-	else{ //if there are no filters 
-		var URL=baseUrl.replace("${page}", page).replace("${perpage}", function(){if(!shuffled){return 30;}else{return 1;}}); //use the baseURL which is just without any species filter
+	else{ //if there are no filters
+		var URL=baseUrl.replace("${page}", 1).replace("${perpage}", 1); //fetch 1 result just to learn total_results
 		var dat = $.getJSON(URL, function(rData) {
 			var internalTotalEntries = rData.total_results;
 			totalEntries+=internalTotalEntries; //get total entries
 			for(i=0; i<internalTotalEntries; i++){ //do the whole indexing thing. Only 0 gets tacked onto the beginning because there's only the one link.
 				entryIndexes.push(URLindex+":"+i);
 			}
-			
+
 			if(totalEntries > 10000){
 				console.log("10k");
 				getIDsAt10kMarkers();
 			}
-			
+
+			if(shuffled){ shuffle(entryIndexes); }
 			initializePostIndexGen(false);
 		});
 	}
@@ -1050,6 +1069,9 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 function parseEntry(entry) { //gets list of photo ids from entry
 	var entryID = entry.id; //gets entry ID
 	window.currentCardId = entryID;
+	window.currentEntry = entry; //expose full entry so the rating write can store filter metadata
+	markSeen(entryID); //record that this user has now seen this card
+	if(iteration > maxIteration) maxIteration = iteration;
 	window.location.hash=""; //set anchor as id
 	var images = [];//list of image ids
 	for(i=0; i<entry.photos.length; i++){ //compiling list
@@ -1089,7 +1111,8 @@ async function nextEntry(direction) { //triggered by buttons next entry, prev en
 		}	
 	}
 	else{ //if shuffle clicked
-		iteration = 0; 
+		iteration = 0;
+		maxIteration = 0;
 		entryIndexes=shuffle(entryIndexes); //shuffles secondary indexes
 		console.log("shuffled");
 	}
@@ -1122,6 +1145,12 @@ async function nextEntry(direction) { //triggered by buttons next entry, prev en
 	document.getElementById("showAnswer").innerHTML = "Show Answer";
 	console.log("iteration",iteration);
 	var entry = data.results[internalIteration];//defines entry as the xth entry on the page
+	// Skip cards already seen in a prior session, but only when pushing past the frontier —
+	// cards within the session's navigation history (iteration <= maxIteration) must stay reachable.
+	if(direction !== 0 && iteration > maxIteration && entry && isSeen(entry.id) && iteration < (totalEntries - 1)){
+		iteration++;
+		return nextEntry(direction);
+	}
 	parseEntry(entry);
 }
 	
