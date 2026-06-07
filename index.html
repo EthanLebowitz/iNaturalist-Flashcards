@@ -602,9 +602,16 @@ select {
     const ratingRef = doc(db, 'users', currentUser.uid, 'ratings', String(cardId));
     if ((await getDoc(ratingRef)).exists()) return;
     await setDoc(ratingRef, { rating: value, timestamp: serverTimestamp() });
+    const entry = window.currentEntry;
+    const taxonId = entry && entry.taxon ? entry.taxon.id : null;
+    const ancestorIds = entry && entry.taxon && entry.taxon.ancestor_ids ? entry.taxon.ancestor_ids : [];
+    const placeIds = entry && entry.place_ids ? entry.place_ids : [];
     await setDoc(doc(db, 'cards', String(cardId)), {
       thumbsUp: increment(value === 1 ? 1 : 0),
-      thumbsDown: increment(value === -1 ? 1 : 0)
+      thumbsDown: increment(value === -1 ? 1 : 0),
+      taxonId: taxonId,
+      ancestorIds: ancestorIds,
+      placeIds: placeIds
     }, { merge: true });
   };
 </script>
