@@ -937,6 +937,17 @@ window.DEFAULT_DECK = "tracking";
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
+
+  // ── Analytics ────────────────────────────────────────────────────────────────
+  // GA4 is already loaded via the gtag.js snippet in <head> (measurement id
+  // G-1PLNMCYXMQ). Route all custom events through it — no separate SDK needed.
+  // track(name, params) is exposed globally for the classic script and used here too.
+  function track(name, params) {
+    if (typeof window.gtag !== "function") return;
+    try { window.gtag("event", name, params || {}); } catch (e) {}
+  }
+  window.track = track;
+  track("deck_view", { deck: dk() });
   let currentUser = null;
   let poolACache = null;
   let srDueCards = new Map(); // cardId (number) → attemptData for currently-due SR cards
@@ -973,7 +984,10 @@ window.DEFAULT_DECK = "tracking";
 
   onAuthStateChanged(auth, (user) => {
     currentUser = user;
-    if (user) { loadPoolA(); loadDueSRCards(); }
+    if (user) {
+      if (typeof window.gtag === "function") window.gtag("set", { user_id: user.uid });
+      loadPoolA(); loadDueSRCards();
+    }
   });
   signInAnonymously(auth);
 
@@ -1093,6 +1107,8 @@ window.DEFAULT_DECK = "tracking";
     else missedBtn.classList.add('active');
     if (feedback) feedback.textContent = 'Saving…';
 
+    track("self_report", { deck: dk(), result: result, taxon_id: (entry && entry.taxon ? entry.taxon.id : null) });
+
     // Update session cache so the grid and button state restore correctly on navigation
     if (!window.reportResults) window.reportResults = {};
     window.reportResults[Number(cardId)] = result;
@@ -1205,6 +1221,7 @@ window.DEFAULT_DECK = "tracking";
     else downBtn.classList.add('active-down');
     const ratingRef = ratingDoc(cardId);
     if ((await getDoc(ratingRef)).exists()) return;
+    track("card_rating", { deck: dk(), rating: value === 1 ? "up" : "down" });
     await setDoc(ratingRef, { rating: value, timestamp: serverTimestamp() });
     const entry = window.currentEntry;
     const taxonId = entry && entry.taxon ? entry.taxon.id : null;
@@ -1489,6 +1506,7 @@ function showAnswer(){
 	else{
 		$("#answer").slideDown(200);
 		document.getElementById("showAnswer").innerHTML = "Hide Answer";
+		if (window.track) window.track('answer_revealed', { deck: window.currentDeckKey });
 		if(!selfReportShownForCurrentCard){
 			selfReportShownForCurrentCard = true;
 			document.getElementById('selfReport').classList.add('is-visible');
@@ -1666,6 +1684,7 @@ function applyCheckboxFilters(){
 	document.getElementById("filterButton").innerHTML = totalActive > 0
 		? "Filters (" + totalActive + " Active)"
 		: "Filters (None)";
+	if (window.track) window.track('filter_applied', { deck: window.currentDeckKey, species_count: speciesChoices.length });
 	iteration = 0;
 	sessionHistory = [];
 	historyIndex = -1;
@@ -1770,6 +1789,7 @@ function parseEntry(entry) { //gets list of photo ids from entry
 	var entryID = entry.id; //gets entry ID
 	window.currentCardId = entryID;
 	window.currentEntry = entry;
+	if (window.track) window.track('card_shown', { deck: window.currentDeckKey, taxon_id: (entry.taxon ? entry.taxon.id : null) });
 	markSeen(entryID);
 	window.location.hash=""; //set anchor as id
 
@@ -1964,6 +1984,7 @@ async function fetchAndPushCard() {
 
 async function nextEntry(direction) {
 	if(anchored){ anchored = false; }
+	if (window.track) window.track('card_navigate', { deck: window.currentDeckKey, direction: direction === 0 ? 'prev' : 'next' });
 	window.location.hash = "";
 	if(direction === 0){ // Prev — always use session history, never fetch
 		if(historyIndex > 0){
@@ -2049,6 +2070,7 @@ setupFilterModal();
 		display.textContent = srIntervalMin;
 		try { localStorage.setItem('srIntervalMin', String(srIntervalMin)); } catch(e) {}
 		if(typeof window.setSRInterval === 'function') window.setSRInterval(srIntervalMin * 60000);
+		if (window.track) window.track('sr_interval_changed', { minutes: srIntervalMin });
 	}
 
 	stepDown.addEventListener('click', function(){ setInterval(srIntervalMin - 1); });
@@ -2110,6 +2132,7 @@ setupFilterModal();
 	async function switchDeck(key){
 		if(!window.MODES[key] || window.MODES[key].type !== 'deck') return;
 		if(key === window.currentDeckKey) return;
+		if (window.track) window.track('deck_switch', { deck: key, from_deck: window.currentDeckKey });
 		window.currentDeckKey = key;
 		var p = new URLSearchParams(location.search);
 		p.set('deck', key);
