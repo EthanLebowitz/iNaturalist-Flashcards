@@ -9,32 +9,38 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == userId;
     }
 
-    // Global card stats — any authenticated user can read and write.
-    // Written by submitRating (thumbsUp/thumbsDown) and submitReport (elo, counts).
-    match /cards/{cardId} {
-      allow read: if isAuthed();
-      allow write: if isAuthed();
+    // Shared card stats, per deck
+    match /decks/{deckKey}/cards/{cardId} {
+      allow read, write: if isAuthed();
+      allow delete: if false;
+    }
+
+    // Reserved: shared game item stats (e.g. puzzles), per game
+    match /games/{gameKey}/{document=**} {
+      allow read, write: if isAuthed();
       allow delete: if false;
     }
 
     match /users/{userId} {
 
-      // User ELO document — private, written by submitReport.
-      allow read, write: if isUser(userId);
-      allow delete: if false;
+      // Player ELO pool for any mode (deck or game)
+      match /pools/{modeKey} {
+        allow read, write: if isUser(userId);
+        allow delete: if false;
+      }
 
-      // Thumbs ratings — write-once, validated server-side.
-      match /ratings/{cardId} {
+      // Flashcard SR attempt records, per deck — private, read covers the dueAt <= now query
+      match /decks/{deckKey}/attempts/{cardId} {
+        allow read, write: if isUser(userId);
+        allow delete: if false;
+      }
+
+      // Thumbs ratings, per deck — write-once
+      match /decks/{deckKey}/ratings/{cardId} {
         allow read: if isUser(userId);
         allow create: if isUser(userId)
           && request.resource.data.rating in [1, -1];
         allow update, delete: if false;
-      }
-
-      // SR + ELO attempt records — private, read covers the dueAt <= now query.
-      match /attempts/{cardId} {
-        allow read, write: if isUser(userId);
-        allow delete: if false;
       }
     }
   }

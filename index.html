@@ -620,6 +620,14 @@ select {
   user-select: none;
 }
 .sr-toggle-row:hover { color: var(--text); }
+.deck-select-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--subtext0);
+  padding: 2px 2px;
+}
 .sr-interval-row {
   display: flex;
   align-items: center;
@@ -747,6 +755,28 @@ select {
 			  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 			  crossorigin="anonymous">
 </script>
+<script>
+window.MODES = {
+  tracking: {
+    type: "deck",
+    label: "Animal Tracks",
+    query: { project_id: 962 },
+    filters: true
+  },
+  birds: {
+    type: "deck",
+    label: "Birds",
+    query: { project_id: 6 },
+    filters: false
+  }
+};
+window.DEFAULT_DECK = "tracking";
+(function(){
+  var d = new URLSearchParams(location.search).get('deck');
+  var valid = d && window.MODES[d] && window.MODES[d].type === "deck";
+  window.currentDeckKey = valid ? d : window.DEFAULT_DECK;
+})();
+</script>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
   import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
@@ -771,8 +801,16 @@ select {
   let SR_INTERVALS_MS = 60000 * (function(){ try { return Math.max(1, parseInt(localStorage.getItem('srIntervalMin') || '5', 10)) || 5; } catch(e){ return 5; } }());
   window.setSRInterval = function(ms){ SR_INTERVALS_MS = ms; };
 
+  function dk() { return window.currentDeckKey || 'tracking'; }
+  function cardsCol() { return collection(db, 'decks', dk(), 'cards'); }
+  function cardDoc(id) { return doc(db, 'decks', dk(), 'cards', String(id)); }
+  function poolDoc() { return doc(db, 'users', currentUser.uid, 'pools', dk()); }
+  function attemptsCol() { return collection(db, 'users', currentUser.uid, 'decks', dk(), 'attempts'); }
+  function attemptDoc(id) { return doc(db, 'users', currentUser.uid, 'decks', dk(), 'attempts', String(id)); }
+  function ratingDoc(id) { return doc(db, 'users', currentUser.uid, 'decks', dk(), 'ratings', String(id)); }
+
   async function loadPoolA() {
-    const snap = await getDocs(collection(db, 'cards'));
+    const snap = await getDocs(cardsCol());
     poolACache = [];
     snap.forEach(d => poolACache.push({ id: Number(d.id), ...d.data() }));
     console.log('Pool A loaded:', poolACache.length, 'cards');
@@ -782,7 +820,7 @@ select {
     if (!currentUser) return;
     srDueCards = new Map();
     const q = query(
-      collection(db, 'users', currentUser.uid, 'attempts'),
+      attemptsCol(),
       where('dueAt', '<=', Timestamp.now())
     );
     const snap = await getDocs(q);
@@ -795,6 +833,12 @@ select {
     if (user) { loadPoolA(); loadDueSRCards(); }
   });
   signInAnonymously(auth);
+
+  window.reloadDeckData = async function() {
+    poolACache = null;
+    srDueCards = new Map();
+    if (currentUser) { await loadPoolA(); await loadDueSRCards(); }
+  };
 
   function _formatDuration(ms) {
     var s = Math.round(ms / 1000);
@@ -879,7 +923,7 @@ select {
       return;
     }
     if (!currentUser) return;
-    const snap = await getDoc(doc(db, 'users', currentUser.uid, 'attempts', String(cardId)));
+    const snap = await getDoc(attemptDoc(cardId));
     if (!snap.exists()) return;
     const d = snap.data();
     // Only update if the card hasn't changed since the async read started
@@ -920,9 +964,9 @@ select {
     const ancestorIds = entry && entry.taxon && entry.taxon.ancestor_ids ? entry.taxon.ancestor_ids : [];
     const placeIds = entry && entry.place_ids ? entry.place_ids : [];
 
-    const userRef  = doc(db, 'users', currentUser.uid);
-    const cardRef  = doc(db, 'cards', String(cardId));
-    const attemptRef = doc(db, 'users', currentUser.uid, 'attempts', String(cardId));
+    const userRef  = poolDoc();
+    const cardRef  = cardDoc(cardId);
+    const attemptRef = attemptDoc(cardId);
 
     var newDueAtMs;
 
@@ -997,7 +1041,7 @@ select {
     upBtn.disabled = false;
     downBtn.disabled = false;
     if (!currentUser) return;
-    const snap = await getDoc(doc(db, 'users', currentUser.uid, 'ratings', String(cardId)));
+    const snap = await getDoc(ratingDoc(cardId));
     if (snap.exists()) {
       const val = snap.data().rating;
       if (val === 1) upBtn.classList.add('active-up');
@@ -1016,14 +1060,14 @@ select {
     downBtn.disabled = true;
     if (value === 1) upBtn.classList.add('active-up');
     else downBtn.classList.add('active-down');
-    const ratingRef = doc(db, 'users', currentUser.uid, 'ratings', String(cardId));
+    const ratingRef = ratingDoc(cardId);
     if ((await getDoc(ratingRef)).exists()) return;
     await setDoc(ratingRef, { rating: value, timestamp: serverTimestamp() });
     const entry = window.currentEntry;
     const taxonId = entry && entry.taxon ? entry.taxon.id : null;
     const ancestorIds = entry && entry.taxon && entry.taxon.ancestor_ids ? entry.taxon.ancestor_ids : [];
     const placeIds = entry && entry.place_ids ? entry.place_ids : [];
-    await setDoc(doc(db, 'cards', String(cardId)), {
+    await setDoc(cardDoc(cardId), {
       thumbsUp: increment(value === 1 ? 1 : 0),
       thumbsDown: increment(value === -1 ? 1 : 0),
       taxonId, ancestorIds, placeIds
@@ -1082,6 +1126,10 @@ select {
 <div class="action-btn-row">
   <button type="submit" id="filterButton" class="subOptions wide">Filters (None)</button>
   <button type="submit" class="subOptions wide" id="infoButton">More Info</button>
+  </div>
+  <div class="deck-select-row">
+    <span>Deck</span>
+    <select id="deckSelect"></select>
   </div>
   <label class="sr-toggle-row">
     <span>Show missed cards again</span>
@@ -1226,17 +1274,18 @@ var srEnabled = (function(){
 var sessionFetchCount = 0; // total fetchAndPushCard calls this session (for SR 1-in-3 cap)
 var sessionSRCount = 0;    // SR cards served this session
 
-// ---- seen-card tracking (localStorage; anon UID is per-browser anyway, so no Firestore needed) ----
-var SEEN_KEY = "seenCards";
-var seenCards = (function(){
-	try { return new Set(JSON.parse(localStorage.getItem(SEEN_KEY) || "[]")); }
+// ---- seen-card tracking (localStorage; isolated per deck) ----
+function seenKey(){ return "seenCards:" + (window.currentDeckKey || 'tracking'); }
+function loadSeenForDeck(){
+	try { return new Set(JSON.parse(localStorage.getItem(seenKey()) || "[]")); }
 	catch(e){ return new Set(); }
-})();
+}
+var seenCards = loadSeenForDeck();
 function isSeen(id){ return seenCards.has(Number(id)); }
 function markSeen(id){
 	if(id == null) return;
 	seenCards.add(Number(id));
-	try { localStorage.setItem(SEEN_KEY, JSON.stringify([...seenCards])); } catch(e){}
+	try { localStorage.setItem(seenKey(), JSON.stringify([...seenCards])); } catch(e){}
 }
 
 $('#answer').hide(); //hide the answer
@@ -1257,7 +1306,11 @@ function showAnswer(){
 	}
 }
 	
-var INAT_BASE = "https://api.inaturalist.org/v1/observations?identified=true&photos=true&project_id=962&quality_grade=research&order=desc&order_by=created_at";
+function deckQueryString(){
+	var q = window.MODES[window.currentDeckKey].query || {};
+	return Object.keys(q).map(function(k){ return "&" + k + "=" + q[k]; }).join("");
+}
+let INAT_BASE = "https://api.inaturalist.org/v1/observations?identified=true&photos=true&quality_grade=research&order=desc&order_by=created_at" + deckQueryString();
 function buildObsUrl(opts) {
 	var url = INAT_BASE + "&page=" + opts.page + "&per_page=" + (opts.perPage || 1);
 	if(opts.marker) url += "&id_below=" + opts.marker;
@@ -1266,15 +1319,16 @@ function buildObsUrl(opts) {
 }
 var entryIndexes = [];  //where secondary iteration and associated url indexes are stored; each slot is [urlIndex, offset]
 var filterURLs = [];  //where species filtered urls are stored
-	
+
 function generateURLs(){ //generate filter urls — cross-product of species × regions
 	filterURLs = [];
+	if(!window.MODES[window.currentDeckKey].filters) return;
 	var speciesParams = taxonIdChoices.length > 0 ? taxonIdChoices : [""];
 	var regionParams  = regionIdChoices.length  > 0 ? regionIdChoices  : [""];
 	speciesParams.forEach(function(sp){
 		regionParams.forEach(function(rp){
 			if(sp === "" && rp === "") return;
-			filterURLs.push("https://api.inaturalist.org/v1/observations?identified=true&photos=true&project_id=962&quality_grade=research&page=${page}&per_page=${perpage}&order=desc&order_by=created_at" + sp + rp);
+			filterURLs.push("https://api.inaturalist.org/v1/observations?identified=true&photos=true&quality_grade=research&page=${page}&per_page=${perpage}&order=desc&order_by=created_at" + deckQueryString() + sp + rp);
 		});
 	});
 }
@@ -1794,6 +1848,80 @@ setupFilterModal();
 		srEnabled = this.checked;
 		try { localStorage.setItem('srEnabled', String(srEnabled)); } catch(e) {}
 		updateIntervalVisibility();
+	});
+})();
+
+// Deck selector
+(function(){
+	var sel = document.getElementById('deckSelect');
+	Object.keys(window.MODES).forEach(function(key){
+		var m = window.MODES[key];
+		if(m.type !== 'deck') return;
+		var opt = document.createElement('option');
+		opt.value = key;
+		opt.textContent = m.label;
+		if(key === window.currentDeckKey) opt.selected = true;
+		sel.appendChild(opt);
+	});
+
+	function applyDeckFilterVisibility(){
+		var showFilters = !!(window.MODES[window.currentDeckKey] && window.MODES[window.currentDeckKey].filters);
+		document.getElementById('filterButton').style.display = showFilters ? '' : 'none';
+	}
+	applyDeckFilterVisibility();
+
+	function resetFilterCheckboxes(){
+		var allSpeciesCb = document.getElementById('allSpecies');
+		if(allSpeciesCb){
+			allSpeciesCb.checked = true;
+			document.querySelectorAll('#speciesList input[type="checkbox"]:not(#allSpecies)').forEach(function(cb){ cb.checked = false; });
+		}
+		var allRegionsCb = document.getElementById('allRegions');
+		if(allRegionsCb){
+			allRegionsCb.checked = true;
+			document.querySelectorAll('#regionList input[type="checkbox"]:not(#allRegions)').forEach(function(cb){ cb.checked = false; });
+		}
+		document.getElementById('filterButton').innerHTML = 'Filters (None)';
+	}
+
+	async function switchDeck(key){
+		if(!window.MODES[key] || window.MODES[key].type !== 'deck') return;
+		if(key === window.currentDeckKey) return;
+		window.currentDeckKey = key;
+		var p = new URLSearchParams(location.search);
+		p.set('deck', key);
+		history.pushState(null, '', location.pathname + '?' + p.toString());
+
+		resetFilterCheckboxes();
+		applyDeckFilterVisibility();
+
+		INAT_BASE = "https://api.inaturalist.org/v1/observations?identified=true&photos=true&quality_grade=research&order=desc&order_by=created_at" + deckQueryString();
+
+		taxonIdChoices = []; regionIdChoices = [];
+		speciesChoices = []; regionChoices = [];
+		iteration = 0; sessionHistory = []; historyIndex = -1;
+		page = 1; linkIndex = 0; IDsAt10kMarkers = [];
+		seenCards = loadSeenForDeck();
+		window.reportResults = {}; window.lastReportDueAt = {}; window.srReviewCards = new Set();
+		renderSessionGrid();
+
+		if(typeof window.reloadDeckData === 'function') await window.reloadDeckData();
+		generateURLs();
+		generateEntryIndexesList();
+		$('#answer').hide();
+		document.getElementById('showAnswer').innerHTML = 'Show Answer';
+	}
+
+	sel.addEventListener('change', function(){ switchDeck(this.value); });
+
+	window.addEventListener('popstate', function(){
+		var d = new URLSearchParams(location.search).get('deck');
+		var valid = d && window.MODES[d] && window.MODES[d].type === 'deck';
+		var next = valid ? d : window.DEFAULT_DECK;
+		if(next !== window.currentDeckKey){
+			sel.value = next;
+			switchDeck(next);
+		}
 	});
 })();
 
