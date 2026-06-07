@@ -761,13 +761,25 @@ window.MODES = {
     type: "deck",
     label: "Animal Tracks",
     query: { project_id: 962 },
-    filters: true
+    filters: { species: true, region: true }
   },
   birds: {
     type: "deck",
     label: "Birds",
-    query: { project_id: 6 },
-    filters: false
+    query: { taxon_id: 3 },
+    filters: { species: false, region: true }
+  },
+  feathers: {
+    type: "deck",
+    label: "Feathers",
+    query: { project_id: 11413 },
+    filters: { species: false, region: true }
+  },
+  skulls: {
+    type: "deck",
+    label: "Skulls & Bones",
+    query: { project_id: 488 },
+    filters: { species: false, region: true }
   }
 };
 window.DEFAULT_DECK = "tracking";
@@ -1148,7 +1160,7 @@ window.DEFAULT_DECK = "tracking";
   </div>
   <div class="modal" id="filterModal"><div class="filterContent">
 	<span class="close">&times;</span>
-	<div class="filter-section">
+	<div class="filter-section" id="speciesFilterSection">
 	<h3 class="filter-heading">Filter by Species</h3>
 	<div class="filter-list" id="speciesList">
 		<label class="filter-item filter-item--all"><input type="checkbox" id="allSpecies" checked><span class="filter-check"></span>All Species</label>
@@ -1190,11 +1202,17 @@ window.DEFAULT_DECK = "tracking";
 		<label class="filter-item"><input type="checkbox" value="&taxon_id=41789" data-name="American Badger"><span class="filter-check"></span>American Badger</label>
 	</div>
 	</div>
-	<hr class="filter-section-divider">
+	<hr class="filter-section-divider" id="speciesDivider">
 	<div class="filter-section">
 	<h3 class="filter-heading">Filter by Region</h3>
 	<div class="filter-list filter-list--short" id="regionList">
 		<label class="filter-item filter-item--all"><input type="checkbox" id="allRegions" checked><span class="filter-check"></span>All Regions</label>
+		<label class="filter-item"><input type="checkbox" value="&place_id=97394" data-name="North America"><span class="filter-check"></span>North America</label>
+		<label class="filter-item"><input type="checkbox" value="&place_id=97389" data-name="South America"><span class="filter-check"></span>South America</label>
+		<label class="filter-item"><input type="checkbox" value="&place_id=97391" data-name="Europe"><span class="filter-check"></span>Europe</label>
+		<label class="filter-item"><input type="checkbox" value="&place_id=97392" data-name="Africa"><span class="filter-check"></span>Africa</label>
+		<label class="filter-item"><input type="checkbox" value="&place_id=97395" data-name="Asia"><span class="filter-check"></span>Asia</label>
+		<label class="filter-item"><input type="checkbox" value="&place_id=97393" data-name="Oceania"><span class="filter-check"></span>Oceania</label>
 		<label class="filter-item"><input type="checkbox" value="&place_id=1" data-name="United States"><span class="filter-check"></span>United States</label>
 		<label class="filter-item"><input type="checkbox" value="&place_id=6712" data-name="Canada"><span class="filter-check"></span>Canada</label>
 		<label class="filter-item"><input type="checkbox" value="&place_id=6793" data-name="Mexico"><span class="filter-check"></span>Mexico</label>
@@ -1322,9 +1340,9 @@ var filterURLs = [];  //where species filtered urls are stored
 
 function generateURLs(){ //generate filter urls — cross-product of species × regions
 	filterURLs = [];
-	if(!window.MODES[window.currentDeckKey].filters) return;
-	var speciesParams = taxonIdChoices.length > 0 ? taxonIdChoices : [""];
-	var regionParams  = regionIdChoices.length  > 0 ? regionIdChoices  : [""];
+	var df = window.MODES[window.currentDeckKey].filters || {};
+	var speciesParams = (df.species && taxonIdChoices.length > 0) ? taxonIdChoices : [""];
+	var regionParams  = (df.region  && regionIdChoices.length  > 0) ? regionIdChoices  : [""];
 	speciesParams.forEach(function(sp){
 		regionParams.forEach(function(rp){
 			if(sp === "" && rp === "") return;
@@ -1433,18 +1451,23 @@ var regionIdChoices=[];
 
 function applyCheckboxFilters(){
 	if(anchored){anchored=false;}
+	var df = (window.MODES[window.currentDeckKey] && window.MODES[window.currentDeckKey].filters) || {};
 	speciesChoices=[];
 	taxonIdChoices=[];
-	document.querySelectorAll('#speciesList input[type="checkbox"]:not(#allSpecies):checked').forEach(function(cb){
-		speciesChoices.push(cb.dataset.name);
-		taxonIdChoices.push(cb.value);
-	});
+	if(df.species){
+		document.querySelectorAll('#speciesList input[type="checkbox"]:not(#allSpecies):checked').forEach(function(cb){
+			speciesChoices.push(cb.dataset.name);
+			taxonIdChoices.push(cb.value);
+		});
+	}
 	regionChoices=[];
 	regionIdChoices=[];
-	document.querySelectorAll('#regionList input[type="checkbox"]:not(#allRegions):checked').forEach(function(cb){
-		regionChoices.push(cb.dataset.name);
-		regionIdChoices.push(cb.value);
-	});
+	if(df.region){
+		document.querySelectorAll('#regionList input[type="checkbox"]:not(#allRegions):checked').forEach(function(cb){
+			regionChoices.push(cb.dataset.name);
+			regionIdChoices.push(cb.value);
+		});
+	}
 	var totalActive = speciesChoices.length + regionChoices.length;
 	document.getElementById("filterButton").innerHTML = totalActive > 0
 		? "Filters (" + totalActive + " Active)"
@@ -1865,8 +1888,13 @@ setupFilterModal();
 	});
 
 	function applyDeckFilterVisibility(){
-		var showFilters = !!(window.MODES[window.currentDeckKey] && window.MODES[window.currentDeckKey].filters);
-		document.getElementById('filterButton').style.display = showFilters ? '' : 'none';
+		var df = (window.MODES[window.currentDeckKey] && window.MODES[window.currentDeckKey].filters) || {};
+		var anyFilter = !!(df.species || df.region);
+		document.getElementById('filterButton').style.display = anyFilter ? '' : 'none';
+		var speciesSection = document.getElementById('speciesFilterSection');
+		var speciesDivider = document.getElementById('speciesDivider');
+		if(speciesSection) speciesSection.style.display = df.species ? '' : 'none';
+		if(speciesDivider) speciesDivider.style.display = df.species ? '' : 'none';
 	}
 	applyDeckFilterVisibility();
 
