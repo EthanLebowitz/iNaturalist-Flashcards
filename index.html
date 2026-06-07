@@ -553,7 +553,7 @@ select {
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
   import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-  import { getFirestore, doc, getDoc, setDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+  import { getFirestore, doc, getDoc, setDoc, getDocs, collection, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyD_StgI5Ka3wdHFVjjfxH7p2_W1P4eUpJg",
@@ -568,9 +568,41 @@ select {
   const auth = getAuth(app);
   const db = getFirestore(app);
   let currentUser = null;
+  let poolACache = null; // all rated cards, loaded once per session
 
-  onAuthStateChanged(auth, (user) => { currentUser = user; });
+  async function loadPoolA() {
+    const snap = await getDocs(collection(db, 'cards'));
+    poolACache = [];
+    snap.forEach(d => poolACache.push({ id: Number(d.id), ...d.data() }));
+    console.log('Pool A loaded:', poolACache.length, 'cards');
+  }
+
+  onAuthStateChanged(auth, (user) => {
+    currentUser = user;
+    if (user) loadPoolA();
+  });
   signInAnonymously(auth);
+
+  // Returns Pool A candidates matching the active filters, excluding already-seen cards.
+  // taxonIdChoices / regionIdChoices are the raw checkbox values ("&taxon_id=41799" etc.)
+  // seenSet is the Set of seen card IDs from the main script.
+  window.getFilteredPoolA = function(taxonIdChoices, regionIdChoices, seenSet) {
+    if (!poolACache) return [];
+    const activeTaxonIds = taxonIdChoices.map(v => parseInt(v.split('=')[1]));
+    const activePlaceIds = regionIdChoices.map(v => parseInt(v.split('=')[1]));
+    return poolACache.filter(card => {
+      if (seenSet && seenSet.has(card.id)) return false;
+      if (activeTaxonIds.length > 0) {
+        const ancestors = card.ancestorIds || [];
+        if (!activeTaxonIds.some(id => ancestors.includes(id))) return false;
+      }
+      if (activePlaceIds.length > 0) {
+        const places = card.placeIds || [];
+        if (!activePlaceIds.some(id => places.includes(id))) return false;
+      }
+      return true;
+    });
+  };
 
   window.loadRating = async function(cardId) {
     const upBtn = document.getElementById('thumbsUp');
@@ -613,6 +645,20 @@ select {
       ancestorIds: ancestorIds,
       placeIds: placeIds
     }, { merge: true });
+    // Keep local Pool A cache in sync so Thompson sampling stays accurate this session
+    if (poolACache) {
+      const existing = poolACache.find(c => c.id === Number(cardId));
+      if (existing) {
+        if (value === 1) existing.thumbsUp = (existing.thumbsUp || 0) + 1;
+        else existing.thumbsDown = (existing.thumbsDown || 0) + 1;
+      } else {
+        poolACache.push({
+          id: Number(cardId), taxonId, ancestorIds, placeIds,
+          thumbsUp: value === 1 ? 1 : 0,
+          thumbsDown: value === -1 ? 1 : 0
+        });
+      }
+    }
   };
 </script>
 </head> 
