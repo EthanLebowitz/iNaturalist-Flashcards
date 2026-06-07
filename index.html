@@ -67,6 +67,7 @@
   --green:   #a6e3a1;
   --red:     #f38ba8;
   --mauve:   #cba6f7;
+  --yellow:  #f9e2af;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -661,6 +662,34 @@ select {
   min-height: 1.4em;
   text-align: center;
 }
+.sr-info-panel {
+  display: none;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: -2px;
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  background: rgba(249,226,175,0.13);
+  border: 1px solid rgba(249,226,175,0.35);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--yellow);
+  line-height: 1.4;
+}
+.sr-info-panel.is-visible { display: flex; }
+.sr-info-text { flex: 1; }
+.sr-info-dismiss {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  color: var(--yellow);
+  opacity: 0.7;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+}
+.sr-info-dismiss:hover { opacity: 1; }
 
 /* ── SR slide toggle ── */
 .sr-toggle-row {
@@ -1225,6 +1254,10 @@ window.DEFAULT_DECK = "tracking";
     </div>
     <div class="self-report-feedback" id="selfReportFeedback"></div>
   </div>
+  <div class="sr-info-panel" id="srInfoPanel">
+    <span class="sr-info-text">Missed cards will be shown again in a few minutes. This can be configured in settings.</span>
+    <button class="sr-info-dismiss" id="srInfoDismiss" aria-label="Dismiss">&times;</button>
+  </div>
   <div class="rating-section">
     <span class="rating-label">Is this a good flashcard?</span>
     <button id="thumbsUp" class="rating-btn" onclick="submitRating(1)" title="Thumbs up">👍</button>
@@ -1428,6 +1461,25 @@ function saveLocationFilter(obj){ try { if(obj) localStorage.setItem('locationFi
 
 $('#answer').hide(); //hide the answer
 
+// One-time hint: shown only the very first time the self-report buttons appear, ever.
+// The "shown" flag is set immediately on display so it never reappears, across sessions,
+// whether or not the user explicitly dismisses it.
+function maybeShowSRInfo(){
+	var panel = document.getElementById('srInfoPanel');
+	if(!panel) return;
+	var shown = false;
+	try { shown = !!localStorage.getItem('srInfoShown'); } catch(e){}
+	if(shown) return;
+	panel.classList.add('is-visible');
+	try { localStorage.setItem('srInfoShown', '1'); } catch(e){}
+}
+(function(){
+	var btn = document.getElementById('srInfoDismiss');
+	if(btn) btn.onclick = function(){
+		document.getElementById('srInfoPanel').classList.remove('is-visible');
+	};
+})();
+
 function showAnswer(){
 	var isVisible = document.getElementById("answer").offsetWidth > 0 || document.getElementById("answer").offsetHeight > 0;
 	if(isVisible){
@@ -1440,6 +1492,7 @@ function showAnswer(){
 		if(!selfReportShownForCurrentCard){
 			selfReportShownForCurrentCard = true;
 			document.getElementById('selfReport').classList.add('is-visible');
+			maybeShowSRInfo();
 		}
 	}
 }
@@ -1723,6 +1776,7 @@ function parseEntry(entry) { //gets list of photo ids from entry
 	// Reset self-report UI for the new card
 	selfReportShownForCurrentCard = false;
 	document.getElementById('selfReport').classList.remove('is-visible');
+	document.getElementById('srInfoPanel').classList.remove('is-visible');
 	var gotBtn = document.getElementById('gotItBtn');
 	var missedBtn = document.getElementById('missedItBtn');
 	gotBtn.classList.remove('active');
