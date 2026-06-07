@@ -829,7 +829,6 @@ var historyIndex = -1;  // pointer into sessionHistory; -1 means nothing shown y
 var page = 1;
 var data; //container for json
 var totalEntries=0;
-var shuffled = true; //default to shuffled on load
 var linkIndex=0;
 var internalTotalEntries;
 var anchored = (location.hash != "");
@@ -869,9 +868,7 @@ function buildObsUrl(opts) {
 	if(opts.filter) url += opts.filter;
 	return url;
 }
-// kept for legacy callers in generateEntryIndexesList; uses buildObsUrl internally
-var baseUrl = INAT_BASE + "&page=${page}&per_page=${perpage}";
-var entryIndexes = [];  //where secondary iteration and associated url indexes are stored
+var entryIndexes = [];  //where secondary iteration and associated url indexes are stored; each slot is [urlIndex, offset]
 var filterURLs = [];  //where species filtered urls are stored
 	
 function generateURLs(){ //generate filter urls — cross-product of species × regions
@@ -909,10 +906,9 @@ async function getIDsAt10kMarkers(){
 	}
 }	
 	
-async function generateEntryIndexesList(){ //generates list of secondary iterations (indexes) using the filterURLs list
+async function generateEntryIndexesList(){ //generates list of deck slots using the filterURLs list
 	entryIndexes=[]; //resets
 	totalEntries=0;
-	var URLindex = 0; //tacks onto beginning of each secondary index so that it can be associated with an ID
 	if(filterURLs.length!=0){ //if there are filters
 		document.getElementById("entryTotal").innerHTML = "processing..."; //indicates that it's processing
 		for(var a=0; a<filterURLs.length; a++){
@@ -922,23 +918,21 @@ async function generateEntryIndexesList(){ //generates list of secondary iterati
 			dat = await $.getJSON(URL); //gets total count from server
 			internalTotalEntries = Math.min(await dat.total_results, 10000); //cap at API limit
 			totalEntries += internalTotalEntries;
-			for(var i=0; i<internalTotalEntries; i++){ //build index list: "urlIndex:entryOffset" per card
-				entryIndexes.push(URLindex+":"+i);
+			for(var i=0; i<internalTotalEntries; i++){ //build deck: [urlIndex, offset] per card
+				entryIndexes.push([a, i]);
 			}
-			URLindex++;
-			if(URLindex==filterURLs.length){ // must run after all filter URLs are processed; async response timing makes this unreliable if placed outside the loop
-				shuffle(entryIndexes); 
+			if(a === filterURLs.length - 1){ // must run after all filter URLs are processed; async response timing makes this unreliable if placed outside the loop
+				shuffle(entryIndexes);
 				initializePostIndexGen();
 			}
 		}
 	}
 	else{ //if there are no filters
-		var URL=baseUrl.replace("${page}", 1).replace("${perpage}", 1); //fetch just 1 result to read total_results count
-		var dat = $.getJSON(URL, function(rData) {
+		var dat = $.getJSON(buildObsUrl({ page: 1, perPage: 1 }), function(rData) { //fetch just 1 result to read total_results count
 			var internalTotalEntries = rData.total_results;
 			totalEntries += internalTotalEntries;
-			for(var i=0; i<internalTotalEntries; i++){ //only one URL so URLindex is always 0
-				entryIndexes.push(URLindex+":"+i);
+			for(var i=0; i<internalTotalEntries; i++){ //only one URL so urlIndex is always 0
+				entryIndexes.push([0, i]);
 			}
 
 			if(totalEntries > 10000){ getIDsAt10kMarkers(); }
@@ -961,13 +955,12 @@ async function sendQueries(){ //decides what URL to use then fetches
 		if(page > 10000){ //need id_below marker to reach past the 10k API limit
 			url = buildObsUrl({ page: page % 10000, perPage: 1, marker: IDsAt10kMarkers[Math.floor(page / 10000) - 1] });
 		} else {
-			url = buildObsUrl({ page: page, perPage: shuffled ? 1 : 30 });
+			url = buildObsUrl({ page: page, perPage: 1 });
 		}
-		data = await getData(url);
-	} else { //filters active: use filter URL for this linkIndex; always 1 per page because it's shuffled
+	} else { //filters active: use filter URL for this linkIndex
 		url = filterURLs[linkIndex].replace("${page}", page).replace("${perpage}", 1);
-		data = await getData(url);
 	}
+	data = await getData(url);
 	return data;
 }	
 	
@@ -1079,7 +1072,7 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 	document.getElementById("linkObs").innerHTML = "<a href='"+entry.uri+"'>Go To Observation</a>";
 	document.getElementById("totalObs").innerHTML = totalEntries+" Cards";
 	document.getElementById("currentObs").innerHTML = "Current Card: "+(historyIndex+1);
-	document.getElementById("shuffled").innerHTML = "Shuffled: "+shuffled; //displays whether or not shuffled
+	document.getElementById("shuffled").innerHTML = "Shuffled";
 	var HTML="";
 	for(var i=0; i<images.length; i++){
 		var currentImage = i+1;
@@ -1123,7 +1116,6 @@ function shuffle(a) { //shuffles a list
         const j = Math.floor(Math.random() * (i + 1));
         [a[i], a[j]] = [a[j], a[i]];
     }
-	shuffled = true;
     return a;
 }
   
@@ -1176,30 +1168,21 @@ async function fetchAndPushCard() {
 			}
 		}
 	}
-	// Advance fetch cursor and derive page from the shuffled index list
+	// Advance fetch cursor and derive page from the shuffled deck
 	if(iteration < totalEntries - 1) iteration++;
-	var secondaryIteration = entryIndexes[iteration].split(":");
-	linkIndex = secondaryIteration[0];
-	var internalIteration, fetchedData;
-	if(shuffled){
-		page = parseFloat(secondaryIteration[1]) + 1;
-		// If this page needs a 10k marker that hasn't loaded yet, fall back to the accessible range
-		if(page > 10000){
-			var markerIdx = Math.floor(page / 10000) - 1;
-			if(IDsAt10kMarkers[markerIdx] === undefined){
-				var safeMax = Math.min(totalEntries, 10000 * (IDsAt10kMarkers.length + 1));
-				page = Math.ceil(Math.random() * safeMax);
-			}
+	var slot = entryIndexes[iteration];
+	linkIndex = slot[0];
+	page = slot[1] + 1;
+	// If this page needs a 10k marker that hasn't loaded yet, fall back to the accessible range
+	if(page > 10000){
+		var markerIdx = Math.floor(page / 10000) - 1;
+		if(IDsAt10kMarkers[markerIdx] === undefined){
+			var safeMax = Math.min(totalEntries, 10000 * (IDsAt10kMarkers.length + 1));
+			page = Math.ceil(Math.random() * safeMax);
 		}
-		fetchedData = await sendQueries();
-		internalIteration = 0;
-	} else {
-		internalIteration = parseFloat(secondaryIteration[1]) % 30;
-		page = Math.floor(parseFloat(secondaryIteration[1]) / 30) + 1;
-		if(internalIteration === 0 || !data){ fetchedData = await sendQueries(); }
-		else { fetchedData = data; }
 	}
-	var entry = fetchedData.results[internalIteration];
+	var fetchedData = await sendQueries();
+	var entry = fetchedData.results[0];
 	// API occasionally returns empty results despite total_results > 0 (stale count); skip and try next slot
 	if(!entry){
 		if(iteration < totalEntries - 1) return fetchAndPushCard();
