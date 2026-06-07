@@ -509,10 +509,11 @@ select {
   line-height: 1.5;
 }
 .location-modal-or {
-  font-size: 12px;
-  color: var(--overlay1);
+  font-size: 14px;
+  /* color: var(--overlay1); */
   text-align: center;
   margin: 10px 0;
+  font-weight: 500;
 }
 .location-modal-msg {
   font-size: 12px;
@@ -2071,6 +2072,32 @@ $(function(){
 	var regionSelect = document.getElementById('locationRegionSelect');
 	var msgEl = document.getElementById('locationModalMsg');
 
+	// Radius stepper (stored in miles; converted to km for iNat API)
+	var RADIUS_STEP = 50;
+	var RADIUS_MIN = 50;
+	var RADIUS_MAX = 5000;
+	var nearMeRadiusMi = 600;
+	try { var saved = parseInt(localStorage.getItem('nearMeRadiusMi'), 10); if(saved >= RADIUS_MIN) nearMeRadiusMi = saved; } catch(e){}
+	var radiusDisplay = document.getElementById('radiusDisplay');
+	radiusDisplay.value = nearMeRadiusMi;
+	function clampRadius(v){ return Math.min(RADIUS_MAX, Math.max(RADIUS_MIN, v || RADIUS_MIN)); }
+	radiusDisplay.addEventListener('change', function(){
+		nearMeRadiusMi = clampRadius(parseInt(this.value, 10));
+		this.value = nearMeRadiusMi;
+	});
+	document.getElementById('radiusStepDown').onclick = function(){
+		nearMeRadiusMi = clampRadius(nearMeRadiusMi - RADIUS_STEP);
+		radiusDisplay.value = nearMeRadiusMi;
+	};
+	document.getElementById('radiusStepUp').onclick = function(){
+		nearMeRadiusMi = clampRadius(nearMeRadiusMi + RADIUS_STEP);
+		radiusDisplay.value = nearMeRadiusMi;
+	};
+	function buildNearMeValue(lat, lng){
+		var radiusKm = Math.round(nearMeRadiusMi * 1.60934);
+		return '&lat=' + lat + '&lng=' + lng + '&radius=' + radiusKm;
+	}
+
 	// Populate dropdown from existing regionList checkboxes (single source of truth)
 	document.querySelectorAll('#regionList input[type="checkbox"]:not(#allRegions)').forEach(function(cb){
 		var opt = document.createElement('option');
@@ -2121,7 +2148,8 @@ $(function(){
 			function(pos){
 				var lat = pos.coords.latitude.toFixed(4);
 				var lng = pos.coords.longitude.toFixed(4);
-				var loc = { value: '&lat=' + lat + '&lng=' + lng + '&radius=50', name: 'Near me' };
+				try { localStorage.setItem('nearMeRadiusMi', String(nearMeRadiusMi)); } catch(e){}
+				var loc = { value: buildNearMeValue(lat, lng), name: 'Near me (' + nearMeRadiusMi + ' mi)' };
 				saveLocationFilter(loc);
 				try { localStorage.setItem('locationPrompted', '1'); } catch(e){}
 				window.applyLocationFilter(loc);
@@ -2199,9 +2227,17 @@ $(document).keyup(function(e) {
 </script>
 
 <div class="modal" id="locationModal"><div class="locationContent">
-  <h3 class="filter-heading">Set your location</h3>
-  <p class="location-modal-desc">Filter cards to observations near you. You can change this anytime in Filters.</p>
+  <h3 class="filter-heading">Would you like to set a location?</h3>
+  <p class="location-modal-desc">This will filter cards to observations near you. You can change this anytime in Filters.</p>
   <button id="useCurrentLocBtn" class="subOptions wide">Use my current location</button>
+  <div class="deck-select-row" style="margin-top:10px">
+    <span>Radius (miles)</span>
+    <div class="sr-interval-stepper">
+      <button class="sr-stepper-btn" id="radiusStepDown" aria-label="Decrease">−</button>
+      <input class="sr-stepper-display" id="radiusDisplay" type="number" min="50" max="5000" step="50" value="600" style="width:52px;background:none;border:none;color:inherit;text-align:center;font:inherit;-moz-appearance:textfield">
+      <button class="sr-stepper-btn" id="radiusStepUp" aria-label="Increase">+</button>
+    </div>
+  </div>
   <div class="location-modal-or">or</div>
   <div class="deck-select-row">
     <span>Choose a region</span>
