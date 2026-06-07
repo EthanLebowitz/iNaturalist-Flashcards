@@ -1555,7 +1555,10 @@ function initializePostIndexGen(){ //sets up first card fetch after index genera
 	document.getElementById("totalObs").innerHTML = totalEntries+" Cards Generated";
 	document.getElementById("entryTotal").innerHTML = totalEntries+" Cards Generated";
 	renderSessionGrid();
-	if(!anchored){ fetchAndPushCard(); }
+	// A shared/anchored card (#<obsId> in the URL) takes precedence over a random draw.
+	// Driving it from here (the last init step) avoids a race where a deferred filter/location
+	// restore would otherwise wipe session history and fetch a random card over the anchor.
+	if(anchored){ anchorCheck(); } else { fetchAndPushCard(); }
 }
 
 // The iNat API won't return results past page 10,000. To reach entries beyond that,
@@ -1652,10 +1655,8 @@ async function anchorCheck(){
 	}
 }
 
-anchorCheck();
-
-function applyCheckboxFilters(){
-	if(anchored){anchored=false;}
+function applyCheckboxFilters(preserveAnchor){
+	if(anchored && !preserveAnchor){anchored=false;}
 	var df = (window.MODES[window.currentDeckKey] && window.MODES[window.currentDeckKey].filters) || {};
 	speciesChoices=[];
 	taxonIdChoices=[];
@@ -1745,7 +1746,11 @@ $(function(){
 function generateHTML(images, entryID, entry, total){ //generates html for a new entry
 	var answer = entry.taxon.preferred_common_name;
 	document.getElementById("answer").innerHTML = answer; //puts entry.species_guess in the answer div
-	var shareLink = "https://track-cards.ethleb.com/#"+entry.id;
+	// Include the deck so a shared card opens in the right deck (correct dropdown + ELO/ratings pool).
+	// Default deck is omitted to keep tracking links clean and backward-compatible.
+	var deckParam = (window.currentDeckKey && window.currentDeckKey !== window.DEFAULT_DECK)
+		? "?deck=" + encodeURIComponent(window.currentDeckKey) : "";
+	var shareLink = "https://track-cards.ethleb.com/" + deckParam + "#" + entry.id;
 	var shareLinkEl = document.getElementById("shareLink");
 	var iconClipboard = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="9" y="2" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 	var iconCheck = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:#94e2d5"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -2150,6 +2155,7 @@ setupFilterModal();
 
 		INAT_BASE = "https://api.inaturalist.org/v1/observations?identified=true&photos=true&quality_grade=research&order=desc&order_by=created_at" + deckQueryString();
 
+		anchored = false; // user-initiated deck change drops any shared-card anchor
 		taxonIdChoices = []; regionIdChoices = [];
 		speciesChoices = []; regionChoices = [];
 		iteration = 0; sessionHistory = []; historyIndex = -1;
@@ -2321,7 +2327,7 @@ $(function(){
 	function closeModal(){ modal.style.display = 'none'; }
 
 	// Apply a saved location filter by checking the matching checkbox (or creating one for lat/lng)
-	window.applyLocationFilter = function(loc){
+	window.applyLocationFilter = function(loc, opts){
 		var allRegions = document.getElementById('allRegions');
 		document.querySelectorAll('#regionList input[type="checkbox"]:not(#allRegions)').forEach(function(cb){ cb.checked = false; });
 		if(loc){
@@ -2352,13 +2358,14 @@ $(function(){
 		} else {
 			if(allRegions) allRegions.checked = true;
 		}
-		applyCheckboxFilters();
+		applyCheckboxFilters(opts && opts.preserveAnchor);
 	};
 
 	// Apply a location filter persisted from a previous visit. The startup IIFE runs during
 	// parsing (before this function is defined) and stashes the pending filter here.
 	if(window.__pendingLocationRestore){
-		window.applyLocationFilter(window.__pendingLocationRestore);
+		// Preserve a shared/anchored card (#<obsId>) so the restored filter doesn't replace it.
+		window.applyLocationFilter(window.__pendingLocationRestore, { preserveAnchor: anchored });
 		window.__pendingLocationRestore = null;
 	}
 
