@@ -620,6 +620,59 @@ select {
   user-select: none;
 }
 .sr-toggle-row:hover { color: var(--text); }
+.sr-interval-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--subtext0);
+  padding: 2px 2px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: max-height 0.2s ease, opacity 0.15s;
+}
+.sr-interval-row.is-visible {
+  max-height: 40px;
+  opacity: 1;
+  pointer-events: auto;
+}
+.sr-interval-stepper {
+  display: flex;
+  align-items: center;
+  background: var(--surface1);
+  border: 1px solid var(--surface2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.sr-stepper-btn {
+  width: 26px;
+  height: 26px;
+  background: none;
+  border: none;
+  color: var(--subtext0);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s, color 0.12s;
+  flex-shrink: 0;
+  user-select: none;
+}
+.sr-stepper-btn:hover { background: var(--surface2); color: var(--text); }
+.sr-stepper-btn:active { background: var(--blue); color: var(--base); }
+.sr-stepper-display {
+  min-width: 32px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text);
+  font-family: inherit;
+  padding: 0 2px;
+  user-select: none;
+}
 .toggle-switch {
   position: relative;
   width: 36px;
@@ -715,7 +768,8 @@ select {
   let poolACache = null;
   let srDueCards = new Map(); // cardId (number) → attemptData for currently-due SR cards
 
-  const SR_INTERVALS_MS = 60000 * 5; // 5 minutes
+  let SR_INTERVALS_MS = 60000 * (function(){ try { return Math.max(1, parseInt(localStorage.getItem('srIntervalMin') || '5', 10)) || 5; } catch(e){ return 5; } }());
+  window.setSRInterval = function(ms){ SR_INTERVALS_MS = ms; };
 
   async function loadPoolA() {
     const snap = await getDocs(collection(db, 'cards'));
@@ -1036,6 +1090,14 @@ select {
       <span class="toggle-slider"></span>
     </div>
   </label>
+  <div class="sr-interval-row" id="srIntervalRow">
+    <span>Repeat after (minutes)</span>
+    <div class="sr-interval-stepper">
+      <button class="sr-stepper-btn" id="srStepDown" aria-label="Decrease">−</button>
+      <span class="sr-stepper-display" id="srIntervalDisplay">5</span>
+      <button class="sr-stepper-btn" id="srStepUp" aria-label="Increase">+</button>
+    </div>
+  </div>
   <div class="modal" id="filterModal"><div class="filterContent">
 	<span class="close">&times;</span>
 	<div class="filter-section">
@@ -1701,13 +1763,40 @@ function setupFilterModal(){
 
 setupFilterModal();
 
-// SR toggle
+// SR toggle + interval stepper
 (function(){
 	var toggle = document.getElementById('srToggle');
+	var intervalRow = document.getElementById('srIntervalRow');
+	var display = document.getElementById('srIntervalDisplay');
+	var stepDown = document.getElementById('srStepDown');
+	var stepUp = document.getElementById('srStepUp');
+
+	var srIntervalMin = 5;
+	try { var saved = parseInt(localStorage.getItem('srIntervalMin'), 10); if(saved >= 1) srIntervalMin = saved; } catch(e) {}
+	display.textContent = srIntervalMin;
+
+	function setInterval(mins){
+		srIntervalMin = Math.max(1, Math.min(1440, mins));
+		display.textContent = srIntervalMin;
+		try { localStorage.setItem('srIntervalMin', String(srIntervalMin)); } catch(e) {}
+		if(typeof window.setSRInterval === 'function') window.setSRInterval(srIntervalMin * 60000);
+	}
+
+	stepDown.addEventListener('click', function(){ setInterval(srIntervalMin - 1); });
+	stepUp.addEventListener('click',   function(){ setInterval(srIntervalMin + 1); });
+
+	function updateIntervalVisibility(){
+		if(srEnabled){ intervalRow.classList.add('is-visible'); }
+		else { intervalRow.classList.remove('is-visible'); }
+	}
+
 	toggle.checked = srEnabled;
+	updateIntervalVisibility();
+
 	toggle.addEventListener('change', function(){
 		srEnabled = this.checked;
 		try { localStorage.setItem('srEnabled', String(srEnabled)); } catch(e) {}
+		updateIntervalVisibility();
 	});
 })();
 
