@@ -1628,6 +1628,7 @@ function initializePostIndexGen(){ //sets up first card fetch after index genera
 	window.reportResults = {};
 	window.lastReportDueAt = {};
 	window.srReviewCards = new Set();
+	prefetchedNext = null;
 	document.getElementById("totalObs").innerHTML = totalEntries+" Cards Generated";
 	document.getElementById("entryTotal").innerHTML = totalEntries+" Cards Generated";
 	renderSessionGrid();
@@ -1767,6 +1768,7 @@ function applyCheckboxFilters(preserveAnchor){
 	historyIndex = -1;
 	page = 1;
 	linkIndex = 0;
+	prefetchedNext = null;
 	generateURLs();
 	generateEntryIndexesList();
 	$('#answer').hide();
@@ -1853,14 +1855,9 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 	var HTML="";
 	for(var i=0; i<images.length; i++){
 		var currentImage = i+1;
-		// iNat photo URLs use /square.jpg but original URLs use /original.jpg or /original.JPG;
-		// we parse the extension from the thumbnail URL to handle both cases
-		var thumbnailURL=entry.observation_photos[i].photo.url;
-		var intermediateItem = thumbnailURL.split("/square.");
-		var thumbnailURLbase = thumbnailURL.split("photos/")[0] + "photos/"
-		var extention = intermediateItem[1].split("?")[0];
+		var photoUrl = buildPhotoUrl(entry, i);
 		var photoName = (taxon.preferred_common_name || taxon.name || 'photo') + ' ' + currentImage;
-		HTML=HTML+"<div class='mySlides'>\n<div class='numbertext'>" + currentImage +"/" + images.length + "</div><img src='"+thumbnailURLbase+images[i]+"/original."+extention+"?' class='img' alt='"+photoName+"' id='img"+i+"'></div>\n<div id='modal"+i+"' class='modal'><span class='close'>&times;</span><img class='modal-content' id='modalImg"+i+"' alt='"+photoName+"'><div id='caption'></div></div>";
+		HTML=HTML+"<div class='mySlides'>\n<div class='numbertext'>" + currentImage +"/" + images.length + "</div><img src='"+photoUrl+"' class='img' alt='"+photoName+"' id='img"+i+"'></div>\n<div id='modal"+i+"' class='modal'><span class='close'>&times;</span><img class='modal-content' id='modalImg"+i+"' alt='"+photoName+"'><div id='caption'></div></div>";
 	}
 	if(images.length>1){ //only add prev/next arrows if there is more than 1 image
 		HTML=HTML+"\n\n<button class='prev' aria-label='Previous photo'>&#10094;</button>\n<button class='next' aria-label='Next photo'>&#10095;</button>\n";
@@ -1955,6 +1952,7 @@ function pushToHistory(entry) {
 	$('#answer').hide();
 	document.getElementById("showAnswer").innerHTML = "Show Answer";
 	parseEntry(entry);
+	setTimeout(prefetchNextCard, 0);
 }
 
 // Sample from Gamma(a) using the log-sum method (exact for integer a >= 1)
@@ -1989,6 +1987,8 @@ function thompsonDraw(candidates) {
 // thumbsQuality = Beta expected value in (0,1] — penalises downvoted cards smoothly.
 var ELO_TARGET = 8;
 var EXPLORE_WEIGHT = 0.3;
+// Prefetch: false = preload only the first photo (lighter); true = preload every photo (smoother slideshow).
+var PREFETCH_ALL_IMAGES = false;
 function ratingDrawWeight(card) {
 	var n = (card.correctCount || 0) + (card.incorrectCount || 0);
 	var boost = n > 0 && n < ELO_TARGET ? (1 - n / ELO_TARGET) : EXPLORE_WEIGHT;
@@ -2015,7 +2015,47 @@ function weightedDraw(candidates) {
 	return normalised > bestScore ? winner : null;
 }
 
-async function fetchAndPushCard() {
+// Builds the full-resolution photo URL for entry photo index i.
+// Must produce a byte-identical URL to generateHTML so the browser cache is hit on render.
+function buildPhotoUrl(entry, i) {
+	var thumb = entry.observation_photos[i].photo.url;
+	var base  = thumb.split("photos/")[0] + "photos/";
+	var ext   = thumb.split("/square.")[1].split("?")[0];
+	return base + entry.photos[i].id + "/large." + ext + "?";
+}
+
+function preloadEntryImages(entry) {
+	var count = PREFETCH_ALL_IMAGES ? entry.photos.length : 1;
+	var imgs = [];
+	for (var i = 0; i < count; i++) {
+		var img = new Image();
+		img.src = buildPhotoUrl(entry, i);
+		imgs.push(img);
+	}
+	return imgs; // hold references so GC doesn't drop in-flight loads
+}
+
+var prefetchedNext = null; // { promise, entry, images } or null
+
+function prefetchNextCard() {
+	// Only prefetch when the user is at the session frontier (not inside history)
+	if (historyIndex < sessionHistory.length - 1) return;
+	// Already have a prefetch in flight or ready
+	if (prefetchedNext) return;
+	var slot = {};
+	slot.entry = null;
+	slot.images = [];
+	slot.promise = fetchNextCard().then(function(entry) {
+		if (entry) {
+			slot.entry = entry;
+			slot.images = preloadEntryImages(entry);
+		}
+		return entry;
+	});
+	prefetchedNext = slot;
+}
+
+async function fetchNextCard() {
 	// Tier 1: Due SR card — capped at 1-in-3 of total fetches this session
 	if(srEnabled && typeof window.getDueCard === 'function'){
 		if(sessionSRCount / (sessionFetchCount + 1) < 1/3){
@@ -2026,34 +2066,30 @@ async function fetchAndPushCard() {
 					window.srReviewCards.add(srResult.results[0].id);
 					sessionSRCount++;
 					sessionFetchCount++;
-					pushToHistory(srResult.results[0]);
-					return;
+					return srResult.results[0];
 				}
 			}
 		}
 	}
 	sessionFetchCount++;
 
-	// Tier 2: Pool A — coin-flip between refine turn (shaky ELO boost) and quality turn (thumbs Thompson)
+	// Tier 2: Pool A
 	if(typeof window.getFilteredPoolA === 'function'){
 		var candidates = window.getFilteredPoolA(taxonIdChoices, regionIdChoices, seenCards);
 		var winner = Math.random() < 0.5 ? weightedDraw(candidates) : thompsonDraw(candidates);
 		if(winner){
 			var result = await getData("https://api.inaturalist.org/v1/observations/" + winner.id);
 			if(result && result.results && result.results[0]){
-				pushToHistory(result.results[0]);
-				return;
+				return result.results[0];
 			}
 		}
 	}
 	// Tier 3: Shuffled deck
-	// Advance fetch cursor and derive page from the shuffled deck
 	if(iteration < totalEntries - 1) iteration++;
 	var slot = entryIndexes[iteration];
-	if(!slot) return; // deck empty or exhausted
+	if(!slot) return null;
 	linkIndex = slot[0];
 	page = slot[1] + 1;
-	// If this page needs a 10k marker that hasn't loaded yet, fall back to the accessible range
 	if(page > 10000){
 		var markerIdx = Math.floor(page / 10000) - 1;
 		if(IDsAt10kMarkers[markerIdx] === undefined){
@@ -2063,16 +2099,19 @@ async function fetchAndPushCard() {
 	}
 	var fetchedData = await sendQueries();
 	var entry = fetchedData.results[0];
-	// API occasionally returns empty results despite total_results > 0 (stale count); skip and try next slot
 	if(!entry){
-		if(iteration < totalEntries - 1) return fetchAndPushCard();
-		return;
+		if(iteration < totalEntries - 1) return fetchNextCard();
+		return null;
 	}
-	// Skip cards already seen in a prior session; recurse until we find an unseen one or exhaust the deck
 	if(isSeen(entry.id) && iteration < totalEntries - 1){
-		return fetchAndPushCard();
+		return fetchNextCard();
 	}
-	pushToHistory(entry);
+	return entry;
+}
+
+async function fetchAndPushCard() {
+	var entry = await fetchNextCard();
+	if (entry) pushToHistory(entry);
 }
 
 async function nextEntry(direction) {
@@ -2097,8 +2136,16 @@ async function nextEntry(direction) {
 			parseEntry(sessionHistory[historyIndex]);
 			return;
 		}
-		// Past the frontier — fetch a new card
-		await fetchAndPushCard();
+		// Past the frontier — consume prefetched card if ready, otherwise fetch normally
+		if(prefetchedNext){
+			var slot = prefetchedNext;
+			prefetchedNext = null;
+			var entry = slot.entry || await slot.promise;
+			if(entry) pushToHistory(entry);
+			else await fetchAndPushCard();
+		} else {
+			await fetchAndPushCard();
+		}
 	}
 }
 	
@@ -2283,6 +2330,7 @@ setupFilterModal();
 		page = 1; linkIndex = 0; IDsAt10kMarkers = [];
 		seenCards = loadSeenForDeck();
 		window.reportResults = {}; window.lastReportDueAt = {}; window.srReviewCards = new Set();
+		prefetchedNext = null;
 		renderSessionGrid();
 
 		try {
