@@ -634,28 +634,26 @@ select {
   flex: 1;
   min-width: 0;
   font-family: 'Inter', Arial, sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.2;
-  padding: 7px 10px;
-  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--surface1);
+  padding: 8px 16px;
+  border: 1px solid transparent;
   border-radius: 8px;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
-  box-shadow: none;
-  outline: none;
-  transition: background 0.15s, opacity 0.15s, box-shadow 0.15s;
+  transition: background 0.15s, transform 0.1s, color 0.15s, box-shadow 0.15s;
 }
-.report-btn:focus { outline: none; box-shadow: none; }
-.report-btn:active { transform: none; }
+.report-btn:hover:not(:disabled) { background: var(--surface2); }
+.report-btn:active { transform: scale(0.97); }
+.report-btn:focus { outline: none; }
 .report-btn:disabled { opacity: 0.45; cursor: default; }
-.report-btn--correct { background: rgba(148,226,213,0.15); color: var(--teal); }
-.report-btn--correct:hover:not(:disabled) { background: rgba(148,226,213,0.28); }
-.report-btn--correct.active { background: rgba(148,226,213,0.3); box-shadow: inset 0 0 0 1.5px var(--teal); }
-.report-btn--incorrect { background: rgba(243,139,168,0.15); color: var(--red); }
-.report-btn--incorrect:hover:not(:disabled) { background: rgba(243,139,168,0.28); }
-.report-btn--incorrect.active { background: rgba(243,139,168,0.3); box-shadow: inset 0 0 0 1.5px var(--red); }
+.report-btn--correct { border-color: rgba(166,227,161,0.7); }
+.report-btn--incorrect { border-color: rgba(243,139,168,0.7); }
+.report-btn--correct.active { background: rgba(166,227,161,0.18); color: var(--green); border-color: var(--green); }
+.report-btn--incorrect.active { background: rgba(243,139,168,0.18); color: var(--red); border-color: var(--red); }
 .self-report-feedback {
   font-size: 12px;
   color: var(--subtext0);
@@ -842,7 +840,7 @@ select {
 window.MODES = {
   tracking: {
     type: "deck",
-    label: "Animal Tracks",
+    label: "Tracks",
     query: { project_id: 962 },
     filters: { species: true, region: true }
   },
@@ -1105,7 +1103,6 @@ window.DEFAULT_DECK = "tracking";
     missedBtn.classList.remove('active');
     if (result === 'correct') gotBtn.classList.add('active');
     else missedBtn.classList.add('active');
-    if (feedback) feedback.textContent = 'Saving…';
 
     track("self_report", { deck: dk(), result: result, taxon_id: (entry && entry.taxon ? entry.taxon.id : null) });
 
@@ -1114,10 +1111,12 @@ window.DEFAULT_DECK = "tracking";
     window.reportResults[Number(cardId)] = result;
     if (typeof window.renderSessionGrid === 'function') window.renderSessionGrid();
 
-    if (!currentUser) {
-      if (feedback) feedback.textContent = '';
-      return;
-    }
+    // Show the spaced-repetition cue, then auto-advance after a brief pause so it's visible.
+    // The Firestore write below continues in the background.
+    if (feedback) feedback.textContent = result === 'incorrect' ? 'Review in ' + _formatDuration(SR_INTERVALS_MS) : '';
+    setTimeout(function(){ if (window.currentCardId === cardId) nextEntry(1); }, 0);
+
+    if (!currentUser) return;
 
     const taxonId = entry && entry.taxon ? entry.taxon.id : null;
     const ancestorIds = entry && entry.taxon && entry.taxon.ancestor_ids ? entry.taxon.ancestor_ids : [];
@@ -1186,9 +1185,10 @@ window.DEFAULT_DECK = "tracking";
     if (!window.lastReportDueAt) window.lastReportDueAt = {};
     if (newDueAtMs) {
       window.lastReportDueAt[Number(cardId)] = newDueAtMs;
-      if (feedback) feedback.textContent = 'Review in ' + _formatDuration(newDueAtMs - Date.now());
-    } else {
-      if (feedback) feedback.textContent = '';
+    }
+    // If the user navigated back to this card while the write was in flight, refresh its feedback.
+    if (window.currentCardId === cardId && feedback) {
+      feedback.textContent = newDueAtMs ? 'Review in ' + _formatDuration(newDueAtMs - Date.now()) : '';
     }
   };
 
@@ -1266,8 +1266,8 @@ window.DEFAULT_DECK = "tracking";
   <div class="self-report-section" id="selfReport">
     <span class="self-report-label">Did you get it right?</span>
     <div class="self-report-btn-row">
-      <button class="report-btn report-btn--correct" id="gotItBtn" onclick="submitReport('correct')">✓ Got it</button>
-      <button class="report-btn report-btn--incorrect" id="missedItBtn" onclick="submitReport('incorrect')">✗ Missed it</button>
+      <button class="report-btn report-btn--incorrect" id="missedItBtn" onclick="submitReport('incorrect')">Missed it</button>
+      <button class="report-btn report-btn--correct" id="gotItBtn" onclick="submitReport('correct')">Got it</button>
     </div>
     <div class="self-report-feedback" id="selfReportFeedback"></div>
   </div>
