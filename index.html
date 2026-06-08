@@ -275,6 +275,28 @@ a:hover { color: var(--lavender); text-decoration: underline; }
   text-decoration: none;
 }
 
+/* ── Edibility badge ── */
+#edibility-badge {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+#edibility-badge.eb--choice      { background: rgba(166,227,161,0.15); border-color: var(--green);   color: var(--green); }
+#edibility-badge.eb--edible      { background: rgba(166,227,161,0.10); border-color: rgba(166,227,161,0.5); color: var(--green); }
+#edibility-badge.eb--edible_cooked { background: rgba(249,226,175,0.10); border-color: rgba(249,226,175,0.5); color: var(--yellow); }
+#edibility-badge.eb--medicinal   { background: rgba(148,226,213,0.10); border-color: rgba(148,226,213,0.5); color: var(--teal); }
+#edibility-badge.eb--inedible    { background: rgba(88,91,112,0.25);  border-color: var(--surface2); color: var(--subtext0); }
+#edibility-badge.eb--caution     { background: rgba(249,226,175,0.15); border-color: var(--yellow);  color: var(--yellow); }
+#edibility-badge.eb--allergenic  { background: rgba(249,226,175,0.15); border-color: var(--yellow);  color: var(--yellow); }
+#edibility-badge.eb--psychoactive { background: rgba(203,166,247,0.15); border-color: var(--mauve);  color: var(--mauve); }
+#edibility-badge.eb--poisonous   { background: rgba(243,139,168,0.12); border-color: rgba(243,139,168,0.6); color: var(--red); }
+#edibility-badge.eb--deadly      { background: rgba(243,139,168,0.20); border-color: var(--red);     color: var(--red); }
+
 /* ── Card rating ── */
 .rating-section {
   display: flex;
@@ -881,7 +903,7 @@ window.MODES = {
   mushrooms: {
     type: "deck",
     label: "Mushrooms",
-    query: { taxon_id: 47170 },               // Fungi
+    query: { taxon_id: "50814,152032" },       // Agaricomycetes + Pezizomycetes (morels, truffles)
     filters: { species: false, region: true }
   },
   butterflies: {
@@ -1279,6 +1301,7 @@ window.DEFAULT_DECK = "tracking";
 <div class="controls-panel">	
 	<button type="submit" onclick="showAnswer()" class="options wide" id="showAnswer">Show Answer</button>
 	<div id="answer"></div>
+  <div id="edibility-badge"></div>
   <div class="self-report-section" id="selfReport">
     <span class="self-report-label">Did you get it right?</span>
     <div class="self-report-btn-row">
@@ -1518,11 +1541,13 @@ function showAnswer(){
 	if(isVisible){
 		$("#answer").slideUp(200);
 		document.getElementById("showAnswer").innerHTML = "Show Answer";
+		hideEdibilityBadge();
 	}
 	else{
 		$("#answer").slideDown(200);
 		document.getElementById("showAnswer").innerHTML = "Hide Answer";
 		if (window.track) window.track('answer_revealed', { deck: window.currentDeckKey });
+		showEdibilityBadge();
 		if(!selfReportShownForCurrentCard){
 			selfReportShownForCurrentCard = true;
 			document.getElementById('selfReport').classList.add('is-visible');
@@ -1822,8 +1847,9 @@ function parseEntry(entry) { //gets list of photo ids from entry
 	markSeen(entryID);
 	window.location.hash=""; //set anchor as id
 
-	// Reset self-report UI for the new card
+	// Reset self-report UI and edibility badge for the new card
 	selfReportShownForCurrentCard = false;
+	hideEdibilityBadge();
 	document.getElementById('selfReport').classList.remove('is-visible');
 	document.getElementById('srInfoPanel').classList.remove('is-visible');
 	var gotBtn = document.getElementById('gotItBtn');
@@ -2440,6 +2466,58 @@ function generateModals(imageCount){
 }
 
 // Single global modal-dismiss handlers (bound once, not per card)
+// ── Edibility badge ──────────────────────────────────────────────────────────
+var mushroomEdibility = null; // null = not loaded yet; {} = loaded (may be empty)
+
+(function loadMushroomEdibility(){
+  fetch('data/mushroom-edibility.json')
+    .then(function(r){ return r.json(); })
+    .then(function(d){ mushroomEdibility = d; })
+    .catch(function(){ mushroomEdibility = {}; }); // graceful — badge just won't show
+})();
+
+var EDIBILITY_LABELS = {
+  choice:        { icon: '★', text: 'Choice edible' },
+  edible:        { icon: '✓', text: 'Edible' },
+  edible_cooked: { icon: '⚠', text: 'Edible when cooked' },
+  medicinal:     { icon: '⚕', text: 'Medicinal' },
+  inedible:      { icon: '✗', text: 'Inedible' },
+  caution:       { icon: '⚠', text: 'Caution' },
+  allergenic:    { icon: '⚠', text: 'Allergenic' },
+  psychoactive:  { icon: '⚠', text: 'Psychoactive' },
+  poisonous:     { icon: '☠', text: 'Poisonous' },
+  deadly:        { icon: '☠', text: 'Deadly poisonous' },
+};
+
+function getEdibility(entry) {
+  if (!mushroomEdibility || !entry) return null;
+  var ids = [entry.taxon && entry.taxon.id].concat(entry.taxon && entry.taxon.ancestor_ids || []);
+  for (var i = 0; i < ids.length; i++) {
+    var v = mushroomEdibility[String(ids[i])];
+    if (v) return v;
+  }
+  return null;
+}
+
+function showEdibilityBadge() {
+  var badge = document.getElementById('edibility-badge');
+  if (!badge) return;
+  if (window.currentDeckKey !== 'mushrooms') { badge.style.display = 'none'; return; }
+  var edibility = getEdibility(window.currentEntry);
+  if (!edibility) { badge.style.display = 'none'; return; }
+  var meta = EDIBILITY_LABELS[edibility];
+  if (!meta) { badge.style.display = 'none'; return; }
+  badge.className = 'eb--' + edibility;
+  badge.style.display = 'flex';
+  badge.textContent = meta.icon + ' ' + meta.text;
+}
+
+function hideEdibilityBadge() {
+  var badge = document.getElementById('edibility-badge');
+  if (badge) { badge.style.display = 'none'; badge.className = ''; }
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 window.onclick = function(event) {
 	['filterModal','infoModal','locationModal'].forEach(function(id){
 		var m = document.getElementById(id);
