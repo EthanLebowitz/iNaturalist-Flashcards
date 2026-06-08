@@ -208,7 +208,7 @@
     "edible"
   ],
   "55482": [
-    "edible_cooked",
+    "edible cooked",
     "medicinal",
     "edible"
   ],
@@ -245,7 +245,7 @@
     "medicinal"
   ],
   "55950": [
-    "edible_cooked",
+    "edible cooked",
     "medicinal",
     "edible"
   ],
@@ -279,7 +279,7 @@
     "inedible"
   ],
   "58682": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "58683": [
@@ -350,7 +350,7 @@
     "choice"
   ],
   "63027": [
-    "edible_cooked"
+    "edible cooked"
   ],
   "63076": [
     "inedible",
@@ -402,11 +402,11 @@
     "edible"
   ],
   "63258": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "63260": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "63268": [
@@ -432,27 +432,27 @@
     "inedible"
   ],
   "63394": [
-    "edible_cooked",
+    "edible cooked",
     "medicinal",
     "edible"
   ],
   "63395": [
-    "edible_cooked",
+    "edible cooked",
     "medicinal",
     "edible"
   ],
   "63398": [
-    "edible_cooked",
+    "edible cooked",
     "medicinal",
     "edible"
   ],
   "63399": [
-    "edible_cooked",
+    "edible cooked",
     "medicinal",
     "edible"
   ],
   "63401": [
-    "edible_cooked",
+    "edible cooked",
     "medicinal",
     "edible"
   ],
@@ -580,11 +580,11 @@
     "choice"
   ],
   "67660": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "67661": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "67751": [
@@ -625,7 +625,7 @@
     "edible"
   ],
   "85120": [
-    "edible_cooked"
+    "edible cooked"
   ],
   "85398": [
     "poisonous"
@@ -924,7 +924,7 @@
     "poisonous"
   ],
   "118401": [
-    "edible_cooked"
+    "edible cooked"
   ],
   "118495": [
     "medicinal",
@@ -960,7 +960,7 @@
     "inedible"
   ],
   "120170": [
-    "edible_cooked"
+    "edible cooked"
   ],
   "120172": [
     "edible"
@@ -1160,7 +1160,7 @@
     "poisonous"
   ],
   "126911": [
-    "edible_cooked"
+    "edible cooked"
   ],
   "126913": [
     "edible"
@@ -1176,7 +1176,7 @@
     "edible"
   ],
   "127509": [
-    "edible_cooked",
+    "edible cooked",
     "medicinal",
     "edible"
   ],
@@ -1229,7 +1229,7 @@
     "caution"
   ],
   "130908": [
-    "edible_cooked"
+    "edible cooked"
   ],
   "130910": [
     "medicinal"
@@ -1332,15 +1332,15 @@
     "inedible"
   ],
   "153431": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "153434": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "153435": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "153445": [
@@ -1359,7 +1359,7 @@
     "edible"
   ],
   "154366": [
-    "edible_cooked"
+    "edible cooked"
   ],
   "154379": [
     "edible"
@@ -1608,7 +1608,7 @@
     "edible"
   ],
   "192381": [
-    "edible_cooked"
+    "edible cooked"
   ],
   "192652": [
     "medicinal"
@@ -1934,7 +1934,7 @@
     "medicinal"
   ],
   "206086": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "206090": [
@@ -2164,7 +2164,7 @@
     "edible"
   ],
   "340866": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "340867": [
@@ -2300,7 +2300,7 @@
     "choice"
   ],
   "350033": [
-    "edible_cooked"
+    "edible cooked"
   ],
   "350037": [
     "caution"
@@ -2325,16 +2325,16 @@
     "poisonous"
   ],
   "350060": [
-    "edible_cooked"
+    "edible cooked"
   ],
   "350061": [
     "edible"
   ],
   "350065": [
-    "edible_cooked"
+    "edible cooked"
   ],
   "350066": [
-    "edible_cooked",
+    "edible cooked",
     "medicinal",
     "edible"
   ],
@@ -2660,7 +2660,7 @@
     "edible"
   ],
   "352176": [
-    "edible_cooked"
+    "edible cooked"
   ],
   "352185": [
     "edible"
@@ -2690,7 +2690,7 @@
     "edible"
   ],
   "352303": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "352311": [
@@ -2799,15 +2799,15 @@
     "edible"
   ],
   "366338": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "366339": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "366340": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "366778": [
@@ -2828,7 +2828,7 @@
     "edible"
   ],
   "371441": [
-    "edible_cooked"
+    "edible cooked"
   ],
   "371459": [
     "edible"
@@ -3635,7 +3635,7 @@
     "edible"
   ],
   "543041": [
-    "edible_cooked"
+    "edible cooked"
   ],
   "543046": [
     "psychoactive"
@@ -3654,7 +3654,7 @@
     "edible"
   ],
   "544542": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "544554": [
@@ -3718,11 +3718,11 @@
     "edible"
   ],
   "553909": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "553910": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "553945": [
@@ -4061,7 +4061,7 @@
     "poisonous"
   ],
   "824777": [
-    "edible_cooked",
+    "edible cooked",
     "edible"
   ],
   "828903": [

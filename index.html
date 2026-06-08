@@ -278,7 +278,7 @@ a:hover { color: var(--lavender); text-decoration: underline; }
 /* ── Edibility pill ── */
 .eb--choice      { --eb-color: var(--green);    --eb-bg: rgba(166,227,161,0.15); --eb-border: var(--green); }
 .eb--edible      { --eb-color: var(--green);    --eb-bg: rgba(166,227,161,0.10); --eb-border: rgba(166,227,161,0.5); }
-.eb--edible_cooked { --eb-color: var(--yellow); --eb-bg: rgba(249,226,175,0.10); --eb-border: rgba(249,226,175,0.5); }
+.eb--edible-cooked { --eb-color: var(--yellow); --eb-bg: rgba(249,226,175,0.10); --eb-border: rgba(249,226,175,0.5); }
 .eb--medicinal   { --eb-color: var(--teal);     --eb-bg: rgba(148,226,213,0.10); --eb-border: rgba(148,226,213,0.5); }
 .eb--inedible    { --eb-color: var(--subtext0); --eb-bg: rgba(88,91,112,0.25);   --eb-border: var(--surface2); }
 .eb--caution     { --eb-color: var(--yellow);   --eb-bg: rgba(249,226,175,0.15); --eb-border: var(--yellow); }
@@ -2493,7 +2493,7 @@ var mushroomEdibility = null;
 var EDIBILITY_LABELS = {
   choice:        { icon: '★', text: 'Choice edible' },
   edible:        { icon: '✓', text: 'Edible' },
-  edible_cooked: { icon: '⚠', text: 'Edible when cooked' },
+  'edible cooked': { icon: '⚠', text: 'Edible when cooked' },
   medicinal:     { icon: '⚕', text: 'Medicinal' },
   inedible:      { icon: '✗', text: 'Inedible' },
   caution:       { icon: '⚠', text: 'Caution' },
@@ -2528,7 +2528,7 @@ function showEdibilityBadge() {
     var meta = EDIBILITY_LABELS[edibility];
     if (!meta) return;
     var pill = document.createElement('span');
-    pill.className = 'eb-pill eb--' + edibility;
+    pill.className = 'eb-pill eb--' + edibility.replace(/\s+/g, '-');
     pill.textContent = meta.icon + ' ' + meta.text;
     el.appendChild(pill);
   });

@@ -15,7 +15,7 @@ const OUT   = join(__dir, "..", "data", "mushroom-edibility.json");
 const EDIBILITY_MAP = {
   Q654236:   "edible",       // edible mushroom
   Q19888517: "choice",       // choice mushroom (best edibles)
-  Q62102033: "edible_cooked",// edible when cooked
+  Q62102033: "edible cooked",// edible when cooked
   Q1686195:  "medicinal",    // medicinal mushrooms
   Q4317894:  "inedible",     // inedible mushroom
   Q19888537: "caution",      // caution mushroom
@@ -59,7 +59,7 @@ function qidFromUri(uri) {
 }
 
 const PRIORITY = ["deadly","poisonous","allergenic","caution","psychoactive",
-                  "inedible","edible_cooked","medicinal","edible","choice"];
+                  "inedible","edible cooked","medicinal","edible","choice"];
 
 function collectSets(bindings, sets = {}, skippedRef = { n: 0 }) {
   for (const row of bindings) {
@@ -92,7 +92,7 @@ async function main() {
   const merged = { ...inheritedSets, ...directSets };
 
   const DANGER_SET = new Set(["deadly","poisonous","allergenic","caution","inedible"]);
-  const EDIBLE_SET = new Set(["edible","choice","edible_cooked"]);
+  const EDIBLE_SET = new Set(["edible","choice","edible cooked"]);
 
   const out = {};
   for (const [inatId, set] of Object.entries(merged)) {
