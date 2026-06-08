@@ -1585,8 +1585,10 @@ function showAnswer(){
 		showEdibilityBadge();
 		if(!selfReportShownForCurrentCard){
 			selfReportShownForCurrentCard = true;
-			document.getElementById('selfReport').classList.add('is-visible');
-			maybeShowSRInfo();
+			requestAnimationFrame(function() {
+				document.getElementById('selfReport').classList.add('is-visible');
+				maybeShowSRInfo();
+			});
 		}
 	}
 }
