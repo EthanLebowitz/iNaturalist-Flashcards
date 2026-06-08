@@ -128,7 +128,8 @@ a:hover { color: var(--lavender); text-decoration: underline; }
   margin: auto;
 }
 
-.img:hover { opacity: 0.85; cursor: zoom-in; }
+@media (hover: hover) { .img:hover { opacity: 0.85; } }
+.img { cursor: zoom-in; }
 
 /* ── Slide arrows ── */
 .prev, .next {
@@ -140,6 +141,7 @@ a:hover { color: var(--lavender); text-decoration: underline; }
   color: var(--text);
   font-weight: 700;
   font-size: 16px;
+  border: none;
   border-radius: 8px;
   background-color: rgba(17,17,27,0.65);
   transition: background 0.2s;
@@ -148,7 +150,7 @@ a:hover { color: var(--lavender); text-decoration: underline; }
 
 .next { right: 8px; }
 .prev { left: 8px; }
-.prev:hover, .next:hover { background-color: rgba(17,17,27,0.92); }
+@media (hover: hover) { .prev:hover, .next:hover { background-color: rgba(17,17,27,0.92); } }
 
 /* ── Image counter badge ── */
 .numbertext {
@@ -170,19 +172,19 @@ a:hover { color: var(--lavender); text-decoration: underline; }
   height: 7px;
   width: 7px;
   margin: 10px 3px 0;
+  padding: 0;
   background-color: var(--surface2);
+  border: none;
   border-radius: 50%;
   display: inline-block;
   transition: background-color 0.25s, transform 0.25s;
 }
 
-.dot.active, .dot:hover {
-  background-color: var(--blue);
-  transform: scale(1.5);
-}
+.dot.active { background-color: var(--blue); transform: scale(1.5); }
+@media (hover: hover) { .dot:hover { background-color: var(--blue); transform: scale(1.5); } }
 
 /* ── Fade animation ── */
-.fade { animation: fade 0.35s ease; }
+.slide-fade { animation: fade 0.25s ease; }
 
 @keyframes fade {
   from { opacity: 0.25; }
@@ -1857,19 +1859,22 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 		var intermediateItem = thumbnailURL.split("/square.");
 		var thumbnailURLbase = thumbnailURL.split("photos/")[0] + "photos/"
 		var extention = intermediateItem[1].split("?")[0];
-		HTML=HTML+"<div class='mySlides fade'>\n<div class='numbertext'>" + currentImage +"/" + images.length + "</div><img src='"+thumbnailURLbase+images[i]+"/original."+extention+"?' class='img' id='img"+i+"'></div>\n<div id='modal"+i+"' class='modal'><span class='close'>&times;</span><img class='modal-content' id='modalImg"+i+"'><div id='caption'></div></div>";
+		var photoName = (taxon.preferred_common_name || taxon.name || 'photo') + ' ' + currentImage;
+		HTML=HTML+"<div class='mySlides'>\n<div class='numbertext'>" + currentImage +"/" + images.length + "</div><img src='"+thumbnailURLbase+images[i]+"/original."+extention+"?' class='img' alt='"+photoName+"' id='img"+i+"'></div>\n<div id='modal"+i+"' class='modal'><span class='close'>&times;</span><img class='modal-content' id='modalImg"+i+"' alt='"+photoName+"'><div id='caption'></div></div>";
 	}
 	if(images.length>1){ //only add prev/next arrows if there is more than 1 image
-		HTML=HTML+"\n\n<a class='prev' onclick='plusSlides(-1)'>&#10094;</a>\n<a class='next' onclick='plusSlides(1)'>&#10095;</a>\n"; //add next and prev buttons
+		HTML=HTML+"\n\n<button class='prev' aria-label='Previous photo'>&#10094;</button>\n<button class='next' aria-label='Next photo'>&#10095;</button>\n";
 	}
 	document.getElementById("slideshowContainer").innerHTML = HTML; //inject generated html into page
 	HTML="";
 	for(var i=0; i<images.length; i++){
-		HTML=HTML+"<span class='dot' onclick='currentSlide("+(i+1)+")'></span>\n";
+		HTML=HTML+"<button class='dot' aria-label='Photo "+(i+1)+"'></button>\n";
 	}
 	document.getElementById("dots").innerHTML = HTML; //inject into page
+	slideIndex = 1;
 	showSlides(slideIndex); //show slides
 	generateModals(images.length);
+	wireSlideshow(images.length);
 }
 	
 function parseEntry(entry) { //gets list of photo ids from entry
@@ -2110,24 +2115,57 @@ function currentSlide(n) {
 }
 
 function showSlides(n) {
-	var i;
 	var slides = document.getElementsByClassName("mySlides");
 	var dots = document.getElementsByClassName("dot");
-	if (n > slides.length) {slideIndex = 1}    
-	if (n < 1) {slideIndex = slides.length}
-	for (i = 0; i < slides.length; i++) {
-		slides[i].style.display = "none";  
+	if (n > slides.length) { slideIndex = 1; }
+	if (n < 1) { slideIndex = slides.length; }
+	for (var i = 0; i < slides.length; i++) {
+		slides[i].style.display = "none";
 	}
-	for (i = 0; i < dots.length; i++) {
-		dots[i].className = dots[i].className.replace(" active", "");
+	for (var i = 0; i < dots.length; i++) {
+		dots[i].classList.remove("active");
 	}
-	slides[slideIndex-1].style.display = "block";  
-	dots[slideIndex-1].className += " active";
+	var current = slides[slideIndex - 1];
+	current.style.display = "block";
+	// Re-trigger fade by removing and re-adding the animation class
+	current.classList.remove("slide-fade");
+	void current.offsetWidth; // force reflow
+	current.classList.add("slide-fade");
+	dots[slideIndex - 1].classList.add("active");
 }
-	
-//////////////////////////////////modals
 
-$('#modal').hide();
+// Wire slideshow arrows and dots (called after generateHTML injects them)
+function wireSlideshow(imageCount) {
+	var container = document.getElementById("slideshowContainer");
+	var prevBtn = container.querySelector(".prev");
+	var nextBtn = container.querySelector(".next");
+	if (prevBtn) prevBtn.onclick = function() { plusSlides(-1); };
+	if (nextBtn) nextBtn.onclick = function() { plusSlides(1); };
+
+	var dots = document.getElementsByClassName("dot");
+	for (var i = 0; i < dots.length; i++) {
+		(function(idx) { dots[idx].onclick = function() { currentSlide(idx + 1); }; })(i);
+	}
+
+	// Touch swipe on slideshow container
+	var swipeStartX = null;
+	var swipeStartY = null;
+	container.addEventListener("touchstart", function(e) {
+		swipeStartX = e.touches[0].clientX;
+		swipeStartY = e.touches[0].clientY;
+	}, { passive: true });
+	container.addEventListener("touchend", function(e) {
+		if (swipeStartX === null) return;
+		var dx = e.changedTouches[0].clientX - swipeStartX;
+		var dy = e.changedTouches[0].clientY - swipeStartY;
+		swipeStartX = null;
+		swipeStartY = null;
+		if (Math.abs(dx) < 30 || Math.abs(dx) < Math.abs(dy)) return; // not a horizontal swipe
+		plusSlides(dx < 0 ? 1 : -1);
+	}, { passive: true });
+}
+
+//////////////////////////////////modals
 	
 function setupFilterModal(){
 	var filterModal = document.getElementById('filterModal');
@@ -2483,18 +2521,54 @@ $(function(){
 	})();
 });
 
+function openModal(idx) {
+	var modal = document.getElementById('modal' + idx);
+	var modalImg = document.getElementById('modalImg' + idx);
+	var img = document.getElementById('img' + idx);
+	if (!modal || !img) return;
+	modal.style.display = "block";
+	modalImg.src = img.src;
+}
+
+function closeAllModals() {
+	document.querySelectorAll('.modal[id^="modal"]').forEach(function(m) { m.style.display = "none"; });
+}
+
+function getOpenModalIndex() {
+	var modals = document.querySelectorAll('.modal[id^="modal"]');
+	for (var i = 0; i < modals.length; i++) {
+		if (modals[i].style.display === "block") return i;
+	}
+	return -1;
+}
+
 function generateModals(imageCount){
 	for(let i = 0; i < imageCount; i++){
 		var modal = document.getElementById('modal'+i);
 		var img = document.getElementById('img'+i);
-		var modalImg = document.getElementById("modalImg"+i);
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = this.src;
-		};
-		modal.querySelector('.close').onclick = function() {
-			modal.style.display = "none";
-		};
+		(function(idx) {
+			img.onclick = function() { openModal(idx); };
+			modal.querySelector('.close').onclick = function() { modal.style.display = "none"; };
+
+			// Swipe within modal to go to prev/next photo
+			var mswipeX = null, mswipeY = null;
+			modal.addEventListener("touchstart", function(e) {
+				mswipeX = e.touches[0].clientX;
+				mswipeY = e.touches[0].clientY;
+			}, { passive: true });
+			modal.addEventListener("touchend", function(e) {
+				if (mswipeX === null) return;
+				var dx = e.changedTouches[0].clientX - mswipeX;
+				var dy = e.changedTouches[0].clientY - mswipeY;
+				mswipeX = null; mswipeY = null;
+				if (Math.abs(dx) < 30 || Math.abs(dx) < Math.abs(dy)) return;
+				var slides = document.getElementsByClassName("mySlides");
+				var next = (idx + (dx < 0 ? 1 : -1) + slides.length) % slides.length;
+				modal.style.display = "none";
+				plusSlides(dx < 0 ? 1 : -1);
+				openModal(slideIndex - 1);
+			}, { passive: true });
+		})(i);
 	}
 }
 
@@ -2583,7 +2657,7 @@ window.onclick = function(event) {
 		if(m && event.target === m) m.style.display = "none";
 	});
 	document.querySelectorAll('.modal[id^="modal"]').forEach(function(m){
-		if(event.target === m) m.style.display = "none";
+		if(event.target === m) { m.style.display = "none"; }
 	});
 };
 $(document).keyup(function(e) {
@@ -2591,6 +2665,19 @@ $(document).keyup(function(e) {
 		document.querySelectorAll('.modal').forEach(function(m){ m.style.display = "none"; });
 		// Esc on location modal counts as "skip" — mark prompted so it doesn't re-appear
 		try { localStorage.setItem('locationPrompted', '1'); } catch(e){}
+	}
+	// Arrow keys: navigate photos within the current card (skip if typing in an input)
+	var tag = document.activeElement && document.activeElement.tagName;
+	if(tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+	if(e.keyCode === 37){ // left arrow
+		var mi = getOpenModalIndex();
+		if(mi >= 0){ closeAllModals(); plusSlides(-1); openModal(slideIndex-1); }
+		else { plusSlides(-1); }
+	}
+	if(e.keyCode === 39){ // right arrow
+		var mi = getOpenModalIndex();
+		if(mi >= 0){ closeAllModals(); plusSlides(1); openModal(slideIndex-1); }
+		else { plusSlides(1); }
 	}
 });
 
