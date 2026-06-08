@@ -288,9 +288,19 @@ a:hover { color: var(--lavender); text-decoration: underline; }
 .eb--deadly      { --eb-color: var(--red);      --eb-bg: rgba(243,139,168,0.20); --eb-border: var(--red); }
 
 #edibility-badge {
-  display: none;
+  display: flex;
   flex-wrap: wrap;
   gap: 4px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: max-height 0.25s ease, opacity 0.2s;
+}
+#edibility-badge.is-visible {
+  max-height: 80px;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .eb-pill {
@@ -305,9 +315,18 @@ a:hover { color: var(--lavender); text-decoration: underline; }
 }
 
 #edibility-source {
-  display: none;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
   font-size: 10px;
   color: var(--overlay0);
+  transition: max-height 0.25s ease, opacity 0.2s;
+}
+#edibility-source.is-visible {
+  max-height: 30px;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* ── Card rating ── */
@@ -2517,8 +2536,13 @@ function showEdibilityBadge() {
   var el  = document.getElementById('edibility-badge');
   var src = document.getElementById('edibility-source');
   if (!el) return;
-  el.innerHTML = ''; el.style.display = 'none';
-  if (src) src.style.display = 'none';
+
+  // Clear any pending hide-transition cleanup
+  if (el._hideTimer) { clearTimeout(el._hideTimer); el._hideTimer = null; }
+
+  el.innerHTML = '';
+  el.classList.remove('is-visible');
+  if (src) src.classList.remove('is-visible');
 
   if (window.currentDeckKey !== 'mushrooms') return;
   var edibilities = getEdibility(window.currentEntry);
@@ -2534,16 +2558,22 @@ function showEdibilityBadge() {
   });
 
   if (el.children.length) {
-    el.style.display = 'flex';
-    if (src) src.style.display = 'block';
+    // Defer to next frame so the browser registers the collapsed state first
+    requestAnimationFrame(function() {
+      el.classList.add('is-visible');
+      if (src) src.classList.add('is-visible');
+    });
   }
 }
 
 function hideEdibilityBadge() {
   var el  = document.getElementById('edibility-badge');
   var src = document.getElementById('edibility-source');
-  if (el) { el.innerHTML = ''; el.style.display = 'none'; }
-  if (src) src.style.display = 'none';
+  if (!el) return;
+  el.classList.remove('is-visible');
+  if (src) src.classList.remove('is-visible');
+  // Clear innerHTML after transition so pills don't flash back during slide-in
+  el._hideTimer = setTimeout(function() { el.innerHTML = ''; el._hideTimer = null; }, 300);
 }
 // ─────────────────────────────────────────────────────────────────────────────
 
