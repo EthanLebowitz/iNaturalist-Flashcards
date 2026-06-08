@@ -275,27 +275,36 @@ a:hover { color: var(--lavender); text-decoration: underline; }
   text-decoration: none;
 }
 
-/* ── Edibility badge ── */
+/* ── Edibility pill ── */
+.eb--choice      { --eb-color: var(--green);    --eb-bg: rgba(166,227,161,0.15); --eb-border: var(--green); }
+.eb--edible      { --eb-color: var(--green);    --eb-bg: rgba(166,227,161,0.10); --eb-border: rgba(166,227,161,0.5); }
+.eb--edible_cooked { --eb-color: var(--yellow); --eb-bg: rgba(249,226,175,0.10); --eb-border: rgba(249,226,175,0.5); }
+.eb--medicinal   { --eb-color: var(--teal);     --eb-bg: rgba(148,226,213,0.10); --eb-border: rgba(148,226,213,0.5); }
+.eb--inedible    { --eb-color: var(--subtext0); --eb-bg: rgba(88,91,112,0.25);   --eb-border: var(--surface2); }
+.eb--caution     { --eb-color: var(--yellow);   --eb-bg: rgba(249,226,175,0.15); --eb-border: var(--yellow); }
+.eb--allergenic  { --eb-color: var(--yellow);   --eb-bg: rgba(249,226,175,0.15); --eb-border: var(--yellow); }
+.eb--psychoactive { --eb-color: var(--mauve);   --eb-bg: rgba(203,166,247,0.15); --eb-border: var(--mauve); }
+.eb--poisonous   { --eb-color: var(--red);      --eb-bg: rgba(243,139,168,0.12); --eb-border: rgba(243,139,168,0.6); }
+.eb--deadly      { --eb-color: var(--red);      --eb-bg: rgba(243,139,168,0.20); --eb-border: var(--red); }
+
 #edibility-badge {
   display: none;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
+  width: fit-content;
+  font-size: 11px;
   font-weight: 600;
-  padding: 5px 10px;
-  border-radius: 8px;
-  border: 1px solid transparent;
+  letter-spacing: 0.03em;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: var(--eb-bg);
+  border: 1px solid var(--eb-border);
+  color: var(--eb-color);
 }
-#edibility-badge.eb--choice      { background: rgba(166,227,161,0.15); border-color: var(--green);   color: var(--green); }
-#edibility-badge.eb--edible      { background: rgba(166,227,161,0.10); border-color: rgba(166,227,161,0.5); color: var(--green); }
-#edibility-badge.eb--edible_cooked { background: rgba(249,226,175,0.10); border-color: rgba(249,226,175,0.5); color: var(--yellow); }
-#edibility-badge.eb--medicinal   { background: rgba(148,226,213,0.10); border-color: rgba(148,226,213,0.5); color: var(--teal); }
-#edibility-badge.eb--inedible    { background: rgba(88,91,112,0.25);  border-color: var(--surface2); color: var(--subtext0); }
-#edibility-badge.eb--caution     { background: rgba(249,226,175,0.15); border-color: var(--yellow);  color: var(--yellow); }
-#edibility-badge.eb--allergenic  { background: rgba(249,226,175,0.15); border-color: var(--yellow);  color: var(--yellow); }
-#edibility-badge.eb--psychoactive { background: rgba(203,166,247,0.15); border-color: var(--mauve);  color: var(--mauve); }
-#edibility-badge.eb--poisonous   { background: rgba(243,139,168,0.12); border-color: rgba(243,139,168,0.6); color: var(--red); }
-#edibility-badge.eb--deadly      { background: rgba(243,139,168,0.20); border-color: var(--red);     color: var(--red); }
+
+#edibility-source {
+  display: none;
+  font-size: 10px;
+  color: var(--overlay0);
+}
 
 /* ── Card rating ── */
 .rating-section {
@@ -1302,6 +1311,7 @@ window.DEFAULT_DECK = "tracking";
 	<button type="submit" onclick="showAnswer()" class="options wide" id="showAnswer">Show Answer</button>
 	<div id="answer"></div>
   <div id="edibility-badge"></div>
+  <div id="edibility-source">Edibility data from <a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a> · not foraging advice</div>
   <div class="self-report-section" id="selfReport">
     <span class="self-report-label">Did you get it right?</span>
     <div class="self-report-btn-row">
@@ -2467,13 +2477,13 @@ function generateModals(imageCount){
 
 // Single global modal-dismiss handlers (bound once, not per card)
 // ── Edibility badge ──────────────────────────────────────────────────────────
-var mushroomEdibility = null; // null = not loaded yet; {} = loaded (may be empty)
+var mushroomEdibility = null;
 
 (function loadMushroomEdibility(){
   fetch('data/mushroom-edibility.json')
     .then(function(r){ return r.json(); })
     .then(function(d){ mushroomEdibility = d; })
-    .catch(function(){ mushroomEdibility = {}; }); // graceful — badge just won't show
+    .catch(function(){ mushroomEdibility = {}; });
 })();
 
 var EDIBILITY_LABELS = {
@@ -2500,21 +2510,29 @@ function getEdibility(entry) {
 }
 
 function showEdibilityBadge() {
-  var badge = document.getElementById('edibility-badge');
-  if (!badge) return;
-  if (window.currentDeckKey !== 'mushrooms') { badge.style.display = 'none'; return; }
+  var el = document.getElementById('edibility-badge');
+  var src = document.getElementById('edibility-source');
+  if (!el) return;
+  el.className = ''; el.textContent = ''; el.style.display = 'none';
+  if (src) src.style.display = 'none';
+
+  if (window.currentDeckKey !== 'mushrooms') return;
   var edibility = getEdibility(window.currentEntry);
-  if (!edibility) { badge.style.display = 'none'; return; }
+  if (!edibility) return;
   var meta = EDIBILITY_LABELS[edibility];
-  if (!meta) { badge.style.display = 'none'; return; }
-  badge.className = 'eb--' + edibility;
-  badge.style.display = 'flex';
-  badge.textContent = meta.icon + ' ' + meta.text;
+  if (!meta) return;
+
+  el.className = 'eb--' + edibility;
+  el.textContent = meta.icon + ' ' + meta.text;
+  el.style.display = 'inline-block';
+  if (src) src.style.display = 'block';
 }
 
 function hideEdibilityBadge() {
-  var badge = document.getElementById('edibility-badge');
-  if (badge) { badge.style.display = 'none'; badge.className = ''; }
+  var el = document.getElementById('edibility-badge');
+  var src = document.getElementById('edibility-source');
+  if (el) { el.className = ''; el.textContent = ''; el.style.display = 'none'; }
+  if (src) src.style.display = 'none';
 }
 // ─────────────────────────────────────────────────────────────────────────────
 
