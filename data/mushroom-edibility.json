@@ -1,4677 +1,9009 @@
 {
-  "47346": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "47347": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "47348": [
-    "choice"
-  ],
-  "47392": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "48338": [
-    "inedible"
-  ],
-  "48418": [
-    "poisonous"
-  ],
-  "48424": [
-    "edible"
-  ],
-  "48443": [
-    "medicinal",
-    "edible"
-  ],
-  "48473": [
-    "inedible",
-    "medicinal"
-  ],
-  "48494": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "48509": [
-    "edible"
-  ],
-  "48529": [
-    "edible"
-  ],
-  "48605": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "48607": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "48611": [
-    "choice"
-  ],
-  "48641": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "48701": [
-    "edible",
-    "choice"
-  ],
-  "48706": [
-    "poisonous",
-    "psychoactive",
-    "medicinal"
-  ],
-  "48715": [
-    "poisonous",
-    "psychoactive",
-    "medicinal"
-  ],
-  "48767": [
-    "poisonous",
-    "medicinal"
-  ],
-  "48770": [
-    "poisonous"
-  ],
-  "48800": [
-    "medicinal",
-    "edible"
-  ],
-  "49158": [
-    "medicinal",
-    "choice"
-  ],
-  "49162": [
-    "edible"
-  ],
-  "49208": [
-    "edible"
-  ],
-  "49446": [
-    "inedible"
-  ],
-  "49448": [
-    "inedible"
-  ],
-  "49547": [
-    "edible"
-  ],
-  "50813": [
-    "edible"
-  ],
-  "51135": [
-    "inedible"
-  ],
-  "51314": [
-    "choice"
-  ],
-  "51869": [
-    "edible"
-  ],
-  "51872": [
-    "inedible",
-    "medicinal"
-  ],
-  "52135": [
-    "deadly",
-    "medicinal"
-  ],
-  "53488": [
-    "medicinal",
-    "edible"
-  ],
-  "53714": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "53884": [
-    "edible"
-  ],
-  "53885": [
-    "edible"
-  ],
-  "53888": [
-    "edible"
-  ],
-  "54025": [
-    "psychoactive"
-  ],
-  "54121": [
-    "edible"
-  ],
-  "54132": [
-    "choice"
-  ],
-  "54164": [
-    "medicinal",
-    "edible"
-  ],
-  "54204": [
-    "choice"
-  ],
-  "54206": [
-    "choice"
-  ],
-  "54590": [
-    "edible"
-  ],
-  "54591": [
-    "edible"
-  ],
-  "54599": [
-    "inedible"
-  ],
-  "54600": [
-    "inedible"
-  ],
-  "54603": [
-    "inedible"
-  ],
-  "54631": [
-    "inedible"
-  ],
-  "54893": [
-    "edible"
-  ],
-  "55156": [
-    "edible"
-  ],
-  "55162": [
-    "edible"
-  ],
-  "55175": [
-    "inedible"
-  ],
-  "55187": [
-    "choice"
-  ],
-  "55245": [
-    "edible"
-  ],
-  "55271": [
-    "inedible",
-    "medicinal"
-  ],
-  "55274": [
-    "edible"
-  ],
-  "55482": [
-    "edible cooked",
-    "medicinal",
-    "edible"
-  ],
-  "55496": [
-    "inedible"
-  ],
-  "55498": [
-    "medicinal"
-  ],
-  "55501": [
-    "medicinal"
-  ],
-  "55568": [
-    "edible"
-  ],
-  "55583": [
-    "poisonous"
-  ],
-  "55605": [
-    "inedible",
-    "medicinal"
-  ],
-  "55919": [
-    "inedible"
-  ],
-  "55923": [
-    "inedible"
-  ],
-  "55930": [
-    "edible"
-  ],
-  "55941": [
-    "deadly",
-    "medicinal"
-  ],
-  "55950": [
-    "edible cooked",
-    "medicinal",
-    "edible"
-  ],
-  "55973": [
-    "inedible"
-  ],
-  "56251": [
-    "medicinal"
-  ],
-  "56318": [
-    "medicinal",
-    "edible"
-  ],
-  "56324": [
-    "medicinal"
-  ],
-  "56534": [
-    "inedible"
-  ],
-  "57462": [
-    "caution"
-  ],
-  "57692": [
-    "edible"
-  ],
-  "57883": [
-    "medicinal",
-    "edible"
-  ],
-  "58676": [
-    "inedible"
-  ],
-  "58682": [
-    "edible cooked",
-    "edible"
-  ],
-  "58683": [
-    "inedible"
-  ],
-  "58684": [
-    "deadly"
-  ],
-  "58685": [
-    "deadly",
-    "medicinal"
-  ],
-  "58687": [
-    "inedible"
-  ],
-  "58691": [
-    "deadly",
-    "poisonous"
-  ],
-  "58692": [
-    "poisonous"
-  ],
-  "58696": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "58699": [
-    "medicinal",
-    "edible"
-  ],
-  "58705": [
-    "inedible"
-  ],
-  "58709": [
-    "inedible"
-  ],
-  "60782": [
-    "edible"
-  ],
-  "60783": [
-    "edible"
-  ],
-  "61395": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "62485": [
-    "poisonous"
-  ],
-  "62486": [
-    "edible",
-    "choice"
-  ],
-  "62728": [
-    "edible"
-  ],
-  "62735": [
-    "edible"
-  ],
-  "63013": [
-    "edible",
-    "choice"
-  ],
-  "63014": [
-    "edible",
-    "choice"
-  ],
-  "63027": [
-    "edible cooked"
-  ],
-  "63076": [
-    "inedible",
-    "medicinal"
-  ],
-  "63098": [
-    "inedible"
-  ],
-  "63100": [
-    "inedible"
-  ],
-  "63102": [
-    "inedible"
-  ],
-  "63224": [
-    "poisonous"
-  ],
-  "63225": [
-    "edible"
-  ],
-  "63226": [
-    "edible"
-  ],
-  "63227": [
-    "edible"
-  ],
-  "63228": [
-    "edible"
-  ],
-  "63230": [
-    "edible"
-  ],
-  "63232": [
-    "edible"
-  ],
-  "63234": [
-    "medicinal",
-    "edible"
-  ],
-  "63235": [
-    "medicinal",
-    "edible"
-  ],
-  "63236": [
-    "medicinal",
-    "edible"
-  ],
-  "63238": [
-    "edible"
-  ],
-  "63258": [
-    "edible cooked",
-    "edible"
-  ],
-  "63260": [
-    "edible cooked",
-    "edible"
-  ],
-  "63268": [
-    "poisonous"
-  ],
-  "63271": [
-    "poisonous"
-  ],
-  "63274": [
-    "inedible"
-  ],
-  "63282": [
-    "medicinal",
-    "edible"
-  ],
-  "63387": [
-    "inedible"
-  ],
-  "63388": [
-    "inedible"
-  ],
-  "63390": [
-    "inedible"
-  ],
-  "63394": [
-    "edible cooked",
-    "medicinal",
-    "edible"
-  ],
-  "63395": [
-    "edible cooked",
-    "medicinal",
-    "edible"
-  ],
-  "63398": [
-    "edible cooked",
-    "medicinal",
-    "edible"
-  ],
-  "63399": [
-    "edible cooked",
-    "medicinal",
-    "edible"
-  ],
-  "63401": [
-    "edible cooked",
-    "medicinal",
-    "edible"
-  ],
-  "63405": [
-    "inedible",
-    "medicinal"
-  ],
-  "63407": [
-    "inedible",
-    "medicinal"
-  ],
-  "63426": [
-    "inedible"
-  ],
-  "63427": [
-    "inedible"
-  ],
-  "63450": [
-    "inedible"
-  ],
-  "63453": [
-    "inedible"
-  ],
-  "63456": [
-    "inedible"
-  ],
-  "63460": [
-    "inedible",
-    "medicinal"
-  ],
-  "63462": [
-    "inedible",
-    "medicinal"
-  ],
-  "63463": [
-    "inedible",
-    "medicinal"
-  ],
-  "63465": [
-    "inedible",
-    "medicinal"
-  ],
-  "63479": [
-    "inedible"
-  ],
-  "63488": [
-    "edible"
-  ],
-  "63489": [
-    "inedible",
-    "medicinal"
-  ],
-  "63496": [
-    "edible"
-  ],
-  "63553": [
-    "medicinal"
-  ],
-  "63555": [
-    "medicinal"
-  ],
-  "63556": [
-    "medicinal"
-  ],
-  "63557": [
-    "medicinal"
-  ],
-  "63558": [
-    "medicinal"
-  ],
-  "63559": [
-    "medicinal"
-  ],
-  "63579": [
-    "inedible"
-  ],
-  "63580": [
-    "inedible"
-  ],
-  "63581": [
-    "inedible"
-  ],
-  "63583": [
-    "medicinal"
-  ],
-  "63585": [
-    "edible"
-  ],
-  "64011": [
-    "poisonous"
-  ],
-  "64021": [
-    "poisonous"
-  ],
-  "64071": [
-    "edible"
-  ],
-  "64087": [
-    "edible"
-  ],
-  "64708": [
-    "edible"
-  ],
-  "67331": [
-    "edible"
-  ],
-  "67338": [
-    "medicinal"
-  ],
-  "67346": [
-    "inedible"
-  ],
-  "67351": [
-    "inedible"
-  ],
-  "67354": [
-    "medicinal",
-    "edible"
-  ],
-  "67356": [
-    "deadly"
-  ],
-  "67594": [
-    "edible",
-    "choice"
-  ],
-  "67660": [
-    "edible cooked",
-    "edible"
-  ],
-  "67661": [
-    "edible cooked",
-    "edible"
-  ],
-  "67751": [
-    "poisonous"
-  ],
-  "67752": [
-    "poisonous"
-  ],
-  "68301": [
-    "inedible"
-  ],
-  "68309": [
-    "inedible",
-    "medicinal"
-  ],
-  "70222": [
-    "medicinal",
-    "edible"
-  ],
-  "83196": [
-    "psychoactive"
-  ],
-  "83197": [
-    "medicinal",
-    "edible"
-  ],
-  "83199": [
-    "caution"
-  ],
-  "84224": [
-    "edible"
-  ],
-  "84271": [
-    "edible"
-  ],
-  "84315": [
-    "medicinal",
-    "edible"
-  ],
-  "85120": [
-    "edible cooked"
-  ],
-  "85398": [
-    "poisonous"
-  ],
-  "116662": [
-    "edible"
-  ],
-  "116695": [
-    "medicinal"
-  ],
-  "117227": [
-    "inedible"
-  ],
-  "117308": [
-    "poisonous"
-  ],
-  "117311": [
-    "edible"
-  ],
-  "117994": [
-    "edible"
-  ],
-  "117998": [
-    "edible"
-  ],
-  "118002": [
-    "edible"
-  ],
-  "118027": [
-    "inedible"
-  ],
-  "118038": [
-    "medicinal"
-  ],
-  "118041": [
-    "medicinal"
-  ],
-  "118052": [
-    "inedible",
-    "medicinal"
-  ],
-  "118078": [
-    "medicinal"
-  ],
-  "118084": [
-    "medicinal"
-  ],
-  "118101": [
-    "medicinal"
-  ],
-  "118102": [
-    "medicinal"
-  ],
-  "118115": [
-    "medicinal"
-  ],
-  "118131": [
-    "inedible"
-  ],
-  "118138": [
-    "medicinal"
-  ],
-  "118139": [
-    "medicinal",
-    "edible"
-  ],
-  "118145": [
-    "edible"
-  ],
-  "118146": [
-    "medicinal",
-    "edible"
-  ],
-  "118147": [
-    "poisonous",
-    "medicinal"
-  ],
-  "118158": [
-    "edible"
-  ],
-  "118159": [
-    "edible"
-  ],
-  "118160": [
-    "edible"
-  ],
-  "118163": [
-    "edible"
-  ],
-  "118164": [
-    "inedible"
-  ],
-  "118166": [
-    "edible"
-  ],
-  "118168": [
-    "inedible"
-  ],
-  "118175": [
-    "edible"
-  ],
-  "118178": [
-    "edible"
-  ],
-  "118179": [
-    "edible"
-  ],
-  "118180": [
-    "edible"
-  ],
-  "118182": [
-    "edible"
-  ],
-  "118191": [
-    "medicinal",
-    "edible"
-  ],
-  "118199": [
-    "inedible"
-  ],
-  "118201": [
-    "medicinal"
-  ],
-  "118208": [
-    "inedible"
-  ],
-  "118211": [
-    "medicinal",
-    "edible"
-  ],
-  "118212": [
-    "caution"
-  ],
-  "118213": [
-    "inedible"
-  ],
-  "118215": [
-    "caution"
-  ],
-  "118223": [
-    "edible"
-  ],
-  "118226": [
-    "inedible"
-  ],
-  "118240": [
-    "medicinal",
-    "edible"
-  ],
-  "118243": [
-    "edible"
-  ],
-  "118244": [
-    "edible"
-  ],
-  "118251": [
-    "edible"
-  ],
-  "118260": [
-    "psychoactive",
-    "medicinal",
-    "edible"
-  ],
-  "118263": [
-    "psychoactive",
-    "medicinal",
-    "edible"
-  ],
-  "118268": [
-    "edible"
-  ],
-  "118270": [
-    "edible"
-  ],
-  "118271": [
-    "edible"
-  ],
-  "118273": [
-    "edible"
-  ],
-  "118275": [
-    "edible"
-  ],
-  "118277": [
-    "edible"
-  ],
-  "118279": [
-    "edible"
-  ],
-  "118280": [
-    "edible"
-  ],
-  "118281": [
-    "psychoactive"
-  ],
-  "118283": [
-    "edible"
-  ],
-  "118289": [
-    "deadly"
-  ],
-  "118290": [
-    "deadly"
-  ],
-  "118291": [
-    "deadly"
-  ],
-  "118292": [
-    "deadly"
-  ],
-  "118294": [
-    "deadly"
-  ],
-  "118295": [
-    "deadly"
-  ],
-  "118297": [
-    "deadly"
-  ],
-  "118298": [
-    "deadly"
-  ],
-  "118299": [
-    "deadly"
-  ],
-  "118302": [
-    "psychoactive"
-  ],
-  "118313": [
-    "edible"
-  ],
-  "118324": [
-    "edible"
-  ],
-  "118330": [
-    "poisonous"
-  ],
-  "118332": [
-    "poisonous"
-  ],
-  "118336": [
-    "poisonous"
-  ],
-  "118344": [
-    "medicinal"
-  ],
-  "118348": [
-    "edible"
-  ],
-  "118363": [
-    "edible"
-  ],
-  "118368": [
-    "edible"
-  ],
-  "118379": [
-    "poisonous"
-  ],
-  "118382": [
-    "edible"
-  ],
-  "118383": [
-    "edible"
-  ],
-  "118384": [
-    "choice"
-  ],
-  "118385": [
-    "choice"
-  ],
-  "118386": [
-    "poisonous"
-  ],
-  "118388": [
-    "edible"
-  ],
-  "118391": [
-    "medicinal",
-    "edible"
-  ],
-  "118393": [
-    "medicinal",
-    "edible"
-  ],
-  "118394": [
-    "poisonous"
-  ],
-  "118396": [
-    "edible"
-  ],
-  "118398": [
-    "deadly",
-    "poisonous"
-  ],
-  "118400": [
-    "poisonous"
-  ],
-  "118401": [
-    "edible cooked"
-  ],
-  "118495": [
-    "medicinal",
-    "edible"
-  ],
-  "119118": [
-    "medicinal",
-    "edible"
-  ],
-  "119134": [
-    "inedible"
-  ],
-  "119151": [
-    "choice"
-  ],
-  "119528": [
-    "edible"
-  ],
-  "119968": [
-    "medicinal",
-    "edible"
-  ],
-  "119984": [
-    "edible"
-  ],
-  "120030": [
-    "inedible"
-  ],
-  "120031": [
-    "inedible"
-  ],
-  "120037": [
-    "inedible"
-  ],
-  "120170": [
-    "edible cooked"
-  ],
-  "120172": [
-    "edible"
-  ],
-  "120242": [
-    "inedible",
-    "medicinal"
-  ],
-  "120281": [
-    "choice"
-  ],
-  "120443": [
-    "choice"
-  ],
-  "120444": [
-    "choice"
-  ],
-  "120871": [
-    "edible"
-  ],
-  "120872": [
-    "edible"
-  ],
-  "120951": [
-    "medicinal",
-    "edible"
-  ],
-  "120952": [
-    "medicinal",
-    "edible"
-  ],
-  "121217": [
-    "poisonous"
-  ],
-  "121714": [
-    "inedible",
-    "medicinal"
-  ],
-  "121715": [
-    "edible"
-  ],
-  "122170": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "122279": [
-    "choice"
-  ],
-  "122333": [
-    "edible"
-  ],
-  "122334": [
-    "edible"
-  ],
-  "122335": [
-    "edible"
-  ],
-  "123220": [
-    "inedible",
-    "medicinal"
-  ],
-  "123221": [
-    "inedible",
-    "medicinal"
-  ],
-  "123223": [
-    "inedible",
-    "medicinal"
-  ],
-  "123224": [
-    "inedible",
-    "medicinal"
-  ],
-  "123351": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "123623": [
-    "medicinal",
-    "edible"
-  ],
-  "123705": [
-    "choice"
-  ],
-  "123789": [
-    "edible"
-  ],
-  "123891": [
-    "edible"
-  ],
-  "123897": [
-    "edible"
-  ],
-  "124085": [
-    "medicinal",
-    "edible"
-  ],
-  "124102": [
-    "inedible"
-  ],
-  "124344": [
-    "edible"
-  ],
-  "125353": [
-    "poisonous"
-  ],
-  "125364": [
-    "medicinal",
-    "edible"
-  ],
-  "125366": [
-    "edible"
-  ],
-  "125367": [
-    "edible"
-  ],
-  "125390": [
-    "deadly"
-  ],
-  "125688": [
-    "medicinal",
-    "edible"
-  ],
-  "125689": [
-    "edible",
-    "choice"
-  ],
-  "125693": [
-    "medicinal",
-    "edible"
-  ],
-  "125694": [
-    "medicinal",
-    "edible"
-  ],
-  "125696": [
-    "medicinal",
-    "edible"
-  ],
-  "125697": [
-    "medicinal",
-    "edible"
-  ],
-  "125703": [
-    "edible"
-  ],
-  "125705": [
-    "medicinal"
-  ],
-  "125715": [
-    "edible"
-  ],
-  "125716": [
-    "edible"
-  ],
-  "125719": [
-    "edible"
-  ],
-  "125720": [
-    "medicinal",
-    "edible"
-  ],
-  "125724": [
-    "inedible"
-  ],
-  "125725": [
-    "inedible"
-  ],
-  "125743": [
-    "edible"
-  ],
-  "125750": [
-    "edible"
-  ],
-  "125932": [
-    "medicinal"
-  ],
-  "126131": [
-    "edible"
-  ],
-  "126158": [
-    "edible"
-  ],
-  "126160": [
-    "medicinal",
-    "edible"
-  ],
-  "126163": [
-    "psychoactive"
-  ],
-  "126754": [
-    "medicinal"
-  ],
-  "126831": [
-    "poisonous"
-  ],
-  "126911": [
-    "edible cooked"
-  ],
-  "126913": [
-    "edible"
-  ],
-  "127011": [
-    "edible"
-  ],
-  "127021": [
-    "medicinal",
-    "edible"
-  ],
-  "127216": [
-    "edible"
-  ],
-  "127509": [
-    "edible cooked",
-    "medicinal",
-    "edible"
-  ],
-  "127510": [
-    "medicinal"
-  ],
-  "127674": [
-    "poisonous"
-  ],
-  "128053": [
-    "medicinal"
-  ],
-  "128065": [
-    "medicinal",
-    "edible"
-  ],
-  "128071": [
-    "medicinal",
-    "edible"
-  ],
-  "128073": [
-    "medicinal",
-    "edible"
-  ],
-  "128074": [
-    "medicinal",
-    "edible"
-  ],
-  "128075": [
-    "medicinal",
-    "edible"
-  ],
-  "128521": [
-    "edible"
-  ],
-  "129328": [
-    "choice"
-  ],
-  "129329": [
-    "edible"
-  ],
-  "130198": [
-    "edible"
-  ],
-  "130199": [
-    "medicinal",
-    "edible"
-  ],
-  "130203": [
-    "caution"
-  ],
-  "130908": [
-    "edible cooked"
-  ],
-  "130910": [
-    "medicinal"
-  ],
-  "130912": [
-    "deadly"
-  ],
-  "130915": [
-    "edible"
-  ],
-  "130916": [
-    "edible"
-  ],
-  "130919": [
-    "medicinal",
-    "edible"
-  ],
-  "130929": [
-    "medicinal"
-  ],
-  "130934": [
-    "poisonous"
-  ],
-  "131537": [
-    "choice"
-  ],
-  "133700": [
-    "inedible",
-    "medicinal"
-  ],
-  "133931": [
-    "poisonous"
-  ],
-  "136399": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "143270": [
-    "choice"
-  ],
-  "143271": [
-    "choice"
-  ],
-  "143308": [
-    "edible"
-  ],
-  "143309": [
-    "medicinal",
-    "edible"
-  ],
-  "143312": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "143313": [
-    "medicinal",
-    "edible"
-  ],
-  "143384": [
-    "medicinal",
-    "edible"
-  ],
-  "143393": [
-    "choice"
-  ],
-  "143562": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "143563": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "145526": [
-    "edible"
-  ],
-  "146681": [
-    "inedible"
-  ],
-  "147277": [
-    "edible"
-  ],
-  "147354": [
-    "inedible"
-  ],
-  "147355": [
-    "inedible"
-  ],
-  "148127": [
-    "medicinal"
-  ],
-  "153033": [
-    "edible"
-  ],
-  "153035": [
-    "inedible"
-  ],
-  "153431": [
-    "edible cooked",
-    "edible"
-  ],
-  "153434": [
-    "edible cooked",
-    "edible"
-  ],
-  "153435": [
-    "edible cooked",
-    "edible"
-  ],
-  "153445": [
-    "poisonous"
-  ],
-  "153459": [
-    "edible"
-  ],
-  "153464": [
-    "edible"
-  ],
-  "154291": [
-    "edible"
-  ],
-  "154321": [
-    "edible"
-  ],
-  "154366": [
-    "edible cooked"
-  ],
-  "154379": [
-    "edible"
-  ],
-  "154390": [
-    "inedible"
-  ],
-  "154392": [
-    "inedible"
-  ],
-  "154393": [
-    "inedible"
-  ],
-  "154450": [
-    "inedible",
-    "medicinal"
-  ],
-  "154675": [
-    "medicinal",
-    "edible"
-  ],
-  "154734": [
-    "medicinal"
-  ],
-  "154735": [
-    "deadly"
-  ],
-  "154736": [
-    "deadly"
-  ],
-  "154744": [
-    "inedible"
-  ],
-  "154745": [
-    "inedible"
-  ],
-  "154750": [
-    "medicinal",
-    "edible"
-  ],
-  "154756": [
-    "edible"
-  ],
-  "154875": [
-    "choice"
-  ],
-  "154877": [
-    "edible"
-  ],
-  "154987": [
-    "edible"
-  ],
-  "155052": [
-    "poisonous"
-  ],
-  "155080": [
-    "inedible"
-  ],
-  "155166": [
-    "poisonous"
-  ],
-  "155197": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "155199": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "155200": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "155203": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "155208": [
-    "edible"
-  ],
-  "155212": [
-    "poisonous"
-  ],
-  "155213": [
-    "poisonous"
-  ],
-  "155494": [
-    "deadly"
-  ],
-  "157728": [
-    "edible"
-  ],
-  "157989": [
-    "medicinal",
-    "edible"
-  ],
-  "179020": [
-    "poisonous"
-  ],
-  "179044": [
-    "medicinal",
-    "edible"
-  ],
-  "179054": [
-    "medicinal",
-    "edible"
-  ],
-  "179065": [
-    "medicinal",
-    "edible"
-  ],
-  "179071": [
-    "inedible"
-  ],
-  "179074": [
-    "medicinal"
-  ],
-  "179081": [
-    "medicinal"
-  ],
-  "179085": [
-    "psychoactive"
-  ],
-  "179088": [
-    "medicinal"
-  ],
-  "179096": [
-    "edible"
-  ],
-  "179099": [
-    "psychoactive"
-  ],
-  "179100": [
-    "psychoactive"
-  ],
-  "179101": [
-    "edible"
-  ],
-  "179107": [
-    "inedible"
-  ],
-  "179113": [
-    "medicinal"
-  ],
-  "179162": [
-    "inedible"
-  ],
-  "179163": [
-    "medicinal"
-  ],
-  "179167": [
-    "inedible",
-    "medicinal"
-  ],
-  "179168": [
-    "inedible"
-  ],
-  "179169": [
-    "inedible"
-  ],
-  "179170": [
-    "inedible"
-  ],
-  "179171": [
-    "medicinal"
-  ],
-  "179172": [
-    "deadly"
-  ],
-  "179173": [
-    "deadly"
-  ],
-  "179174": [
-    "deadly"
-  ],
-  "179175": [
-    "deadly"
-  ],
-  "179176": [
-    "deadly"
-  ],
-  "179177": [
-    "deadly"
-  ],
-  "179185": [
-    "medicinal",
-    "edible"
-  ],
-  "179211": [
-    "medicinal",
-    "edible"
-  ],
-  "179214": [
-    "psychoactive"
-  ],
-  "179215": [
-    "caution"
-  ],
-  "179219": [
-    "deadly"
-  ],
-  "179230": [
-    "medicinal",
-    "edible"
-  ],
-  "179238": [
-    "edible"
-  ],
-  "179241": [
-    "edible"
-  ],
-  "179249": [
-    "choice"
-  ],
-  "179252": [
-    "edible"
-  ],
-  "179652": [
-    "psychoactive"
-  ],
-  "179697": [
-    "medicinal",
-    "edible"
-  ],
-  "179709": [
-    "medicinal"
-  ],
-  "179765": [
-    "poisonous"
-  ],
-  "179766": [
-    "poisonous"
-  ],
-  "179768": [
-    "poisonous"
-  ],
-  "179839": [
-    "medicinal",
-    "edible"
-  ],
-  "179889": [
-    "edible"
-  ],
-  "192381": [
-    "edible cooked"
-  ],
-  "192652": [
-    "medicinal"
-  ],
-  "194080": [
-    "edible"
-  ],
-  "194182": [
-    "edible"
-  ],
-  "194231": [
-    "choice"
-  ],
-  "194264": [
-    "poisonous"
-  ],
-  "194265": [
-    "poisonous"
-  ],
-  "194267": [
-    "poisonous"
-  ],
-  "194273": [
-    "medicinal",
-    "edible"
-  ],
-  "194274": [
-    "medicinal",
-    "edible"
-  ],
-  "194275": [
-    "medicinal",
-    "edible"
-  ],
-  "194276": [
-    "medicinal",
-    "edible"
-  ],
-  "194277": [
-    "medicinal",
-    "edible"
-  ],
-  "194278": [
-    "medicinal",
-    "edible"
-  ],
-  "194279": [
-    "medicinal",
-    "edible"
-  ],
-  "194307": [
-    "poisonous"
-  ],
-  "194308": [
-    "poisonous"
-  ],
-  "194309": [
-    "poisonous"
-  ],
-  "194310": [
-    "poisonous"
-  ],
-  "194365": [
-    "medicinal",
-    "edible"
-  ],
-  "194366": [
-    "medicinal",
-    "edible"
-  ],
-  "194371": [
-    "inedible"
-  ],
-  "194373": [
-    "medicinal",
-    "edible"
-  ],
-  "194374": [
-    "medicinal",
-    "edible"
-  ],
-  "194375": [
-    "medicinal",
-    "edible"
-  ],
-  "194376": [
-    "medicinal",
-    "edible"
-  ],
-  "194377": [
-    "medicinal",
-    "edible"
-  ],
-  "194378": [
-    "medicinal",
-    "edible"
-  ],
-  "194381": [
-    "medicinal",
-    "edible"
-  ],
-  "194385": [
-    "edible"
-  ],
-  "194386": [
-    "poisonous"
-  ],
-  "194387": [
-    "poisonous"
-  ],
-  "194389": [
-    "edible"
-  ],
-  "194400": [
-    "medicinal",
-    "edible"
-  ],
-  "194405": [
-    "medicinal",
-    "edible"
-  ],
-  "194407": [
-    "medicinal",
-    "edible"
-  ],
-  "194408": [
-    "medicinal",
-    "edible"
-  ],
-  "194410": [
-    "medicinal",
-    "edible"
-  ],
-  "194412": [
-    "medicinal",
-    "edible"
-  ],
-  "194413": [
-    "medicinal",
-    "edible"
-  ],
-  "194414": [
-    "medicinal",
-    "edible"
-  ],
-  "194415": [
-    "medicinal",
-    "edible"
-  ],
-  "194416": [
-    "medicinal",
-    "edible"
-  ],
-  "194422": [
-    "medicinal",
-    "edible"
-  ],
-  "194423": [
-    "medicinal",
-    "edible"
-  ],
-  "194425": [
-    "medicinal",
-    "edible"
-  ],
-  "194426": [
-    "edible"
-  ],
-  "194427": [
-    "edible"
-  ],
-  "194433": [
-    "poisonous"
-  ],
-  "194437": [
-    "medicinal",
-    "edible"
-  ],
-  "194438": [
-    "medicinal",
-    "edible"
-  ],
-  "194439": [
-    "medicinal",
-    "edible"
-  ],
-  "194456": [
-    "edible"
-  ],
-  "194457": [
-    "edible"
-  ],
-  "194458": [
-    "edible"
-  ],
-  "194459": [
-    "edible"
-  ],
-  "194460": [
-    "edible"
-  ],
-  "194464": [
-    "edible"
-  ],
-  "194465": [
-    "edible"
-  ],
-  "194473": [
-    "medicinal"
-  ],
-  "194476": [
-    "medicinal"
-  ],
-  "194477": [
-    "medicinal"
-  ],
-  "194480": [
-    "medicinal"
-  ],
-  "194483": [
-    "medicinal"
-  ],
-  "194484": [
-    "medicinal"
-  ],
-  "194501": [
-    "medicinal",
-    "edible"
-  ],
-  "194565": [
-    "edible"
-  ],
-  "194659": [
-    "edible"
-  ],
-  "194706": [
-    "poisonous"
-  ],
-  "194707": [
-    "poisonous"
-  ],
-  "194803": [
-    "edible"
-  ],
-  "194804": [
-    "edible"
-  ],
-  "194807": [
-    "edible"
-  ],
-  "196547": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "202359": [
-    "edible"
-  ],
-  "202373": [
-    "edible"
-  ],
-  "202380": [
-    "poisonous"
-  ],
-  "202392": [
-    "edible"
-  ],
-  "202395": [
-    "choice"
-  ],
-  "202415": [
-    "edible"
-  ],
-  "202416": [
-    "inedible"
-  ],
-  "202417": [
-    "medicinal",
-    "edible"
-  ],
-  "202420": [
-    "psychoactive",
-    "medicinal"
-  ],
-  "203669": [
-    "medicinal",
-    "edible"
-  ],
-  "203674": [
-    "inedible",
-    "medicinal"
-  ],
-  "203711": [
-    "medicinal"
-  ],
-  "203803": [
-    "edible"
-  ],
-  "203805": [
-    "medicinal",
-    "edible"
-  ],
-  "203806": [
-    "edible"
-  ],
-  "204588": [
-    "choice"
-  ],
-  "204589": [
-    "choice"
-  ],
-  "204687": [
-    "medicinal",
-    "edible"
-  ],
-  "205318": [
-    "deadly"
-  ],
-  "205516": [
-    "choice"
-  ],
-  "205622": [
-    "medicinal"
-  ],
-  "206086": [
-    "edible cooked",
-    "edible"
-  ],
-  "206090": [
-    "choice"
-  ],
-  "206114": [
-    "edible"
-  ],
-  "206118": [
-    "edible"
-  ],
-  "206120": [
-    "psychoactive"
-  ],
-  "206124": [
-    "psychoactive"
-  ],
-  "206130": [
-    "psychoactive"
-  ],
-  "206132": [
-    "psychoactive"
-  ],
-  "206133": [
-    "psychoactive"
-  ],
-  "206138": [
-    "psychoactive"
-  ],
-  "206148": [
-    "psychoactive"
-  ],
-  "206149": [
-    "psychoactive"
-  ],
-  "206899": [
-    "psychoactive"
-  ],
-  "207619": [
-    "medicinal",
-    "edible"
-  ],
-  "208065": [
-    "medicinal",
-    "edible"
-  ],
-  "210270": [
-    "edible"
-  ],
-  "217172": [
-    "edible"
-  ],
-  "226711": [
-    "edible"
-  ],
-  "243912": [
-    "edible"
-  ],
-  "244729": [
-    "poisonous",
-    "psychoactive",
-    "medicinal"
-  ],
-  "244730": [
-    "poisonous",
-    "psychoactive",
-    "medicinal"
-  ],
-  "244731": [
-    "poisonous",
-    "psychoactive",
-    "medicinal"
-  ],
-  "244732": [
-    "poisonous",
-    "psychoactive",
-    "medicinal"
-  ],
-  "320923": [
-    "psychoactive"
-  ],
-  "325801": [
-    "inedible"
-  ],
-  "326188": [
-    "medicinal"
-  ],
-  "326353": [
-    "inedible"
-  ],
-  "328222": [
-    "medicinal"
-  ],
-  "328228": [
-    "edible"
-  ],
-  "328233": [
-    "medicinal",
-    "edible"
-  ],
-  "328234": [
-    "edible"
-  ],
-  "328235": [
-    "edible"
-  ],
-  "328244": [
-    "psychoactive"
-  ],
-  "328245": [
-    "medicinal",
-    "edible"
-  ],
-  "328264": [
-    "medicinal"
-  ],
-  "328280": [
-    "medicinal"
-  ],
-  "332212": [
-    "edible"
-  ],
-  "332485": [
-    "deadly"
-  ],
-  "332487": [
-    "inedible",
-    "medicinal"
-  ],
-  "332500": [
-    "edible"
-  ],
-  "332501": [
-    "choice"
-  ],
-  "332502": [
-    "edible"
-  ],
-  "332507": [
-    "medicinal",
-    "edible"
-  ],
-  "332685": [
-    "medicinal"
-  ],
-  "333772": [
-    "choice"
-  ],
-  "334321": [
-    "edible"
-  ],
-  "334648": [
-    "caution"
-  ],
-  "334676": [
-    "edible"
-  ],
-  "334677": [
-    "edible"
-  ],
-  "334678": [
-    "edible"
-  ],
-  "334686": [
-    "edible"
-  ],
-  "334704": [
-    "edible"
-  ],
-  "335051": [
-    "inedible"
-  ],
-  "335206": [
-    "poisonous"
-  ],
-  "335276": [
-    "edible"
-  ],
-  "335466": [
-    "medicinal",
-    "edible"
-  ],
-  "335624": [
-    "deadly"
-  ],
-  "335932": [
-    "poisonous",
-    "psychoactive",
-    "medicinal"
-  ],
-  "335942": [
-    "edible"
-  ],
-  "335944": [
-    "edible"
-  ],
-  "335960": [
-    "medicinal"
-  ],
-  "336814": [
-    "psychoactive",
-    "medicinal"
-  ],
-  "337849": [
-    "poisonous"
-  ],
-  "337850": [
-    "medicinal",
-    "edible"
-  ],
-  "337956": [
-    "edible"
-  ],
-  "338070": [
-    "edible"
-  ],
-  "338344": [
-    "edible"
-  ],
-  "339415": [
-    "edible"
-  ],
-  "340497": [
-    "psychoactive"
-  ],
-  "340559": [
-    "edible"
-  ],
-  "340866": [
-    "edible cooked",
-    "edible"
-  ],
-  "340867": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "340993": [
-    "medicinal"
-  ],
-  "341797": [
-    "edible"
-  ],
-  "341963": [
-    "edible"
-  ],
-  "343169": [
-    "edible"
-  ],
-  "343231": [
-    "edible"
-  ],
-  "343586": [
-    "edible"
-  ],
-  "343661": [
-    "edible"
-  ],
-  "344022": [
-    "edible"
-  ],
-  "344024": [
-    "edible"
-  ],
-  "344041": [
-    "psychoactive"
-  ],
-  "344482": [
-    "inedible"
-  ],
-  "344540": [
-    "medicinal"
-  ],
-  "344629": [
-    "edible"
-  ],
-  "344638": [
-    "edible"
-  ],
-  "344650": [
-    "edible"
-  ],
-  "344651": [
-    "edible"
-  ],
-  "344658": [
-    "poisonous"
-  ],
-  "346968": [
-    "edible"
-  ],
-  "347894": [
-    "edible"
-  ],
-  "347897": [
-    "edible"
-  ],
-  "348091": [
-    "edible"
-  ],
-  "348128": [
-    "edible"
-  ],
-  "348693": [
-    "edible"
-  ],
-  "348694": [
-    "edible"
-  ],
-  "348695": [
-    "edible"
-  ],
-  "348698": [
-    "edible"
-  ],
-  "348711": [
-    "edible"
-  ],
-  "348720": [
-    "edible"
-  ],
-  "348814": [
-    "edible"
-  ],
-  "348829": [
-    "edible",
-    "choice"
-  ],
-  "348835": [
-    "psychoactive"
-  ],
-  "348989": [
-    "edible"
-  ],
-  "348991": [
-    "psychoactive",
-    "inedible"
-  ],
-  "349993": [
-    "edible"
-  ],
-  "349995": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "349998": [
-    "edible"
-  ],
-  "349999": [
-    "edible"
-  ],
-  "350007": [
-    "edible"
-  ],
-  "350020": [
-    "poisonous"
-  ],
-  "350030": [
-    "deadly"
-  ],
-  "350032": [
-    "choice"
-  ],
-  "350033": [
-    "edible cooked"
-  ],
-  "350037": [
-    "caution"
-  ],
-  "350038": [
-    "poisonous",
-    "medicinal"
-  ],
-  "350044": [
-    "deadly",
-    "poisonous"
-  ],
-  "350045": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "350049": [
-    "deadly"
-  ],
-  "350051": [
-    "poisonous"
-  ],
-  "350060": [
-    "edible cooked"
-  ],
-  "350061": [
-    "edible"
-  ],
-  "350065": [
-    "edible cooked"
-  ],
-  "350066": [
-    "edible cooked",
-    "medicinal",
-    "edible"
-  ],
-  "350121": [
-    "edible"
-  ],
-  "350122": [
-    "edible"
-  ],
-  "350123": [
-    "edible"
-  ],
-  "350157": [
-    "edible"
-  ],
-  "350158": [
-    "edible"
-  ],
-  "350206": [
-    "edible",
-    "choice"
-  ],
-  "350207": [
-    "edible",
-    "choice"
-  ],
-  "350216": [
-    "edible"
-  ],
-  "350238": [
-    "medicinal",
-    "edible"
-  ],
-  "350292": [
-    "choice"
-  ],
-  "350293": [
-    "edible",
-    "choice"
-  ],
-  "350294": [
-    "choice"
-  ],
-  "350360": [
-    "edible"
-  ],
-  "350361": [
-    "edible"
-  ],
-  "350490": [
-    "edible"
-  ],
-  "350498": [
-    "edible"
-  ],
-  "350509": [
-    "choice"
-  ],
-  "350510": [
-    "edible"
-  ],
-  "350511": [
-    "edible",
-    "choice"
-  ],
-  "350558": [
-    "inedible"
-  ],
-  "350559": [
-    "inedible"
-  ],
-  "350560": [
-    "inedible"
-  ],
-  "350561": [
-    "inedible"
-  ],
-  "350562": [
-    "inedible"
-  ],
-  "350563": [
-    "inedible"
-  ],
-  "350564": [
-    "inedible"
-  ],
-  "350565": [
-    "inedible"
-  ],
-  "350786": [
-    "medicinal"
-  ],
-  "350796": [
-    "medicinal"
-  ],
-  "350815": [
-    "deadly"
-  ],
-  "350816": [
-    "deadly"
-  ],
-  "350817": [
-    "deadly"
-  ],
-  "350828": [
-    "inedible"
-  ],
-  "350832": [
-    "inedible"
-  ],
-  "350852": [
-    "medicinal"
-  ],
-  "350919": [
-    "psychoactive"
-  ],
-  "350925": [
-    "inedible"
-  ],
-  "350930": [
-    "psychoactive"
-  ],
-  "350937": [
-    "edible"
-  ],
-  "350978": [
-    "inedible"
-  ],
-  "351004": [
-    "medicinal"
-  ],
-  "351014": [
-    "medicinal",
-    "edible"
-  ],
-  "351036": [
-    "edible"
-  ],
-  "351050": [
-    "edible"
-  ],
-  "351126": [
-    "medicinal"
-  ],
-  "351215": [
-    "poisonous"
-  ],
-  "351217": [
-    "deadly"
-  ],
-  "351220": [
-    "poisonous"
-  ],
-  "351221": [
-    "poisonous"
-  ],
-  "351226": [
-    "poisonous"
-  ],
-  "351301": [
-    "edible"
-  ],
-  "351303": [
-    "inedible"
-  ],
-  "351304": [
-    "edible"
-  ],
-  "351308": [
-    "edible"
-  ],
-  "351313": [
-    "edible"
-  ],
-  "351314": [
-    "inedible"
-  ],
-  "351316": [
-    "medicinal"
-  ],
-  "351322": [
-    "medicinal"
-  ],
-  "351354": [
-    "edible"
-  ],
-  "351359": [
-    "edible"
-  ],
-  "351365": [
-    "medicinal",
-    "edible"
-  ],
-  "351371": [
-    "poisonous"
-  ],
-  "351404": [
-    "inedible"
-  ],
-  "351447": [
-    "edible"
-  ],
-  "351522": [
-    "edible"
-  ],
-  "351596": [
-    "edible"
-  ],
-  "351603": [
-    "inedible"
-  ],
-  "351629": [
-    "medicinal",
-    "edible"
-  ],
-  "351652": [
-    "poisonous"
-  ],
-  "351657": [
-    "edible"
-  ],
-  "351659": [
-    "edible"
-  ],
-  "351673": [
-    "psychoactive"
-  ],
-  "351674": [
-    "psychoactive"
-  ],
-  "351675": [
-    "psychoactive"
-  ],
-  "351772": [
-    "edible"
-  ],
-  "351790": [
-    "medicinal"
-  ],
-  "351817": [
-    "medicinal",
-    "edible"
-  ],
-  "351827": [
-    "medicinal",
-    "edible"
-  ],
-  "351875": [
-    "medicinal",
-    "edible"
-  ],
-  "351885": [
-    "edible"
-  ],
-  "351886": [
-    "edible"
-  ],
-  "351887": [
-    "edible"
-  ],
-  "351888": [
-    "edible"
-  ],
-  "351889": [
-    "edible"
-  ],
-  "351890": [
-    "edible"
-  ],
-  "351891": [
-    "edible"
-  ],
-  "351892": [
-    "edible"
-  ],
-  "351893": [
-    "edible"
-  ],
-  "351894": [
-    "edible"
-  ],
-  "351895": [
-    "edible"
-  ],
-  "351896": [
-    "edible"
-  ],
-  "351897": [
-    "edible"
-  ],
-  "351898": [
-    "edible"
-  ],
-  "351899": [
-    "edible"
-  ],
-  "351900": [
-    "edible"
-  ],
-  "351901": [
-    "edible"
-  ],
-  "351902": [
-    "edible"
-  ],
-  "351927": [
-    "edible"
-  ],
-  "351954": [
-    "inedible"
-  ],
-  "351975": [
-    "medicinal"
-  ],
-  "351993": [
-    "psychoactive"
-  ],
-  "352158": [
-    "edible"
-  ],
-  "352159": [
-    "medicinal",
-    "edible"
-  ],
-  "352176": [
-    "edible cooked"
-  ],
-  "352185": [
-    "edible"
-  ],
-  "352261": [
-    "edible"
-  ],
-  "352273": [
-    "medicinal",
-    "edible"
-  ],
-  "352278": [
-    "medicinal",
-    "edible"
-  ],
-  "352283": [
-    "medicinal"
-  ],
-  "352292": [
-    "medicinal",
-    "edible"
-  ],
-  "352293": [
-    "edible"
-  ],
-  "352294": [
-    "edible"
-  ],
-  "352303": [
-    "edible cooked",
-    "edible"
-  ],
-  "352311": [
-    "edible"
-  ],
-  "352335": [
-    "medicinal"
-  ],
-  "352337": [
-    "edible"
-  ],
-  "352367": [
-    "medicinal"
-  ],
-  "352462": [
-    "medicinal",
-    "edible"
-  ],
-  "352511": [
-    "medicinal",
-    "edible"
-  ],
-  "352556": [
-    "medicinal"
-  ],
-  "352585": [
-    "medicinal"
-  ],
-  "352605": [
-    "edible"
-  ],
-  "352626": [
-    "choice"
-  ],
-  "352855": [
-    "edible"
-  ],
-  "352910": [
-    "medicinal"
-  ],
-  "352912": [
-    "medicinal"
-  ],
-  "352913": [
-    "medicinal"
-  ],
-  "353218": [
-    "medicinal"
-  ],
-  "354648": [
-    "medicinal",
-    "edible"
-  ],
-  "355921": [
-    "edible"
-  ],
-  "355923": [
-    "edible"
-  ],
-  "355961": [
-    "deadly"
-  ],
-  "358132": [
-    "medicinal",
-    "edible"
-  ],
-  "360212": [
-    "inedible"
-  ],
-  "360306": [
-    "medicinal",
-    "edible"
-  ],
-  "361632": [
-    "medicinal",
-    "edible"
-  ],
-  "361641": [
-    "edible"
-  ],
-  "362618": [
-    "edible"
-  ],
-  "362915": [
-    "edible"
-  ],
-  "363586": [
-    "edible"
-  ],
-  "363590": [
-    "edible"
-  ],
-  "363591": [
-    "edible"
-  ],
-  "363592": [
-    "edible"
-  ],
-  "363593": [
-    "edible"
-  ],
-  "363594": [
-    "edible"
-  ],
-  "366270": [
-    "edible"
-  ],
-  "366338": [
-    "edible cooked",
-    "edible"
-  ],
-  "366339": [
-    "edible cooked",
-    "edible"
-  ],
-  "366340": [
-    "edible cooked",
-    "edible"
-  ],
-  "366778": [
-    "medicinal",
-    "edible"
-  ],
-  "366779": [
-    "medicinal",
-    "edible"
-  ],
-  "366873": [
-    "edible"
-  ],
-  "367922": [
-    "choice"
-  ],
-  "371430": [
-    "edible"
-  ],
-  "371441": [
-    "edible cooked"
-  ],
-  "371459": [
-    "edible"
-  ],
-  "371460": [
-    "edible"
-  ],
-  "371566": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "371588": [
-    "edible"
-  ],
-  "372425": [
-    "psychoactive"
-  ],
-  "372725": [
-    "edible"
-  ],
-  "372726": [
-    "edible"
-  ],
-  "379844": [
-    "poisonous"
-  ],
-  "381216": [
-    "poisonous"
-  ],
-  "381273": [
-    "edible"
-  ],
-  "381274": [
-    "edible"
-  ],
-  "381275": [
-    "edible"
-  ],
-  "381276": [
-    "edible"
-  ],
-  "381454": [
-    "edible"
-  ],
-  "381461": [
-    "medicinal",
-    "edible"
-  ],
-  "381462": [
-    "medicinal",
-    "edible"
-  ],
-  "381484": [
-    "choice"
-  ],
-  "381486": [
-    "choice"
-  ],
-  "381489": [
-    "choice"
-  ],
-  "381492": [
-    "choice"
-  ],
-  "381493": [
-    "choice"
-  ],
-  "381919": [
-    "inedible"
-  ],
-  "381959": [
-    "medicinal",
-    "edible"
-  ],
-  "382071": [
-    "inedible"
-  ],
-  "382072": [
-    "inedible"
-  ],
-  "382426": [
-    "deadly"
-  ],
-  "382427": [
-    "deadly"
-  ],
-  "382428": [
-    "deadly"
-  ],
-  "382432": [
-    "inedible"
-  ],
-  "382492": [
-    "edible"
-  ],
-  "382516": [
-    "psychoactive"
-  ],
-  "382736": [
-    "medicinal"
-  ],
-  "382779": [
-    "edible"
-  ],
-  "382788": [
-    "psychoactive"
-  ],
-  "382879": [
-    "edible"
-  ],
-  "382882": [
-    "medicinal",
-    "edible"
-  ],
-  "382886": [
-    "inedible"
-  ],
-  "382931": [
-    "deadly"
-  ],
-  "383074": [
-    "edible"
-  ],
-  "383731": [
-    "edible"
-  ],
-  "383732": [
-    "edible"
-  ],
-  "383733": [
-    "edible"
-  ],
-  "383734": [
-    "edible"
-  ],
-  "383735": [
-    "edible"
-  ],
-  "383736": [
-    "edible"
-  ],
-  "383737": [
-    "edible"
-  ],
-  "383738": [
-    "edible"
-  ],
-  "383739": [
-    "edible"
-  ],
-  "383740": [
-    "edible"
-  ],
-  "383741": [
-    "edible"
-  ],
-  "383742": [
-    "edible"
-  ],
-  "383743": [
-    "edible"
-  ],
-  "383744": [
-    "edible"
-  ],
-  "383900": [
-    "psychoactive"
-  ],
-  "383904": [
-    "psychoactive"
-  ],
-  "384046": [
-    "edible"
-  ],
-  "384702": [
-    "medicinal"
-  ],
-  "384733": [
-    "inedible"
-  ],
-  "407893": [
-    "deadly"
-  ],
-  "410601": [
-    "edible"
-  ],
-  "410641": [
-    "medicinal"
-  ],
-  "410688": [
-    "inedible"
-  ],
-  "410728": [
-    "inedible"
-  ],
-  "410731": [
-    "inedible"
-  ],
-  "411019": [
-    "psychoactive"
-  ],
-  "411042": [
-    "edible"
-  ],
-  "411424": [
-    "medicinal",
-    "edible"
-  ],
-  "411425": [
-    "medicinal",
-    "edible"
-  ],
-  "411448": [
-    "medicinal"
-  ],
-  "411455": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "413705": [
-    "edible"
-  ],
-  "415504": [
-    "choice"
-  ],
-  "416180": [
-    "deadly"
-  ],
-  "416558": [
-    "poisonous",
-    "medicinal"
-  ],
-  "417215": [
-    "medicinal"
-  ],
-  "417357": [
-    "inedible"
-  ],
-  "417392": [
-    "deadly"
-  ],
-  "417939": [
-    "poisonous"
-  ],
-  "418443": [
-    "psychoactive"
-  ],
-  "423666": [
-    "inedible"
-  ],
-  "424530": [
-    "inedible"
-  ],
-  "427379": [
-    "choice"
-  ],
-  "428226": [
-    "choice"
-  ],
-  "438008": [
-    "edible"
-  ],
-  "438013": [
-    "edible"
-  ],
-  "438025": [
-    "choice"
-  ],
-  "447441": [
-    "deadly"
-  ],
-  "447650": [
-    "inedible"
-  ],
-  "448014": [
-    "edible"
-  ],
-  "450829": [
-    "edible",
-    "choice"
-  ],
-  "451026": [
-    "edible"
-  ],
-  "451028": [
-    "inedible"
-  ],
-  "451030": [
-    "edible"
-  ],
-  "451118": [
-    "edible"
-  ],
-  "460346": [
-    "medicinal",
-    "edible"
-  ],
-  "462023": [
-    "psychoactive"
-  ],
-  "464151": [
-    "poisonous"
-  ],
-  "464267": [
-    "inedible"
-  ],
-  "464307": [
-    "inedible"
-  ],
-  "464738": [
-    "medicinal"
-  ],
-  "465089": [
-    "medicinal"
-  ],
-  "465861": [
-    "choice"
-  ],
-  "468454": [
-    "edible"
-  ],
-  "473067": [
-    "edible"
-  ],
-  "473935": [
-    "choice"
-  ],
-  "474001": [
-    "edible"
-  ],
-  "474139": [
-    "edible"
-  ],
-  "474155": [
-    "medicinal"
-  ],
-  "474202": [
-    "edible"
-  ],
-  "474502": [
-    "edible"
-  ],
-  "474683": [
-    "edible"
-  ],
-  "475344": [
-    "edible"
-  ],
-  "475619": [
-    "medicinal",
-    "edible"
-  ],
-  "478703": [
-    "edible"
-  ],
-  "479681": [
-    "inedible"
-  ],
-  "479826": [
-    "edible"
-  ],
-  "480130": [
-    "inedible"
-  ],
-  "480658": [
-    "edible"
-  ],
-  "480763": [
-    "medicinal",
-    "edible"
-  ],
-  "480765": [
-    "edible"
-  ],
-  "480776": [
-    "medicinal",
-    "edible"
-  ],
-  "481223": [
-    "inedible"
-  ],
-  "481224": [
-    "edible"
-  ],
-  "481440": [
-    "inedible"
-  ],
-  "481547": [
-    "allergenic"
-  ],
-  "481579": [
-    "edible"
-  ],
-  "481580": [
-    "edible"
-  ],
-  "483989": [
-    "poisonous"
-  ],
-  "484686": [
-    "edible"
-  ],
-  "485374": [
-    "medicinal",
-    "edible"
-  ],
-  "485685": [
-    "inedible"
-  ],
-  "485771": [
-    "poisonous"
-  ],
-  "485958": [
-    "medicinal"
-  ],
-  "486380": [
-    "edible"
-  ],
-  "488353": [
-    "edible"
-  ],
-  "489014": [
-    "deadly"
-  ],
-  "490454": [
-    "edible"
-  ],
-  "492210": [
-    "edible"
-  ],
-  "492211": [
-    "edible"
-  ],
-  "493340": [
-    "choice"
-  ],
-  "496176": [
-    "inedible"
-  ],
-  "496850": [
-    "poisonous"
-  ],
-  "496875": [
-    "choice"
-  ],
-  "497251": [
-    "edible"
-  ],
-  "499257": [
-    "inedible"
-  ],
-  "499388": [
-    "edible"
-  ],
-  "499531": [
-    "edible"
-  ],
-  "499613": [
-    "edible"
-  ],
-  "499617": [
-    "edible"
-  ],
-  "499619": [
-    "edible"
-  ],
-  "499622": [
-    "psychoactive"
-  ],
-  "499647": [
-    "psychoactive"
-  ],
-  "499652": [
-    "inedible"
-  ],
-  "499666": [
-    "choice"
-  ],
-  "499692": [
-    "edible"
-  ],
-  "499693": [
-    "edible"
-  ],
-  "499696": [
-    "choice"
-  ],
-  "499719": [
-    "inedible"
-  ],
-  "499720": [
-    "edible"
-  ],
-  "499741": [
-    "inedible"
-  ],
-  "499750": [
-    "edible"
-  ],
-  "499766": [
-    "edible"
-  ],
-  "499774": [
-    "edible"
-  ],
-  "499778": [
-    "medicinal",
-    "edible"
-  ],
-  "499781": [
-    "edible"
-  ],
-  "499798": [
-    "psychoactive"
-  ],
-  "499815": [
-    "deadly"
-  ],
-  "499954": [
-    "edible"
-  ],
-  "499960": [
-    "edible"
-  ],
-  "499996": [
-    "psychoactive"
-  ],
-  "500015": [
-    "inedible"
-  ],
-  "500030": [
-    "inedible"
-  ],
-  "500053": [
-    "deadly"
-  ],
-  "500082": [
-    "deadly"
-  ],
-  "500113": [
-    "edible"
-  ],
-  "500144": [
-    "edible"
-  ],
-  "500154": [
-    "medicinal",
-    "edible"
-  ],
-  "500164": [
-    "psychoactive"
-  ],
-  "500760": [
-    "deadly"
-  ],
-  "501610": [
-    "choice"
-  ],
-  "501698": [
-    "choice"
-  ],
-  "502922": [
-    "choice"
-  ],
-  "503193": [
-    "edible"
-  ],
-  "503241": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "504060": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "504136": [
-    "edible"
-  ],
-  "504623": [
-    "caution"
-  ],
-  "504731": [
-    "edible"
-  ],
-  "505053": [
-    "deadly"
-  ],
-  "505878": [
-    "edible"
-  ],
-  "506466": [
-    "edible"
-  ],
-  "506575": [
-    "inedible"
-  ],
-  "506576": [
-    "inedible"
-  ],
-  "507448": [
-    "medicinal",
-    "edible"
-  ],
-  "507493": [
-    "inedible"
-  ],
-  "507540": [
-    "choice"
-  ],
-  "508746": [
-    "edible"
-  ],
-  "508747": [
-    "edible"
-  ],
-  "508749": [
-    "edible"
-  ],
-  "509026": [
-    "edible"
-  ],
-  "509439": [
-    "inedible"
-  ],
-  "510197": [
-    "edible"
-  ],
-  "510199": [
-    "poisonous",
-    "medicinal"
-  ],
-  "511407": [
-    "psychoactive"
-  ],
-  "514067": [
-    "poisonous",
-    "psychoactive",
-    "medicinal"
-  ],
-  "514102": [
-    "edible"
-  ],
-  "514152": [
-    "choice"
-  ],
-  "514218": [
-    "edible",
-    "choice"
-  ],
-  "515021": [
-    "edible"
-  ],
-  "515583": [
-    "edible"
-  ],
-  "515954": [
-    "deadly"
-  ],
-  "516040": [
-    "edible"
-  ],
-  "516125": [
-    "medicinal",
-    "edible"
-  ],
-  "516129": [
-    "deadly"
-  ],
-  "516913": [
-    "inedible"
-  ],
-  "516989": [
-    "edible"
-  ],
-  "516992": [
-    "edible"
-  ],
-  "517766": [
-    "psychoactive"
-  ],
-  "517777": [
-    "psychoactive"
-  ],
-  "517784": [
-    "choice"
-  ],
-  "517822": [
-    "edible"
-  ],
-  "517826": [
-    "edible"
-  ],
-  "518723": [
-    "edible"
-  ],
-  "518764": [
-    "psychoactive"
-  ],
-  "518899": [
-    "inedible"
-  ],
-  "518912": [
-    "edible"
-  ],
-  "518913": [
-    "psychoactive"
-  ],
-  "518919": [
-    "psychoactive"
-  ],
-  "518931": [
-    "psychoactive"
-  ],
-  "518939": [
-    "psychoactive"
-  ],
-  "518944": [
-    "edible"
-  ],
-  "518957": [
-    "psychoactive"
-  ],
-  "518958": [
-    "psychoactive"
-  ],
-  "518959": [
-    "choice"
-  ],
-  "518961": [
-    "psychoactive"
-  ],
-  "519017": [
-    "edible"
-  ],
-  "519021": [
-    "inedible"
-  ],
-  "519039": [
-    "psychoactive"
-  ],
-  "519040": [
-    "psychoactive"
-  ],
-  "519041": [
-    "psychoactive"
-  ],
-  "519044": [
-    "psychoactive"
-  ],
-  "519059": [
-    "edible"
-  ],
-  "519073": [
-    "medicinal"
-  ],
-  "519076": [
-    "medicinal"
-  ],
-  "522229": [
-    "edible"
-  ],
-  "525034": [
-    "psychoactive"
-  ],
-  "532798": [
-    "medicinal",
-    "edible"
-  ],
-  "534307": [
-    "choice"
-  ],
-  "534310": [
-    "choice"
-  ],
-  "537717": [
-    "choice"
-  ],
-  "538829": [
-    "poisonous"
-  ],
-  "539001": [
-    "medicinal"
-  ],
-  "542347": [
-    "choice"
-  ],
-  "542660": [
-    "edible"
-  ],
-  "542661": [
-    "edible"
-  ],
-  "542706": [
-    "edible"
-  ],
-  "542719": [
-    "poisonous"
-  ],
-  "542912": [
-    "edible"
-  ],
-  "543041": [
-    "edible cooked"
-  ],
-  "543046": [
-    "psychoactive"
-  ],
-  "543062": [
-    "edible"
-  ],
-  "543700": [
-    "deadly"
-  ],
-  "544023": [
-    "medicinal"
-  ],
-  "544435": [
-    "medicinal",
-    "edible"
-  ],
-  "544542": [
-    "edible cooked",
-    "edible"
-  ],
-  "544554": [
-    "poisonous"
-  ],
-  "544555": [
-    "poisonous"
-  ],
-  "544610": [
-    "inedible"
-  ],
-  "544975": [
-    "inedible"
-  ],
-  "546776": [
-    "poisonous"
-  ],
-  "549114": [
-    "medicinal"
-  ],
-  "550104": [
-    "choice"
-  ],
-  "550137": [
-    "edible"
-  ],
-  "550504": [
-    "choice"
-  ],
-  "552578": [
-    "edible"
-  ],
-  "552696": [
-    "poisonous"
-  ],
-  "552710": [
-    "edible"
-  ],
-  "552717": [
-    "choice"
-  ],
-  "552731": [
-    "choice"
-  ],
-  "552744": [
-    "psychoactive"
-  ],
-  "552792": [
-    "edible"
-  ],
-  "552815": [
-    "edible"
-  ],
-  "552817": [
-    "edible"
-  ],
-  "552826": [
-    "choice"
-  ],
-  "552837": [
-    "edible"
-  ],
-  "553909": [
-    "edible cooked",
-    "edible"
-  ],
-  "553910": [
-    "edible cooked",
-    "edible"
-  ],
-  "553945": [
-    "medicinal",
-    "edible"
-  ],
-  "554193": [
-    "choice"
-  ],
-  "554919": [
-    "edible"
-  ],
-  "556256": [
-    "edible"
-  ],
-  "557139": [
-    "edible"
-  ],
-  "557140": [
-    "choice"
-  ],
-  "558348": [
-    "medicinal",
-    "edible"
-  ],
-  "559205": [
-    "medicinal",
-    "edible"
-  ],
-  "559726": [
-    "choice"
-  ],
-  "559727": [
-    "choice"
-  ],
-  "559728": [
-    "choice"
-  ],
-  "559730": [
-    "choice"
-  ],
-  "559734": [
-    "choice"
-  ],
-  "563450": [
-    "edible"
-  ],
-  "564369": [
-    "edible"
-  ],
-  "564370": [
-    "edible"
-  ],
-  "565105": [
-    "edible"
-  ],
-  "565201": [
-    "inedible"
-  ],
-  "565927": [
-    "edible"
-  ],
-  "566411": [
-    "medicinal",
-    "edible"
-  ],
-  "566555": [
-    "edible"
-  ],
-  "566556": [
-    "choice"
-  ],
-  "566557": [
-    "medicinal",
-    "edible",
-    "choice"
-  ],
-  "567082": [
-    "choice"
-  ],
-  "567095": [
-    "psychoactive"
-  ],
-  "567099": [
-    "deadly"
-  ],
-  "568292": [
-    "choice"
-  ],
-  "568671": [
-    "inedible"
-  ],
-  "569289": [
-    "medicinal"
-  ],
-  "569290": [
-    "medicinal"
-  ],
-  "578113": [
-    "medicinal"
-  ],
-  "578456": [
-    "edible"
-  ],
-  "602018": [
-    "medicinal",
-    "edible"
-  ],
-  "602393": [
-    "edible"
-  ],
-  "602394": [
-    "edible"
-  ],
-  "602717": [
-    "edible"
-  ],
-  "606192": [
-    "edible"
-  ],
-  "607107": [
-    "edible"
-  ],
-  "625278": [
-    "poisonous",
-    "psychoactive",
-    "medicinal"
-  ],
-  "625290": [
-    "edible"
-  ],
-  "625891": [
-    "edible"
-  ],
-  "626770": [
-    "medicinal",
-    "edible"
-  ],
-  "626849": [
-    "edible"
-  ],
-  "626851": [
-    "choice"
-  ],
-  "626853": [
-    "edible"
-  ],
-  "628417": [
-    "edible"
-  ],
-  "628436": [
-    "edible"
-  ],
-  "628859": [
-    "choice"
-  ],
-  "629068": [
-    "edible"
-  ],
-  "629216": [
-    "edible"
-  ],
-  "629251": [
-    "medicinal",
-    "edible"
-  ],
-  "630206": [
-    "choice"
-  ],
-  "631605": [
-    "medicinal",
-    "edible"
-  ],
-  "636546": [
-    "edible"
-  ],
-  "701279": [
-    "choice"
-  ],
-  "701434": [
-    "caution",
-    "inedible"
-  ],
-  "702638": [
-    "choice"
-  ],
-  "704757": [
-    "edible"
-  ],
-  "707469": [
-    "inedible"
-  ],
-  "708107": [
-    "edible"
-  ],
-  "708125": [
-    "edible"
-  ],
-  "708476": [
-    "edible"
-  ],
-  "711797": [
-    "caution"
-  ],
-  "712292": [
-    "inedible"
-  ],
-  "713227": [
-    "edible"
-  ],
-  "717365": [
-    "medicinal"
-  ],
-  "732724": [
-    "deadly"
-  ],
-  "732875": [
-    "edible"
-  ],
-  "734583": [
-    "choice"
-  ],
-  "737843": [
-    "edible"
-  ],
-  "737863": [
-    "poisonous"
-  ],
-  "738872": [
-    "choice"
-  ],
-  "739237": [
-    "deadly"
-  ],
-  "746195": [
-    "poisonous"
-  ],
-  "746377": [
-    "choice"
-  ],
-  "746378": [
-    "choice"
-  ],
-  "751540": [
-    "edible"
-  ],
-  "752321": [
-    "inedible"
-  ],
-  "765052": [
-    "edible"
-  ],
-  "774675": [
-    "edible"
-  ],
-  "774823": [
-    "medicinal",
-    "edible"
-  ],
-  "775629": [
-    "choice"
-  ],
-  "775749": [
-    "edible"
-  ],
-  "777193": [
-    "inedible"
-  ],
-  "778494": [
-    "edible"
-  ],
-  "781118": [
-    "medicinal",
-    "edible"
-  ],
-  "782233": [
-    "choice"
-  ],
-  "782894": [
-    "inedible"
-  ],
-  "785840": [
-    "choice"
-  ],
-  "788014": [
-    "inedible"
-  ],
-  "790951": [
-    "poisonous"
-  ],
-  "793981": [
-    "deadly"
-  ],
-  "797906": [
-    "edible"
-  ],
-  "797907": [
-    "deadly"
-  ],
-  "803377": [
-    "psychoactive"
-  ],
-  "809128": [
-    "medicinal",
-    "edible"
-  ],
-  "809384": [
-    "medicinal",
-    "edible"
-  ],
-  "821043": [
-    "choice"
-  ],
-  "822642": [
-    "deadly"
-  ],
-  "823784": [
-    "inedible"
-  ],
-  "824009": [
-    "inedible"
-  ],
-  "824010": [
-    "poisonous"
-  ],
-  "824011": [
-    "edible"
-  ],
-  "824547": [
-    "deadly"
-  ],
-  "824670": [
-    "inedible"
-  ],
-  "824671": [
-    "poisonous"
-  ],
-  "824777": [
-    "edible cooked",
-    "edible"
-  ],
-  "828903": [
-    "edible"
-  ],
-  "830537": [
-    "edible"
-  ],
-  "832073": [
-    "edible"
-  ],
-  "833474": [
-    "medicinal",
-    "edible"
-  ],
-  "842238": [
-    "choice"
-  ],
-  "852513": [
-    "medicinal",
-    "edible"
-  ],
-  "854517": [
-    "edible"
-  ],
-  "854519": [
-    "edible"
-  ],
-  "854717": [
-    "edible"
-  ],
-  "854734": [
-    "edible"
-  ],
-  "855263": [
-    "deadly"
-  ],
-  "856498": [
-    "inedible"
-  ],
-  "857774": [
-    "medicinal"
-  ],
-  "861492": [
-    "edible"
-  ],
-  "861707": [
-    "edible"
-  ],
-  "865185": [
-    "edible"
-  ],
-  "865796": [
-    "deadly"
-  ],
-  "865797": [
-    "deadly"
-  ],
-  "865799": [
-    "deadly"
-  ],
-  "865800": [
-    "deadly"
-  ],
-  "873714": [
-    "inedible"
-  ],
-  "875007": [
-    "deadly"
-  ],
-  "875008": [
-    "deadly"
-  ],
-  "875009": [
-    "deadly"
-  ],
-  "875010": [
-    "deadly"
-  ],
-  "875045": [
-    "edible"
-  ],
-  "875126": [
-    "medicinal"
-  ],
-  "875150": [
-    "edible"
-  ],
-  "875153": [
-    "edible"
-  ],
-  "875187": [
-    "edible"
-  ],
-  "876856": [
-    "edible"
-  ],
-  "880979": [
-    "edible"
-  ],
-  "881572": [
-    "medicinal",
-    "edible"
-  ],
-  "885668": [
-    "medicinal",
-    "edible"
-  ],
-  "890146": [
-    "edible"
-  ],
-  "890235": [
-    "medicinal"
-  ],
-  "890617": [
-    "medicinal"
-  ],
-  "893892": [
-    "edible"
-  ],
-  "895035": [
-    "medicinal",
-    "edible"
-  ],
-  "895447": [
-    "medicinal",
-    "edible"
-  ],
-  "895529": [
-    "medicinal"
-  ],
-  "895580": [
-    "deadly",
-    "poisonous"
-  ],
-  "895581": [
-    "medicinal"
-  ],
-  "895599": [
-    "poisonous"
-  ],
-  "895616": [
-    "medicinal",
-    "edible"
-  ],
-  "896124": [
-    "medicinal"
-  ],
-  "901819": [
-    "medicinal",
-    "edible"
-  ],
-  "905386": [
-    "medicinal"
-  ],
-  "906060": [
-    "deadly"
-  ],
-  "907679": [
-    "edible"
-  ],
-  "907680": [
-    "edible"
-  ],
-  "908736": [
-    "medicinal",
-    "edible"
-  ],
-  "911312": [
-    "choice"
-  ],
-  "912139": [
-    "psychoactive"
-  ],
-  "912191": [
-    "edible"
-  ],
-  "912960": [
-    "medicinal"
-  ],
-  "918376": [
-    "edible"
-  ],
-  "922635": [
-    "inedible"
-  ],
-  "922674": [
-    "inedible"
-  ],
-  "925899": [
-    "medicinal"
-  ],
-  "928737": [
-    "edible"
-  ],
-  "931095": [
-    "poisonous"
-  ],
-  "931615": [
-    "edible"
-  ],
-  "931837": [
-    "poisonous"
-  ],
-  "932221": [
-    "edible"
-  ],
-  "932473": [
-    "edible"
-  ],
-  "940028": [
-    "edible"
-  ],
-  "940416": [
-    "medicinal"
-  ],
-  "942774": [
-    "edible"
-  ],
-  "952686": [
-    "medicinal",
-    "edible"
-  ],
-  "954897": [
-    "medicinal"
-  ],
-  "960082": [
-    "inedible"
-  ],
-  "962346": [
-    "edible"
-  ],
-  "964945": [
-    "edible"
-  ],
-  "966395": [
-    "edible"
-  ],
-  "972793": [
-    "edible"
-  ],
-  "974664": [
-    "medicinal",
-    "edible"
-  ],
-  "981437": [
-    "deadly"
-  ],
-  "981438": [
-    "psychoactive"
-  ],
-  "981442": [
-    "psychoactive"
-  ],
-  "981444": [
-    "psychoactive"
-  ],
-  "981445": [
-    "psychoactive"
-  ],
-  "981446": [
-    "psychoactive"
-  ],
-  "981455": [
-    "edible"
-  ],
-  "981457": [
-    "edible"
-  ],
-  "981458": [
-    "edible"
-  ],
-  "981459": [
-    "edible"
-  ],
-  "988592": [
-    "choice"
-  ],
-  "992075": [
-    "deadly"
-  ],
-  "994268": [
-    "deadly"
-  ],
-  "994898": [
-    "edible"
-  ],
-  "994947": [
-    "edible"
-  ],
-  "995149": [
-    "medicinal"
-  ],
-  "999618": [
-    "edible"
-  ],
-  "1006305": [
-    "edible"
-  ],
-  "1006306": [
-    "edible"
-  ],
-  "1009172": [
-    "medicinal",
-    "edible"
-  ],
-  "1021327": [
-    "deadly"
-  ],
-  "1021329": [
-    "deadly"
-  ],
-  "1021342": [
-    "deadly"
-  ],
-  "1036568": [
-    "deadly"
-  ],
-  "1036569": [
-    "deadly"
-  ],
-  "1038009": [
-    "medicinal",
-    "edible"
-  ],
-  "1039179": [
-    "edible"
-  ],
-  "1043100": [
-    "edible"
-  ],
-  "1044222": [
-    "deadly"
-  ],
-  "1048512": [
-    "deadly"
-  ],
-  "1048957": [
-    "deadly"
-  ],
-  "1049036": [
-    "medicinal"
-  ],
-  "1050390": [
-    "edible"
-  ],
-  "1050727": [
-    "deadly"
-  ],
-  "1062775": [
-    "edible"
-  ],
-  "1064996": [
-    "deadly"
-  ],
-  "1076479": [
-    "choice"
-  ],
-  "1077213": [
-    "psychoactive"
-  ],
-  "1079957": [
-    "edible"
-  ],
-  "1085881": [
-    "inedible"
-  ],
-  "1085954": [
-    "inedible"
-  ],
-  "1090731": [
-    "edible"
-  ],
-  "1096664": [
-    "medicinal"
-  ],
-  "1097549": [
-    "medicinal",
-    "edible"
-  ],
-  "1097790": [
-    "edible"
-  ],
-  "1097834": [
-    "choice"
-  ],
-  "1097843": [
-    "choice"
-  ],
-  "1097855": [
-    "medicinal",
-    "edible"
-  ],
-  "1097857": [
-    "edible"
-  ],
-  "1098280": [
-    "inedible",
-    "medicinal"
-  ],
-  "1101754": [
-    "medicinal"
-  ],
-  "1105928": [
-    "edible"
-  ],
-  "1106260": [
-    "poisonous"
-  ],
-  "1106906": [
-    "poisonous"
-  ],
-  "1106983": [
-    "medicinal"
-  ],
-  "1106985": [
-    "medicinal"
-  ],
-  "1107416": [
-    "deadly"
-  ],
-  "1108272": [
-    "deadly"
-  ],
-  "1109007": [
-    "medicinal",
-    "edible"
-  ],
-  "1109067": [
-    "inedible"
-  ],
-  "1109068": [
-    "inedible"
-  ],
-  "1109118": [
-    "choice"
-  ],
-  "1109456": [
-    "inedible"
-  ],
-  "1112488": [
-    "poisonous"
-  ],
-  "1116403": [
-    "edible"
-  ],
-  "1117685": [
-    "deadly"
-  ],
-  "1118818": [
-    "deadly"
-  ],
-  "1123465": [
-    "edible"
-  ],
-  "1123719": [
-    "medicinal"
-  ],
-  "1123754": [
-    "medicinal",
-    "edible"
-  ],
-  "1124940": [
-    "edible"
-  ],
-  "1124968": [
-    "medicinal"
-  ],
-  "1125443": [
-    "medicinal"
-  ],
-  "1126043": [
-    "edible"
-  ],
-  "1128299": [
-    "deadly"
-  ],
-  "1129444": [
-    "edible"
-  ],
-  "1130984": [
-    "inedible"
-  ],
-  "1130985": [
-    "inedible"
-  ],
-  "1133663": [
-    "medicinal"
-  ],
-  "1134102": [
-    "deadly"
-  ],
-  "1134132": [
-    "deadly"
-  ],
-  "1134137": [
-    "deadly"
-  ],
-  "1134741": [
-    "edible"
-  ],
-  "1136927": [
-    "choice"
-  ],
-  "1137785": [
-    "choice"
-  ],
-  "1137795": [
-    "choice"
-  ],
-  "1137796": [
-    "choice"
-  ],
-  "1137797": [
-    "choice"
-  ],
-  "1137993": [
-    "medicinal"
-  ],
-  "1138666": [
-    "edible"
-  ],
-  "1143633": [
-    "choice"
-  ],
-  "1148870": [
-    "edible"
-  ],
-  "1149279": [
-    "edible"
-  ],
-  "1152222": [
-    "edible"
-  ],
-  "1155964": [
-    "inedible"
-  ],
-  "1156421": [
-    "medicinal"
-  ],
-  "1156423": [
-    "medicinal"
-  ],
-  "1156534": [
-    "edible"
-  ],
-  "1156575": [
-    "medicinal"
-  ],
-  "1179764": [
-    "inedible"
-  ],
-  "1179954": [
-    "edible"
-  ],
-  "1189161": [
-    "choice"
-  ],
-  "1192659": [
-    "medicinal",
-    "edible"
-  ],
-  "1199501": [
-    "psychoactive"
-  ],
-  "1227511": [
-    "choice"
-  ],
-  "1229052": [
-    "deadly"
-  ],
-  "1229278": [
-    "medicinal",
-    "edible"
-  ],
-  "1230633": [
-    "edible"
-  ],
-  "1230647": [
-    "edible"
-  ],
-  "1230655": [
-    "medicinal",
-    "edible"
-  ],
-  "1230660": [
-    "edible"
-  ],
-  "1231510": [
-    "medicinal"
-  ],
-  "1231524": [
-    "edible"
-  ],
-  "1232190": [
-    "edible"
-  ],
-  "1241396": [
-    "edible"
-  ],
-  "1280949": [
-    "deadly"
-  ],
-  "1376552": [
-    "deadly"
-  ],
-  "1377106": [
-    "edible"
-  ],
-  "1456532": [
-    "deadly"
-  ]
+  "47346": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q49593761"
+  },
+  "47347": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q188749"
+  },
+  "47348": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q922335"
+  },
+  "47392": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q275125"
+  },
+  "48338": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q886424"
+  },
+  "48418": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q45547"
+  },
+  "48424": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q790626"
+  },
+  "48443": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q545130"
+  },
+  "48473": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q774576"
+  },
+  "48494": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q186451"
+  },
+  "48509": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2450117"
+  },
+  "48529": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q19733"
+  },
+  "48605": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q84369452"
+  },
+  "48607": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q857903"
+  },
+  "48611": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q2097845"
+  },
+  "48641": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q13684"
+  },
+  "48701": {
+    "labels": [
+      "edible",
+      "choice"
+    ],
+    "qid": "Q19740"
+  },
+  "48706": {
+    "labels": [
+      "poisonous",
+      "psychoactive",
+      "medicinal"
+    ],
+    "qid": "Q49593845"
+  },
+  "48715": {
+    "labels": [
+      "poisonous",
+      "psychoactive",
+      "medicinal"
+    ],
+    "qid": "Q131227"
+  },
+  "48767": {
+    "labels": [
+      "poisonous",
+      "medicinal"
+    ],
+    "qid": "Q752507"
+  },
+  "48770": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1257786"
+  },
+  "48800": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1568901"
+  },
+  "49158": {
+    "labels": [
+      "medicinal",
+      "choice"
+    ],
+    "qid": "Q19737"
+  },
+  "49162": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1318085"
+  },
+  "49208": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1516648"
+  },
+  "49446": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q978751"
+  },
+  "49448": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q580098"
+  },
+  "49547": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q267538"
+  },
+  "50813": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q321342"
+  },
+  "51135": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1757951"
+  },
+  "51314": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q4033868"
+  },
+  "51869": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q42054"
+  },
+  "51872": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q1434668"
+  },
+  "52135": {
+    "labels": [
+      "deadly",
+      "medicinal"
+    ],
+    "qid": "Q188643"
+  },
+  "53488": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q816730"
+  },
+  "53714": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q1165686"
+  },
+  "53884": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1947934"
+  },
+  "53885": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2424229"
+  },
+  "53888": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2424229"
+  },
+  "54025": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q503359"
+  },
+  "54121": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1478471"
+  },
+  "54132": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q4035836"
+  },
+  "54164": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q206711"
+  },
+  "54204": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q4042691"
+  },
+  "54206": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q108624697"
+  },
+  "54590": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2505804"
+  },
+  "54591": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2701671"
+  },
+  "54599": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q3295056"
+  },
+  "54600": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q108617761"
+  },
+  "54603": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q108617759"
+  },
+  "54631": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q2566605"
+  },
+  "54893": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q22285542"
+  },
+  "55156": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q378947"
+  },
+  "55162": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2978650"
+  },
+  "55175": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q2640544"
+  },
+  "55187": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q5738468"
+  },
+  "55245": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q39528"
+  },
+  "55271": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q980655"
+  },
+  "55274": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7289069"
+  },
+  "55482": {
+    "labels": [
+      "edible cooked",
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q913459"
+  },
+  "55496": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q2710042"
+  },
+  "55498": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q557377"
+  },
+  "55501": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q557377"
+  },
+  "55568": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q39119"
+  },
+  "55583": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1552361"
+  },
+  "55605": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q162599"
+  },
+  "55919": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q84914932"
+  },
+  "55923": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1806243"
+  },
+  "55930": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q952036"
+  },
+  "55941": {
+    "labels": [
+      "deadly",
+      "medicinal"
+    ],
+    "qid": "Q518069"
+  },
+  "55950": {
+    "labels": [
+      "edible cooked",
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q473745"
+  },
+  "55973": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1301490"
+  },
+  "56251": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q3270252"
+  },
+  "56318": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q933206"
+  },
+  "56324": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10680935"
+  },
+  "56534": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q579190"
+  },
+  "57462": {
+    "labels": [
+      "caution"
+    ],
+    "qid": "Q3388167"
+  },
+  "57692": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q222449"
+  },
+  "57883": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q844279"
+  },
+  "58676": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q948871"
+  },
+  "58682": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q1129282"
+  },
+  "58683": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q3613602"
+  },
+  "58684": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q571885"
+  },
+  "58685": {
+    "labels": [
+      "deadly",
+      "medicinal"
+    ],
+    "qid": "Q472817"
+  },
+  "58687": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1570399"
+  },
+  "58691": {
+    "labels": [
+      "deadly",
+      "poisonous"
+    ],
+    "qid": "Q1063083"
+  },
+  "58692": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1614835"
+  },
+  "58696": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q1423834"
+  },
+  "58699": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q690801"
+  },
+  "58705": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q2086507"
+  },
+  "58709": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1738729"
+  },
+  "60782": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q790598"
+  },
+  "60783": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1156750"
+  },
+  "61395": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q227690"
+  },
+  "62485": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1947219"
+  },
+  "62486": {
+    "labels": [
+      "edible",
+      "choice"
+    ],
+    "qid": "Q509308"
+  },
+  "62728": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q59564572"
+  },
+  "62735": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q901119"
+  },
+  "63013": {
+    "labels": [
+      "edible",
+      "choice"
+    ],
+    "qid": "Q108703976"
+  },
+  "63014": {
+    "labels": [
+      "edible",
+      "choice"
+    ],
+    "qid": "Q36992"
+  },
+  "63027": {
+    "labels": [
+      "edible cooked"
+    ],
+    "qid": "Q301792"
+  },
+  "63076": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q1572277"
+  },
+  "63098": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q108650437"
+  },
+  "63100": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1572207"
+  },
+  "63102": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q108650440"
+  },
+  "63224": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q779716"
+  },
+  "63225": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q628977"
+  },
+  "63226": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49595931"
+  },
+  "63227": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49595934"
+  },
+  "63228": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49595939"
+  },
+  "63230": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108624804"
+  },
+  "63232": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q628977"
+  },
+  "63234": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q59537309"
+  },
+  "63235": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q59531124"
+  },
+  "63236": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q597340"
+  },
+  "63238": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q373625"
+  },
+  "63258": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q138027"
+  },
+  "63260": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q138027"
+  },
+  "63268": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q935729"
+  },
+  "63271": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q935729"
+  },
+  "63274": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5521451"
+  },
+  "63282": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q3915439"
+  },
+  "63387": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q977364"
+  },
+  "63388": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q84369204"
+  },
+  "63390": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q108731462"
+  },
+  "63394": {
+    "labels": [
+      "edible cooked",
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q243381"
+  },
+  "63395": {
+    "labels": [
+      "edible cooked",
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q41501525"
+  },
+  "63398": {
+    "labels": [
+      "edible cooked",
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108649387"
+  },
+  "63399": {
+    "labels": [
+      "edible cooked",
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108649381"
+  },
+  "63401": {
+    "labels": [
+      "edible cooked",
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q243381"
+  },
+  "63405": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q256970"
+  },
+  "63407": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q108575946"
+  },
+  "63426": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q2670211"
+  },
+  "63427": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q108658391"
+  },
+  "63450": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q9047471"
+  },
+  "63453": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q2181869"
+  },
+  "63456": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1641480"
+  },
+  "63460": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q1516674"
+  },
+  "63462": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q108658756"
+  },
+  "63463": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q108658767"
+  },
+  "63465": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q108658759"
+  },
+  "63479": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1187583"
+  },
+  "63488": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3546045"
+  },
+  "63489": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q633503"
+  },
+  "63496": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2712548"
+  },
+  "63553": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q108603038"
+  },
+  "63555": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q5225905"
+  },
+  "63556": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q108603051"
+  },
+  "63557": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q5225905"
+  },
+  "63558": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q84371259"
+  },
+  "63559": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q108603030"
+  },
+  "63579": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q108658325"
+  },
+  "63580": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1500672"
+  },
+  "63581": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q108658338"
+  },
+  "63583": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q2519015"
+  },
+  "63585": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q81202193"
+  },
+  "64011": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q108661880"
+  },
+  "64021": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1043730"
+  },
+  "64071": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1543695"
+  },
+  "64087": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3915833"
+  },
+  "64708": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q856834"
+  },
+  "67331": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1112614"
+  },
+  "67338": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q12951866"
+  },
+  "67346": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q3913757"
+  },
+  "67351": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q6534177"
+  },
+  "67354": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q4691345"
+  },
+  "67356": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q588770"
+  },
+  "67594": {
+    "labels": [
+      "edible",
+      "choice"
+    ],
+    "qid": "Q372893"
+  },
+  "67660": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q623485"
+  },
+  "67661": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q623485"
+  },
+  "67751": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q49596237"
+  },
+  "67752": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q7090734"
+  },
+  "68301": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1580329"
+  },
+  "68309": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q1029124"
+  },
+  "70222": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q5235788"
+  },
+  "83196": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q1830008"
+  },
+  "83197": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q3511527"
+  },
+  "83199": {
+    "labels": [
+      "caution"
+    ],
+    "qid": "Q370221"
+  },
+  "84224": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10432823"
+  },
+  "84271": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q918611"
+  },
+  "84315": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10664084"
+  },
+  "85120": {
+    "labels": [
+      "edible cooked"
+    ],
+    "qid": "Q900804"
+  },
+  "85398": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1393937"
+  },
+  "116662": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q788213"
+  },
+  "116695": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q736892"
+  },
+  "117227": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1632206"
+  },
+  "117308": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q146693"
+  },
+  "117311": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2679918"
+  },
+  "117994": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3495445"
+  },
+  "117998": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49411745"
+  },
+  "118002": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1417061"
+  },
+  "118027": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q175548"
+  },
+  "118038": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q531200"
+  },
+  "118041": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q856469"
+  },
+  "118052": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q1928270"
+  },
+  "118078": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q832812"
+  },
+  "118084": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q1314913"
+  },
+  "118101": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q3526291"
+  },
+  "118102": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q1816880"
+  },
+  "118115": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q1500812"
+  },
+  "118131": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1790306"
+  },
+  "118138": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10600575"
+  },
+  "118139": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q995618"
+  },
+  "118145": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q104252225"
+  },
+  "118146": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q3475943"
+  },
+  "118147": {
+    "labels": [
+      "poisonous",
+      "medicinal"
+    ],
+    "qid": "Q1611092"
+  },
+  "118158": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7635502"
+  },
+  "118159": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2523582"
+  },
+  "118160": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7635492"
+  },
+  "118163": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49411794"
+  },
+  "118164": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q49411798"
+  },
+  "118166": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1018043"
+  },
+  "118168": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q2645787"
+  },
+  "118175": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7382363"
+  },
+  "118178": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108700705"
+  },
+  "118179": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3281588"
+  },
+  "118180": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108700716"
+  },
+  "118182": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1669246"
+  },
+  "118191": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1888914"
+  },
+  "118199": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q7840814"
+  },
+  "118201": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10432254"
+  },
+  "118208": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q49411822"
+  },
+  "118211": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q2714631"
+  },
+  "118212": {
+    "labels": [
+      "caution"
+    ],
+    "qid": "Q108730962"
+  },
+  "118213": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1473080"
+  },
+  "118215": {
+    "labels": [
+      "caution"
+    ],
+    "qid": "Q312756"
+  },
+  "118223": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1323764"
+  },
+  "118226": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q6468953"
+  },
+  "118240": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q752492"
+  },
+  "118243": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q138112"
+  },
+  "118244": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108648115"
+  },
+  "118251": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1305809"
+  },
+  "118260": {
+    "labels": [
+      "psychoactive",
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q49411842"
+  },
+  "118263": {
+    "labels": [
+      "psychoactive",
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q2484523"
+  },
+  "118268": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3915419"
+  },
+  "118270": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365930"
+  },
+  "118271": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q96358654"
+  },
+  "118273": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2546601"
+  },
+  "118275": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365934"
+  },
+  "118277": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365927"
+  },
+  "118279": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634787"
+  },
+  "118280": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365931"
+  },
+  "118281": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q2980417"
+  },
+  "118283": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2251383"
+  },
+  "118289": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q3757597"
+  },
+  "118290": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q49411853"
+  },
+  "118291": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10431217"
+  },
+  "118292": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502107"
+  },
+  "118294": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q49411857"
+  },
+  "118295": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q108602310"
+  },
+  "118297": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q948914"
+  },
+  "118298": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502144"
+  },
+  "118299": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q4132375"
+  },
+  "118302": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q5624977"
+  },
+  "118313": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1897213"
+  },
+  "118324": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1364735"
+  },
+  "118330": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q84365923"
+  },
+  "118332": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q49411865"
+  },
+  "118336": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1333853"
+  },
+  "118344": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q1737818"
+  },
+  "118348": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3027934"
+  },
+  "118363": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q12236668"
+  },
+  "118368": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1634310"
+  },
+  "118379": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1615287"
+  },
+  "118382": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1614842"
+  },
+  "118383": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q384480"
+  },
+  "118384": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q4672758"
+  },
+  "118385": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q4691338"
+  },
+  "118386": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q4691340"
+  },
+  "118388": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q384480"
+  },
+  "118391": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1471958"
+  },
+  "118393": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1886356"
+  },
+  "118394": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1349044"
+  },
+  "118396": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4739873"
+  },
+  "118398": {
+    "labels": [
+      "deadly",
+      "poisonous"
+    ],
+    "qid": "Q61914217"
+  },
+  "118400": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q259135"
+  },
+  "118401": {
+    "labels": [
+      "edible cooked"
+    ],
+    "qid": "Q630885"
+  },
+  "118495": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q15120148"
+  },
+  "119118": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q2118699"
+  },
+  "119134": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q3506223"
+  },
+  "119151": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q1236980"
+  },
+  "119528": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q865798"
+  },
+  "119968": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q772657"
+  },
+  "119984": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4042816"
+  },
+  "120030": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q750062"
+  },
+  "120031": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q4939996"
+  },
+  "120037": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1265642"
+  },
+  "120170": {
+    "labels": [
+      "edible cooked"
+    ],
+    "qid": "Q3323803"
+  },
+  "120172": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q627991"
+  },
+  "120242": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q1519672"
+  },
+  "120281": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q1093314"
+  },
+  "120443": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q5033734"
+  },
+  "120444": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q2936589"
+  },
+  "120871": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1486219"
+  },
+  "120872": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1947934"
+  },
+  "120951": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1165733"
+  },
+  "120952": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108618016"
+  },
+  "121217": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q15651408"
+  },
+  "121714": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q935453"
+  },
+  "121715": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1616693"
+  },
+  "122170": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q13684"
+  },
+  "122279": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441827"
+  },
+  "122333": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1323740"
+  },
+  "122334": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3845782"
+  },
+  "122335": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q262105"
+  },
+  "123220": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q108610647"
+  },
+  "123221": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q84375106"
+  },
+  "123223": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q108610634"
+  },
+  "123224": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q108610631"
+  },
+  "123351": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q320999"
+  },
+  "123623": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1097213"
+  },
+  "123705": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q7850810"
+  },
+  "123789": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q5129577"
+  },
+  "123891": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q331465"
+  },
+  "123897": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q631566"
+  },
+  "124085": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q4329061"
+  },
+  "124102": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q2120850"
+  },
+  "124344": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q167887"
+  },
+  "125353": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q2475465"
+  },
+  "125364": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q669036"
+  },
+  "125366": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2566629"
+  },
+  "125367": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4035289"
+  },
+  "125390": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q4033858"
+  },
+  "125688": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1165913"
+  },
+  "125689": {
+    "labels": [
+      "edible",
+      "choice"
+    ],
+    "qid": "Q28951"
+  },
+  "125693": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q3282427"
+  },
+  "125694": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108618006"
+  },
+  "125696": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108618007"
+  },
+  "125697": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108618004"
+  },
+  "125703": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1323824"
+  },
+  "125705": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q2213592"
+  },
+  "125715": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4284128"
+  },
+  "125716": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10683512"
+  },
+  "125719": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q105067577"
+  },
+  "125720": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q677341"
+  },
+  "125724": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q761680"
+  },
+  "125725": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q761680"
+  },
+  "125743": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7180345"
+  },
+  "125750": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49414217"
+  },
+  "125932": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q271098"
+  },
+  "126131": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1463716"
+  },
+  "126158": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1076281"
+  },
+  "126160": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q2414233"
+  },
+  "126163": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255960"
+  },
+  "126754": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q205101"
+  },
+  "126831": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q7090729"
+  },
+  "126911": {
+    "labels": [
+      "edible cooked"
+    ],
+    "qid": "Q1553596"
+  },
+  "126913": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2519734"
+  },
+  "127011": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q96358408"
+  },
+  "127021": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1956937"
+  },
+  "127216": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3283832"
+  },
+  "127509": {
+    "labels": [
+      "edible cooked",
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q531903"
+  },
+  "127510": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q229814"
+  },
+  "127674": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1951851"
+  },
+  "128053": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q76321718"
+  },
+  "128065": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10626876"
+  },
+  "128071": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q84371956"
+  },
+  "128073": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108740541"
+  },
+  "128074": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1654979"
+  },
+  "128075": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108740539"
+  },
+  "128521": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q768006"
+  },
+  "129328": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q1102113"
+  },
+  "129329": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1462183"
+  },
+  "130198": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1615526"
+  },
+  "130199": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1431961"
+  },
+  "130203": {
+    "labels": [
+      "caution"
+    ],
+    "qid": "Q198709"
+  },
+  "130908": {
+    "labels": [
+      "edible cooked"
+    ],
+    "qid": "Q2449977"
+  },
+  "130910": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q5231679"
+  },
+  "130912": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q81016397"
+  },
+  "130915": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1663542"
+  },
+  "130916": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108605706"
+  },
+  "130919": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q3915786"
+  },
+  "130929": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q2115466"
+  },
+  "130934": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1423840"
+  },
+  "131537": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q2627281"
+  },
+  "133700": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q1029124"
+  },
+  "133931": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q4033862"
+  },
+  "136399": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q1261868"
+  },
+  "143270": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q4263193"
+  },
+  "143271": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q108578223"
+  },
+  "143308": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3215773"
+  },
+  "143309": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q675252"
+  },
+  "143312": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q1942854"
+  },
+  "143313": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q5207769"
+  },
+  "143384": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1309195"
+  },
+  "143393": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q5033735"
+  },
+  "143562": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q49422329"
+  },
+  "143563": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q234529"
+  },
+  "145526": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3412104"
+  },
+  "146681": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q7860276"
+  },
+  "147277": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q833108"
+  },
+  "147354": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q674065"
+  },
+  "147355": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q108581798"
+  },
+  "148127": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q5207764"
+  },
+  "153033": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q732640"
+  },
+  "153035": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q3915690"
+  },
+  "153431": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q49424765"
+  },
+  "153434": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q49424770"
+  },
+  "153435": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q1327882"
+  },
+  "153445": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1574926"
+  },
+  "153459": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q206438"
+  },
+  "153464": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1586855"
+  },
+  "154291": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q384480"
+  },
+  "154321": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1855552"
+  },
+  "154366": {
+    "labels": [
+      "edible cooked"
+    ],
+    "qid": "Q1784198"
+  },
+  "154379": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q6558776"
+  },
+  "154390": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5147602"
+  },
+  "154392": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q108592631"
+  },
+  "154393": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q108592701"
+  },
+  "154450": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q1415446"
+  },
+  "154675": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q851354"
+  },
+  "154734": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q1614907"
+  },
+  "154735": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q248829"
+  },
+  "154736": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q5518455"
+  },
+  "154744": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q2120850"
+  },
+  "154745": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q84918215"
+  },
+  "154750": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10674253"
+  },
+  "154756": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108265448"
+  },
+  "154875": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q302097"
+  },
+  "154877": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2509354"
+  },
+  "154987": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1635140"
+  },
+  "155052": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q6534109"
+  },
+  "155080": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q430845"
+  },
+  "155166": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q892033"
+  },
+  "155197": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q62138"
+  },
+  "155199": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q108617906"
+  },
+  "155200": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q62138"
+  },
+  "155203": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q108617895"
+  },
+  "155208": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108618158"
+  },
+  "155212": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q3295041"
+  },
+  "155213": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q108618270"
+  },
+  "155494": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q2720076"
+  },
+  "157728": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10549618"
+  },
+  "157989": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q2030825"
+  },
+  "179020": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q3496283"
+  },
+  "179044": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1315936"
+  },
+  "179054": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q641656"
+  },
+  "179065": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1142857"
+  },
+  "179071": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q902264"
+  },
+  "179074": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q1311011"
+  },
+  "179081": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q1316813"
+  },
+  "179085": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q882592"
+  },
+  "179088": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q968142"
+  },
+  "179096": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q6665413"
+  },
+  "179099": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q3271137"
+  },
+  "179100": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q2406982"
+  },
+  "179101": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7129789"
+  },
+  "179107": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1183020"
+  },
+  "179113": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q48305660"
+  },
+  "179162": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5529523"
+  },
+  "179163": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10503513"
+  },
+  "179167": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q2484512"
+  },
+  "179168": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5223613"
+  },
+  "179169": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5529519"
+  },
+  "179170": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5529516"
+  },
+  "179171": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q5521455"
+  },
+  "179172": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q49433522"
+  },
+  "179173": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q4132374"
+  },
+  "179174": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q3757594"
+  },
+  "179175": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q4132380"
+  },
+  "179176": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q14947558"
+  },
+  "179177": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502105"
+  },
+  "179185": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10478893"
+  },
+  "179211": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q5168926"
+  },
+  "179214": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7129783"
+  },
+  "179215": {
+    "labels": [
+      "caution"
+    ],
+    "qid": "Q5162125"
+  },
+  "179219": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q5162123"
+  },
+  "179230": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10422716"
+  },
+  "179238": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4793489"
+  },
+  "179241": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4793473"
+  },
+  "179249": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q764068"
+  },
+  "179252": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10658947"
+  },
+  "179652": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q1939109"
+  },
+  "179697": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10403026"
+  },
+  "179709": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10718890"
+  },
+  "179765": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q84366014"
+  },
+  "179766": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q2992882"
+  },
+  "179768": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q2992882"
+  },
+  "179839": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10548457"
+  },
+  "179889": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q334957"
+  },
+  "192381": {
+    "labels": [
+      "edible cooked"
+    ],
+    "qid": "Q917989"
+  },
+  "192652": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q386204"
+  },
+  "194080": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1614935"
+  },
+  "194182": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3641723"
+  },
+  "194231": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q28376148"
+  },
+  "194264": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q108560994"
+  },
+  "194265": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q4033854"
+  },
+  "194267": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q4739889"
+  },
+  "194273": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108582022"
+  },
+  "194274": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q84370540"
+  },
+  "194275": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1491620"
+  },
+  "194276": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q59466561"
+  },
+  "194277": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1491620"
+  },
+  "194278": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q49439663"
+  },
+  "194279": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q49439667"
+  },
+  "194307": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q180150"
+  },
+  "194308": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q108606558"
+  },
+  "194309": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q108606557"
+  },
+  "194310": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q108606562"
+  },
+  "194365": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108617327"
+  },
+  "194366": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q84918246"
+  },
+  "194371": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q3283620"
+  },
+  "194373": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q80740"
+  },
+  "194374": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108618046"
+  },
+  "194375": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108618047"
+  },
+  "194376": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108618039"
+  },
+  "194377": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108618037"
+  },
+  "194378": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108618042"
+  },
+  "194381": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108618041"
+  },
+  "194385": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q498221"
+  },
+  "194386": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q84372259"
+  },
+  "194387": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1377524"
+  },
+  "194389": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q612163"
+  },
+  "194400": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108700935"
+  },
+  "194405": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1209460"
+  },
+  "194407": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1209460"
+  },
+  "194408": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1784176"
+  },
+  "194410": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1784176"
+  },
+  "194412": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q84372621"
+  },
+  "194413": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108700540"
+  },
+  "194414": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q639524"
+  },
+  "194415": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q49439698"
+  },
+  "194416": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q49439702"
+  },
+  "194422": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q113988"
+  },
+  "194423": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q49439728"
+  },
+  "194425": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q49439732"
+  },
+  "194426": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108700880"
+  },
+  "194427": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2028199"
+  },
+  "194433": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1530713"
+  },
+  "194437": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q246696"
+  },
+  "194438": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q246696"
+  },
+  "194439": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q246696"
+  },
+  "194456": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q84368818"
+  },
+  "194457": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108731210"
+  },
+  "194458": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q84368833"
+  },
+  "194459": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108731209"
+  },
+  "194460": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q261047"
+  },
+  "194464": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108731331"
+  },
+  "194465": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108731351"
+  },
+  "194473": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q108579992"
+  },
+  "194476": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q1315472"
+  },
+  "194477": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q108579994"
+  },
+  "194480": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q108616102"
+  },
+  "194483": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q226967"
+  },
+  "194484": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q226967"
+  },
+  "194501": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q4265344"
+  },
+  "194565": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q5024216"
+  },
+  "194659": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3270155"
+  },
+  "194706": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q3212366"
+  },
+  "194707": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q108618097"
+  },
+  "194803": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108730841"
+  },
+  "194804": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49439814"
+  },
+  "194807": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q72442"
+  },
+  "196547": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q108578174"
+  },
+  "202359": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q865798"
+  },
+  "202373": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1786823"
+  },
+  "202380": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q4042819"
+  },
+  "202392": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q81186404"
+  },
+  "202395": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q59454298"
+  },
+  "202415": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365924"
+  },
+  "202416": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5223629"
+  },
+  "202417": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1796464"
+  },
+  "202420": {
+    "labels": [
+      "psychoactive",
+      "medicinal"
+    ],
+    "qid": "Q4138591"
+  },
+  "203669": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q939086"
+  },
+  "203674": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q4532087"
+  },
+  "203711": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q1315033"
+  },
+  "203803": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3906819"
+  },
+  "203805": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q448198"
+  },
+  "203806": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1415480"
+  },
+  "204588": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q220662"
+  },
+  "204589": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q1943897"
+  },
+  "204687": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1150884"
+  },
+  "205318": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q922887"
+  },
+  "205516": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q901105"
+  },
+  "205622": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q21162597"
+  },
+  "206086": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q19826641"
+  },
+  "206090": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q3323817"
+  },
+  "206114": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10706720"
+  },
+  "206118": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2714680"
+  },
+  "206120": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q794194"
+  },
+  "206124": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255854"
+  },
+  "206130": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q15637416"
+  },
+  "206132": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255886"
+  },
+  "206133": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q92642005"
+  },
+  "206138": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q1477279"
+  },
+  "206148": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255962"
+  },
+  "206149": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255965"
+  },
+  "206899": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255856"
+  },
+  "207619": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10634547"
+  },
+  "208065": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q3003975"
+  },
+  "210270": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1784190"
+  },
+  "217172": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10681383"
+  },
+  "226711": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3913812"
+  },
+  "243912": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1931554"
+  },
+  "244729": {
+    "labels": [
+      "poisonous",
+      "psychoactive",
+      "medicinal"
+    ],
+    "qid": "Q49503246"
+  },
+  "244730": {
+    "labels": [
+      "poisonous",
+      "psychoactive",
+      "medicinal"
+    ],
+    "qid": "Q49503250"
+  },
+  "244731": {
+    "labels": [
+      "poisonous",
+      "psychoactive",
+      "medicinal"
+    ],
+    "qid": "Q49503255"
+  },
+  "244732": {
+    "labels": [
+      "poisonous",
+      "psychoactive",
+      "medicinal"
+    ],
+    "qid": "Q3613605"
+  },
+  "320923": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255938"
+  },
+  "325801": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q14947501"
+  },
+  "326188": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10659008"
+  },
+  "326353": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1517961"
+  },
+  "328222": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q670544"
+  },
+  "328228": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10603401"
+  },
+  "328233": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q799214"
+  },
+  "328234": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q81186194"
+  },
+  "328235": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q81186856"
+  },
+  "328244": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q690450"
+  },
+  "328245": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10422717"
+  },
+  "328264": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10500437"
+  },
+  "328280": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q1415748"
+  },
+  "332212": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2097372"
+  },
+  "332485": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q3757596"
+  },
+  "332487": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q2484512"
+  },
+  "332500": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1934567"
+  },
+  "332501": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q961386"
+  },
+  "332502": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3829324"
+  },
+  "332507": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q3229951"
+  },
+  "332685": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10436488"
+  },
+  "333772": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q757127"
+  },
+  "334321": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2567074"
+  },
+  "334648": {
+    "labels": [
+      "caution"
+    ],
+    "qid": "Q4739868"
+  },
+  "334676": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108264711"
+  },
+  "334677": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q913466"
+  },
+  "334678": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q84367705"
+  },
+  "334686": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q6707375"
+  },
+  "334704": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2511507"
+  },
+  "335051": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5521447"
+  },
+  "335206": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1928462"
+  },
+  "335276": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1462231"
+  },
+  "335466": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q5024214"
+  },
+  "335624": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q2614222"
+  },
+  "335932": {
+    "labels": [
+      "poisonous",
+      "psychoactive",
+      "medicinal"
+    ],
+    "qid": "Q3613607"
+  },
+  "335942": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1415435"
+  },
+  "335944": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7635500"
+  },
+  "335960": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10715901"
+  },
+  "336814": {
+    "labels": [
+      "psychoactive",
+      "medicinal"
+    ],
+    "qid": "Q4387845"
+  },
+  "337849": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1367003"
+  },
+  "337850": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1165762"
+  },
+  "337956": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q470766"
+  },
+  "338070": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q6710302"
+  },
+  "338344": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q5955915"
+  },
+  "339415": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2591272"
+  },
+  "340497": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7129794"
+  },
+  "340559": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4355285"
+  },
+  "340866": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q2475470"
+  },
+  "340867": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q13684"
+  },
+  "340993": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10525102"
+  },
+  "341797": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q27266"
+  },
+  "341963": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10664731"
+  },
+  "343169": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1093294"
+  },
+  "343231": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q596333"
+  },
+  "343586": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1304935"
+  },
+  "343661": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q533017"
+  },
+  "344022": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q111697"
+  },
+  "344024": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108546339"
+  },
+  "344041": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q5624855"
+  },
+  "344482": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q4811186"
+  },
+  "344540": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q6036570"
+  },
+  "344629": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2591152"
+  },
+  "344638": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q198645"
+  },
+  "344650": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1328691"
+  },
+  "344651": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q84370864"
+  },
+  "344658": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q2422232"
+  },
+  "346968": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q452729"
+  },
+  "347894": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q9260869"
+  },
+  "347897": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365923"
+  },
+  "348091": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q28492325"
+  },
+  "348128": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49600720"
+  },
+  "348693": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q84374954"
+  },
+  "348694": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q84374900"
+  },
+  "348695": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q84374926"
+  },
+  "348698": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q934772"
+  },
+  "348711": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q177209"
+  },
+  "348720": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q26678484"
+  },
+  "348814": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q26678323"
+  },
+  "348829": {
+    "labels": [
+      "edible",
+      "choice"
+    ],
+    "qid": "Q108571152"
+  },
+  "348835": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255911"
+  },
+  "348989": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7129778"
+  },
+  "348991": {
+    "labels": [
+      "psychoactive",
+      "inedible"
+    ],
+    "qid": "Q1369546"
+  },
+  "349993": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10673564"
+  },
+  "349995": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q49600886"
+  },
+  "349998": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q623048"
+  },
+  "349999": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2234587"
+  },
+  "350007": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q960859"
+  },
+  "350020": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q80705"
+  },
+  "350030": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q2841086"
+  },
+  "350032": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q49600908"
+  },
+  "350033": {
+    "labels": [
+      "edible cooked"
+    ],
+    "qid": "Q1574920"
+  },
+  "350037": {
+    "labels": [
+      "caution"
+    ],
+    "qid": "Q2713909"
+  },
+  "350038": {
+    "labels": [
+      "poisonous",
+      "medicinal"
+    ],
+    "qid": "Q1934877"
+  },
+  "350044": {
+    "labels": [
+      "deadly",
+      "poisonous"
+    ],
+    "qid": "Q49600926"
+  },
+  "350045": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q1614992"
+  },
+  "350049": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q4739877"
+  },
+  "350051": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q49600941"
+  },
+  "350060": {
+    "labels": [
+      "edible cooked"
+    ],
+    "qid": "Q1323749"
+  },
+  "350061": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1445543"
+  },
+  "350065": {
+    "labels": [
+      "edible cooked"
+    ],
+    "qid": "Q3613614"
+  },
+  "350066": {
+    "labels": [
+      "edible cooked",
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q49600968"
+  },
+  "350121": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2249458"
+  },
+  "350122": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49601013"
+  },
+  "350123": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10418187"
+  },
+  "350157": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4373480"
+  },
+  "350158": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49601021"
+  },
+  "350206": {
+    "labels": [
+      "edible",
+      "choice"
+    ],
+    "qid": "Q49601039"
+  },
+  "350207": {
+    "labels": [
+      "edible",
+      "choice"
+    ],
+    "qid": "Q49601044"
+  },
+  "350216": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q26203726"
+  },
+  "350238": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10661276"
+  },
+  "350292": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107546904"
+  },
+  "350293": {
+    "labels": [
+      "edible",
+      "choice"
+    ],
+    "qid": "Q1478429"
+  },
+  "350294": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107547158"
+  },
+  "350360": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49601156"
+  },
+  "350361": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49601160"
+  },
+  "350490": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49601374"
+  },
+  "350498": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10525951"
+  },
+  "350509": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q910251"
+  },
+  "350510": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q103817221"
+  },
+  "350511": {
+    "labels": [
+      "edible",
+      "choice"
+    ],
+    "qid": "Q371126"
+  },
+  "350558": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q10464072"
+  },
+  "350559": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q10464073"
+  },
+  "350560": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q105052422"
+  },
+  "350561": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5197647"
+  },
+  "350562": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q105052428"
+  },
+  "350563": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q107609477"
+  },
+  "350564": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q10464081"
+  },
+  "350565": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q81185943"
+  },
+  "350786": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10496578"
+  },
+  "350796": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q107677370"
+  },
+  "350815": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q49601621"
+  },
+  "350816": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q49601625"
+  },
+  "350817": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502132"
+  },
+  "350828": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q49601635"
+  },
+  "350832": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q2720070"
+  },
+  "350852": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q288175"
+  },
+  "350919": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q5624857"
+  },
+  "350925": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5624916"
+  },
+  "350930": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q5624994"
+  },
+  "350937": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q909217"
+  },
+  "350978": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q3913782"
+  },
+  "351004": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10523784"
+  },
+  "351014": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q49601720"
+  },
+  "351036": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10716245"
+  },
+  "351050": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1548745"
+  },
+  "351126": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q242011"
+  },
+  "351215": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q6036493"
+  },
+  "351217": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q198722"
+  },
+  "351220": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q3914313"
+  },
+  "351221": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q2712563"
+  },
+  "351226": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q10546836"
+  },
+  "351301": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1393910"
+  },
+  "351303": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q4042540"
+  },
+  "351304": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1303120"
+  },
+  "351308": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1724711"
+  },
+  "351313": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q865540"
+  },
+  "351314": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1543827"
+  },
+  "351316": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q1897180"
+  },
+  "351322": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q104837819"
+  },
+  "351354": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q610344"
+  },
+  "351359": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2714698"
+  },
+  "351365": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1513219"
+  },
+  "351371": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q300967"
+  },
+  "351404": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q3915457"
+  },
+  "351447": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q206727"
+  },
+  "351522": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q6811485"
+  },
+  "351596": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3323825"
+  },
+  "351603": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q49601935"
+  },
+  "351629": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1513545"
+  },
+  "351652": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q49601991"
+  },
+  "351657": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49601996"
+  },
+  "351659": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10342572"
+  },
+  "351673": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q4405497"
+  },
+  "351674": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q45030202"
+  },
+  "351675": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q14426282"
+  },
+  "351772": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7180341"
+  },
+  "351790": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q5353642"
+  },
+  "351817": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10671550"
+  },
+  "351827": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10546232"
+  },
+  "351875": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q834124"
+  },
+  "351885": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108686817"
+  },
+  "351886": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365937"
+  },
+  "351887": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49602153"
+  },
+  "351888": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365928"
+  },
+  "351889": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q81186352"
+  },
+  "351890": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3906818"
+  },
+  "351891": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q22286442"
+  },
+  "351892": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108265058"
+  },
+  "351893": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q81186646"
+  },
+  "351894": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108265167"
+  },
+  "351895": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108265479"
+  },
+  "351896": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108265527"
+  },
+  "351897": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108265532"
+  },
+  "351898": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7205664"
+  },
+  "351899": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108265535"
+  },
+  "351900": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108265727"
+  },
+  "351901": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634805"
+  },
+  "351902": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365938"
+  },
+  "351927": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q829621"
+  },
+  "351954": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q7254038"
+  },
+  "351975": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10510655"
+  },
+  "351993": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q49602168"
+  },
+  "352158": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49602174"
+  },
+  "352159": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q2083741"
+  },
+  "352176": {
+    "labels": [
+      "edible cooked"
+    ],
+    "qid": "Q1479710"
+  },
+  "352185": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1078340"
+  },
+  "352261": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10655652"
+  },
+  "352273": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1532596"
+  },
+  "352278": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q843177"
+  },
+  "352283": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q854895"
+  },
+  "352292": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q49602256"
+  },
+  "352293": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q12871104"
+  },
+  "352294": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1532607"
+  },
+  "352303": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q241024"
+  },
+  "352311": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q851539"
+  },
+  "352335": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10664099"
+  },
+  "352337": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108347157"
+  },
+  "352367": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q108360541"
+  },
+  "352462": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q614730"
+  },
+  "352511": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10696080"
+  },
+  "352556": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q548690"
+  },
+  "352585": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10702586"
+  },
+  "352605": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2640522"
+  },
+  "352626": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q74692"
+  },
+  "352855": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10722425"
+  },
+  "352910": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10723099"
+  },
+  "352912": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q1574302"
+  },
+  "352913": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q108741796"
+  },
+  "353218": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10610583"
+  },
+  "354648": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10573757"
+  },
+  "355921": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4939316"
+  },
+  "355923": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2709730"
+  },
+  "355961": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10509798"
+  },
+  "358132": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q55650618"
+  },
+  "360212": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q217227"
+  },
+  "360306": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1276522"
+  },
+  "361632": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1611629"
+  },
+  "361641": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q934772"
+  },
+  "362618": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7702890"
+  },
+  "362915": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10454928"
+  },
+  "363586": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2523867"
+  },
+  "363590": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2360294"
+  },
+  "363591": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q355571"
+  },
+  "363592": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1855565"
+  },
+  "363593": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1347128"
+  },
+  "363594": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1543795"
+  },
+  "366270": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2454893"
+  },
+  "366338": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q108561706"
+  },
+  "366339": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q108561694"
+  },
+  "366340": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q108561715"
+  },
+  "366778": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q4939342"
+  },
+  "366779": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108570936"
+  },
+  "366873": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2998122"
+  },
+  "367922": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q19596245"
+  },
+  "371430": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634792"
+  },
+  "371441": {
+    "labels": [
+      "edible cooked"
+    ],
+    "qid": "Q917989"
+  },
+  "371459": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q84910034"
+  },
+  "371460": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q84910062"
+  },
+  "371566": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q61962634"
+  },
+  "371588": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q618295"
+  },
+  "372425": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255918"
+  },
+  "372725": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q96637355"
+  },
+  "372726": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q26203735"
+  },
+  "379844": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q2640668"
+  },
+  "381216": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q4739878"
+  },
+  "381273": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4793467"
+  },
+  "381274": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1610462"
+  },
+  "381275": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4793472"
+  },
+  "381276": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4793477"
+  },
+  "381454": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3490762"
+  },
+  "381461": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q20390192"
+  },
+  "381462": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10440725"
+  },
+  "381484": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441810"
+  },
+  "381486": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441818"
+  },
+  "381489": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441828"
+  },
+  "381492": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q12236691"
+  },
+  "381493": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441851"
+  },
+  "381919": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q11023677"
+  },
+  "381959": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q3915836"
+  },
+  "382071": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q10464076"
+  },
+  "382072": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q10464080"
+  },
+  "382426": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502106"
+  },
+  "382427": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10571089"
+  },
+  "382428": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502118"
+  },
+  "382432": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5529518"
+  },
+  "382492": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q129556"
+  },
+  "382516": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q5624954"
+  },
+  "382736": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10530375"
+  },
+  "382779": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q5997602"
+  },
+  "382788": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q3915707"
+  },
+  "382879": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q650468"
+  },
+  "382882": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q653776"
+  },
+  "382886": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q23637"
+  },
+  "382931": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q4259141"
+  },
+  "383074": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10580450"
+  },
+  "383731": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634777"
+  },
+  "383732": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634784"
+  },
+  "383733": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634788"
+  },
+  "383734": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634793"
+  },
+  "383735": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634794"
+  },
+  "383736": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634795"
+  },
+  "383737": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634796"
+  },
+  "383738": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634797"
+  },
+  "383739": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634798"
+  },
+  "383740": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7205666"
+  },
+  "383741": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634806"
+  },
+  "383742": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634807"
+  },
+  "383743": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634810"
+  },
+  "383744": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108265924"
+  },
+  "383900": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255848"
+  },
+  "383904": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q3330447"
+  },
+  "384046": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1345714"
+  },
+  "384702": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q6676009"
+  },
+  "384733": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q4016370"
+  },
+  "407893": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502131"
+  },
+  "410601": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1624061"
+  },
+  "410641": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q472142"
+  },
+  "410688": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q4355140"
+  },
+  "410728": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q3912823"
+  },
+  "410731": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5529522"
+  },
+  "411019": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255873"
+  },
+  "411042": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2249479"
+  },
+  "411424": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108577482"
+  },
+  "411425": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108577484"
+  },
+  "411448": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q5558691"
+  },
+  "411455": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q13684"
+  },
+  "413705": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108687009"
+  },
+  "415504": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q2909367"
+  },
+  "416180": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10713592"
+  },
+  "416558": {
+    "labels": [
+      "poisonous",
+      "medicinal"
+    ],
+    "qid": "Q7382388"
+  },
+  "417215": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10502809"
+  },
+  "417357": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q41632318"
+  },
+  "417392": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q107689964"
+  },
+  "417939": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q49620136"
+  },
+  "418443": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q10543371"
+  },
+  "423666": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q80410"
+  },
+  "424530": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q10450696"
+  },
+  "427379": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q2936591"
+  },
+  "428226": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q4033547"
+  },
+  "438008": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1943850"
+  },
+  "438013": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q254161"
+  },
+  "438025": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q2909370"
+  },
+  "447441": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q3511515"
+  },
+  "447650": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q7204379"
+  },
+  "448014": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10509887"
+  },
+  "450829": {
+    "labels": [
+      "edible",
+      "choice"
+    ],
+    "qid": "Q731944"
+  },
+  "451026": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1478465"
+  },
+  "451028": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1427410"
+  },
+  "451030": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q999441"
+  },
+  "451118": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634809"
+  },
+  "460346": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10634523"
+  },
+  "462023": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7129790"
+  },
+  "464151": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q742673"
+  },
+  "464267": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q529191"
+  },
+  "464307": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q2640662"
+  },
+  "464738": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10523775"
+  },
+  "465089": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10502803"
+  },
+  "465861": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q60061105"
+  },
+  "468454": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108265022"
+  },
+  "473067": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q973516"
+  },
+  "473935": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q24907983"
+  },
+  "474001": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4739882"
+  },
+  "474139": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4169309"
+  },
+  "474155": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q108129538"
+  },
+  "474202": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2501490"
+  },
+  "474502": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q818958"
+  },
+  "474683": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1358783"
+  },
+  "475344": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2511449"
+  },
+  "475619": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1462244"
+  },
+  "478703": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10560277"
+  },
+  "479681": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1575309"
+  },
+  "479826": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q53743"
+  },
+  "480130": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q10502787"
+  },
+  "480658": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1897226"
+  },
+  "480763": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q4691341"
+  },
+  "480765": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2605342"
+  },
+  "480776": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1097213"
+  },
+  "481223": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1673664"
+  },
+  "481224": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q922092"
+  },
+  "481440": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q4966554"
+  },
+  "481547": {
+    "labels": [
+      "allergenic"
+    ],
+    "qid": "Q5168927"
+  },
+  "481579": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4691342"
+  },
+  "481580": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4793461"
+  },
+  "483989": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q2592257"
+  },
+  "484686": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10510673"
+  },
+  "485374": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q198817"
+  },
+  "485685": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q3279263"
+  },
+  "485771": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q10701231"
+  },
+  "485958": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q55097608"
+  },
+  "486380": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q84335147"
+  },
+  "488353": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49630418"
+  },
+  "489014": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q49630503"
+  },
+  "490454": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q788320"
+  },
+  "492210": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1094895"
+  },
+  "492211": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10690274"
+  },
+  "493340": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q81165513"
+  },
+  "496176": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q24977368"
+  },
+  "496850": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q4739867"
+  },
+  "496875": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q5033738"
+  },
+  "497251": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q727534"
+  },
+  "499257": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q2725438"
+  },
+  "499388": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q41952716"
+  },
+  "499531": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365921"
+  },
+  "499613": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4793485"
+  },
+  "499617": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1267217"
+  },
+  "499619": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q9347250"
+  },
+  "499622": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q4046862"
+  },
+  "499647": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q3330893"
+  },
+  "499652": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q948408"
+  },
+  "499666": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q18386535"
+  },
+  "499692": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108265065"
+  },
+  "499693": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108687042"
+  },
+  "499696": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q18210305"
+  },
+  "499719": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q3915588"
+  },
+  "499720": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q76922"
+  },
+  "499741": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1583649"
+  },
+  "499750": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3915574"
+  },
+  "499766": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10511324"
+  },
+  "499774": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q12955614"
+  },
+  "499778": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q107473575"
+  },
+  "499781": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7205665"
+  },
+  "499798": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q10644848"
+  },
+  "499815": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q49632445"
+  },
+  "499954": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1328472"
+  },
+  "499960": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1266088"
+  },
+  "499996": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q5625033"
+  },
+  "500015": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q2511465"
+  },
+  "500030": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q4033859"
+  },
+  "500053": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q944328"
+  },
+  "500082": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502123"
+  },
+  "500113": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q49632594"
+  },
+  "500144": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10671846"
+  },
+  "500154": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10613135"
+  },
+  "500164": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q5625040"
+  },
+  "500760": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q49632723"
+  },
+  "501610": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q4035835"
+  },
+  "501698": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q3323823"
+  },
+  "502922": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q5033736"
+  },
+  "503193": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1225456"
+  },
+  "503241": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q104838338"
+  },
+  "504060": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q206502"
+  },
+  "504136": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1444869"
+  },
+  "504623": {
+    "labels": [
+      "caution"
+    ],
+    "qid": "Q61944831"
+  },
+  "504731": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q352153"
+  },
+  "505053": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q49633376"
+  },
+  "505878": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q157946"
+  },
+  "506466": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q18347772"
+  },
+  "506575": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q7596977"
+  },
+  "506576": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q10677386"
+  },
+  "507448": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10557066"
+  },
+  "507493": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q64785775"
+  },
+  "507540": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107546755"
+  },
+  "508746": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q249595"
+  },
+  "508747": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q17153038"
+  },
+  "508749": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1194792"
+  },
+  "509026": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q20078216"
+  },
+  "509439": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1784373"
+  },
+  "510197": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10441848"
+  },
+  "510199": {
+    "labels": [
+      "poisonous",
+      "medicinal"
+    ],
+    "qid": "Q1424216"
+  },
+  "511407": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255929"
+  },
+  "514067": {
+    "labels": [
+      "poisonous",
+      "psychoactive",
+      "medicinal"
+    ],
+    "qid": "Q4739876"
+  },
+  "514102": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1749162"
+  },
+  "514152": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q5033733"
+  },
+  "514218": {
+    "labels": [
+      "edible",
+      "choice"
+    ],
+    "qid": "Q1478429"
+  },
+  "515021": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1470866"
+  },
+  "515583": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q20154721"
+  },
+  "515954": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q2375450"
+  },
+  "516040": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10713612"
+  },
+  "516125": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q2214936"
+  },
+  "516129": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10725929"
+  },
+  "516913": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q84827434"
+  },
+  "516989": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1691292"
+  },
+  "516992": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108265166"
+  },
+  "517766": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q2700696"
+  },
+  "517777": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255866"
+  },
+  "517784": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q7850818"
+  },
+  "517822": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q41596453"
+  },
+  "517826": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365940"
+  },
+  "518723": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q20860495"
+  },
+  "518764": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255941"
+  },
+  "518899": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5624777"
+  },
+  "518912": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q81187014"
+  },
+  "518913": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255879"
+  },
+  "518919": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255936"
+  },
+  "518931": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q5624773"
+  },
+  "518939": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q76801"
+  },
+  "518944": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634804"
+  },
+  "518957": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255930"
+  },
+  "518958": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q1951108"
+  },
+  "518959": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441808"
+  },
+  "518961": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255901"
+  },
+  "519017": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q93117205"
+  },
+  "519021": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q6946911"
+  },
+  "519039": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255846"
+  },
+  "519040": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255885"
+  },
+  "519041": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255880"
+  },
+  "519044": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q9064071"
+  },
+  "519059": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108265735"
+  },
+  "519073": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q9199936"
+  },
+  "519076": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q107677341"
+  },
+  "522229": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4793465"
+  },
+  "525034": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q5624853"
+  },
+  "532798": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q7702893"
+  },
+  "534307": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107547136"
+  },
+  "534310": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107546912"
+  },
+  "537717": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441816"
+  },
+  "538829": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q4739886"
+  },
+  "539001": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q104084056"
+  },
+  "542347": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q5033743"
+  },
+  "542660": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q12021263"
+  },
+  "542661": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1323787"
+  },
+  "542706": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q84335815"
+  },
+  "542719": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q81164233"
+  },
+  "542912": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q84914383"
+  },
+  "543041": {
+    "labels": [
+      "edible cooked"
+    ],
+    "qid": "Q3830742"
+  },
+  "543046": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q5840157"
+  },
+  "543062": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q93117267"
+  },
+  "543700": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10674874"
+  },
+  "544023": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q55100636"
+  },
+  "544435": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108700915"
+  },
+  "544542": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q26203737"
+  },
+  "544554": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q26203731"
+  },
+  "544555": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q2656745"
+  },
+  "544610": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q4408677"
+  },
+  "544975": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q81164774"
+  },
+  "546776": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q108560837"
+  },
+  "549114": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q5521450"
+  },
+  "550104": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q105052146"
+  },
+  "550137": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1054803"
+  },
+  "550504": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q15636129"
+  },
+  "552578": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q9467663"
+  },
+  "552696": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q7090731"
+  },
+  "552710": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4793463"
+  },
+  "552717": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441819"
+  },
+  "552731": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441811"
+  },
+  "552744": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q1955777"
+  },
+  "552792": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10934519"
+  },
+  "552815": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q93117853"
+  },
+  "552817": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q41596155"
+  },
+  "552826": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107600498"
+  },
+  "552837": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108265044"
+  },
+  "553909": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q26203718"
+  },
+  "553910": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q108659926"
+  },
+  "553945": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108549247"
+  },
+  "554193": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107547220"
+  },
+  "554919": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1659886"
+  },
+  "556256": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q104451975"
+  },
+  "557139": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1434635"
+  },
+  "557140": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441820"
+  },
+  "558348": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q2168941"
+  },
+  "559205": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q108686245"
+  },
+  "559726": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107547219"
+  },
+  "559727": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441847"
+  },
+  "559728": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q108546138"
+  },
+  "559730": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107547212"
+  },
+  "559734": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107546994"
+  },
+  "563450": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1559725"
+  },
+  "564369": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1314968"
+  },
+  "564370": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108264931"
+  },
+  "565105": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q25379773"
+  },
+  "565201": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q3914302"
+  },
+  "565927": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2527475"
+  },
+  "566411": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q5488778"
+  },
+  "566555": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2527495"
+  },
+  "566556": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441826"
+  },
+  "566557": {
+    "labels": [
+      "medicinal",
+      "edible",
+      "choice"
+    ],
+    "qid": "Q108578147"
+  },
+  "567082": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q17514227"
+  },
+  "567095": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q76855"
+  },
+  "567099": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q105054596"
+  },
+  "568292": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q596896"
+  },
+  "568671": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q108618133"
+  },
+  "569289": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10561543"
+  },
+  "569290": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q6546722"
+  },
+  "578113": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q3278240"
+  },
+  "578456": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q97665399"
+  },
+  "602018": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q84371806"
+  },
+  "602393": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1759472"
+  },
+  "602394": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108701815"
+  },
+  "602717": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634791"
+  },
+  "606192": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q470350"
+  },
+  "607107": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10476906"
+  },
+  "625278": {
+    "labels": [
+      "poisonous",
+      "psychoactive",
+      "medicinal"
+    ],
+    "qid": "Q84369864"
+  },
+  "625290": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q97446236"
+  },
+  "625891": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1497311"
+  },
+  "626770": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q22285582"
+  },
+  "626849": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365926"
+  },
+  "626851": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q4355294"
+  },
+  "626853": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2013734"
+  },
+  "628417": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365935"
+  },
+  "628436": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4793457"
+  },
+  "628859": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q57819362"
+  },
+  "629068": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108264872"
+  },
+  "629216": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7635495"
+  },
+  "629251": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q3115198"
+  },
+  "630206": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107600497"
+  },
+  "631605": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10597372"
+  },
+  "636546": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q55185726"
+  },
+  "701279": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q12236664"
+  },
+  "701434": {
+    "labels": [
+      "caution",
+      "inedible"
+    ],
+    "qid": "Q29784429"
+  },
+  "702638": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107600589"
+  },
+  "704757": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108264964"
+  },
+  "707469": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q10407301"
+  },
+  "708107": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108610773"
+  },
+  "708125": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q104460364"
+  },
+  "708476": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365925"
+  },
+  "711797": {
+    "labels": [
+      "caution"
+    ],
+    "qid": "Q3914318"
+  },
+  "712292": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1399229"
+  },
+  "713227": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1824952"
+  },
+  "717365": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q108618288"
+  },
+  "732724": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q14947560"
+  },
+  "732875": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4793479"
+  },
+  "734583": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q81163470"
+  },
+  "737843": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q108618110"
+  },
+  "737863": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1402263"
+  },
+  "738872": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q66024938"
+  },
+  "739237": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10655494"
+  },
+  "746195": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q3613611"
+  },
+  "746377": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107546776"
+  },
+  "746378": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107546798"
+  },
+  "751540": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7205661"
+  },
+  "752321": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q108731231"
+  },
+  "765052": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q613450"
+  },
+  "774675": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10674376"
+  },
+  "774823": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10573661"
+  },
+  "775629": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q513517"
+  },
+  "775749": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365936"
+  },
+  "777193": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q6946863"
+  },
+  "778494": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1323791"
+  },
+  "781118": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10674379"
+  },
+  "782233": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107600504"
+  },
+  "782894": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q81185928"
+  },
+  "785840": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q104084173"
+  },
+  "788014": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5201276"
+  },
+  "790951": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q96776498"
+  },
+  "793981": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10431191"
+  },
+  "797906": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4354989"
+  },
+  "797907": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q2720057"
+  },
+  "803377": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q8010122"
+  },
+  "809128": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q103817320"
+  },
+  "809384": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q1917284"
+  },
+  "821043": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q25559220"
+  },
+  "822642": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502139"
+  },
+  "823784": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q6946875"
+  },
+  "824009": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q20721676"
+  },
+  "824010": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q26203742"
+  },
+  "824011": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q107929163"
+  },
+  "824547": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10554235"
+  },
+  "824670": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q882829"
+  },
+  "824671": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q590843"
+  },
+  "824777": {
+    "labels": [
+      "edible cooked",
+      "edible"
+    ],
+    "qid": "Q752494"
+  },
+  "828903": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10504491"
+  },
+  "830537": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q12952019"
+  },
+  "832073": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q44140422"
+  },
+  "833474": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q2089834"
+  },
+  "842238": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q5182641"
+  },
+  "852513": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q3002198"
+  },
+  "854517": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q3787843"
+  },
+  "854519": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10716221"
+  },
+  "854717": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365933"
+  },
+  "854734": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q43265315"
+  },
+  "855263": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502122"
+  },
+  "856498": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1615662"
+  },
+  "857774": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q48840111"
+  },
+  "861492": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q198711"
+  },
+  "861707": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q205568"
+  },
+  "865185": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634782"
+  },
+  "865796": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502146"
+  },
+  "865797": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q81016564"
+  },
+  "865799": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10525947"
+  },
+  "865800": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502151"
+  },
+  "873714": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q10464082"
+  },
+  "875007": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10673625"
+  },
+  "875008": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502137"
+  },
+  "875009": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502114"
+  },
+  "875010": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q84856120"
+  },
+  "875045": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1673663"
+  },
+  "875126": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q43303424"
+  },
+  "875150": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2217780"
+  },
+  "875153": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1627073"
+  },
+  "875187": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q370009"
+  },
+  "876856": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4793459"
+  },
+  "880979": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q54371281"
+  },
+  "881572": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10627762"
+  },
+  "885668": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q103817216"
+  },
+  "890146": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q54371284"
+  },
+  "890235": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q103812130"
+  },
+  "890617": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q14947896"
+  },
+  "893892": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q96521727"
+  },
+  "895035": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q104083800"
+  },
+  "895447": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q5521448"
+  },
+  "895529": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q105785934"
+  },
+  "895580": {
+    "labels": [
+      "deadly",
+      "poisonous"
+    ],
+    "qid": "Q19595858"
+  },
+  "895581": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q104451981"
+  },
+  "895599": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q17281232"
+  },
+  "895616": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q22285568"
+  },
+  "896124": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q105054429"
+  },
+  "901819": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q73413492"
+  },
+  "905386": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10561542"
+  },
+  "906060": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502115"
+  },
+  "907679": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365939"
+  },
+  "907680": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1934537"
+  },
+  "908736": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q24836107"
+  },
+  "911312": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10693385"
+  },
+  "912139": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q10615766"
+  },
+  "912191": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q94952205"
+  },
+  "912960": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10723167"
+  },
+  "918376": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634786"
+  },
+  "922635": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q10462019"
+  },
+  "922674": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q3914308"
+  },
+  "925899": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10465819"
+  },
+  "928737": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q12955841"
+  },
+  "931095": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1710523"
+  },
+  "931615": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q17153021"
+  },
+  "931837": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q30327551"
+  },
+  "932221": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10683516"
+  },
+  "932473": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q21327342"
+  },
+  "940028": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q96934111"
+  },
+  "940416": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q12951499"
+  },
+  "942774": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q81186480"
+  },
+  "952686": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q7702889"
+  },
+  "954897": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q16986907"
+  },
+  "960082": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q103809661"
+  },
+  "962346": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q97130406"
+  },
+  "964945": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q12671817"
+  },
+  "966395": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q519856"
+  },
+  "972793": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q79337417"
+  },
+  "974664": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q105068049"
+  },
+  "981437": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502145"
+  },
+  "981438": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q5624734"
+  },
+  "981442": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q76852"
+  },
+  "981444": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q3018608"
+  },
+  "981445": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q76840"
+  },
+  "981446": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7129779"
+  },
+  "981455": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7205662"
+  },
+  "981457": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q94968568"
+  },
+  "981458": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7205663"
+  },
+  "981459": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q7205667"
+  },
+  "988592": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q97202749"
+  },
+  "992075": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502142"
+  },
+  "994268": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502155"
+  },
+  "994898": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q937968"
+  },
+  "994947": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10602181"
+  },
+  "995149": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q48115782"
+  },
+  "999618": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634789"
+  },
+  "1006305": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634783"
+  },
+  "1006306": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4365922"
+  },
+  "1009172": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10557047"
+  },
+  "1021327": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502120"
+  },
+  "1021329": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q81016879"
+  },
+  "1021342": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q84832512"
+  },
+  "1036568": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q81016830"
+  },
+  "1036569": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502126"
+  },
+  "1038009": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10696059"
+  },
+  "1039179": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4000112"
+  },
+  "1043100": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q15637232"
+  },
+  "1044222": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502127"
+  },
+  "1048512": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502136"
+  },
+  "1048957": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502138"
+  },
+  "1049036": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10635979"
+  },
+  "1050390": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1747724"
+  },
+  "1050727": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q81016481"
+  },
+  "1062775": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q1795398"
+  },
+  "1064996": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q14947559"
+  },
+  "1076479": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441824"
+  },
+  "1077213": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255921"
+  },
+  "1079957": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q104457003"
+  },
+  "1085881": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5529521"
+  },
+  "1085954": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q5529517"
+  },
+  "1090731": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4793492"
+  },
+  "1096664": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10502789"
+  },
+  "1097549": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q104458331"
+  },
+  "1097790": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q81797377"
+  },
+  "1097834": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441817"
+  },
+  "1097843": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441845"
+  },
+  "1097855": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q10693376"
+  },
+  "1097857": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10693388"
+  },
+  "1098280": {
+    "labels": [
+      "inedible",
+      "medicinal"
+    ],
+    "qid": "Q1928270"
+  },
+  "1101754": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10502709"
+  },
+  "1105928": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q11342586"
+  },
+  "1106260": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q4035285"
+  },
+  "1106906": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q1945904"
+  },
+  "1106983": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q103810909"
+  },
+  "1106985": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10502736"
+  },
+  "1107416": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q97030216"
+  },
+  "1108272": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q4739888"
+  },
+  "1109007": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q105058154"
+  },
+  "1109067": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q63213105"
+  },
+  "1109068": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q10464079"
+  },
+  "1109118": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441831"
+  },
+  "1109456": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q105052352"
+  },
+  "1112488": {
+    "labels": [
+      "poisonous"
+    ],
+    "qid": "Q107805280"
+  },
+  "1116403": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2841081"
+  },
+  "1117685": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502150"
+  },
+  "1118818": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q1615505"
+  },
+  "1123465": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q38277854"
+  },
+  "1123719": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q10502810"
+  },
+  "1123754": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q12239198"
+  },
+  "1124940": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2255852"
+  },
+  "1124968": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q104837642"
+  },
+  "1125443": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q104084072"
+  },
+  "1126043": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q93117214"
+  },
+  "1128299": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q11302851"
+  },
+  "1129444": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q82065837"
+  },
+  "1130984": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q102120547"
+  },
+  "1130985": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q102120481"
+  },
+  "1133663": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q89423907"
+  },
+  "1134102": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q81016365"
+  },
+  "1134132": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502152"
+  },
+  "1134137": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502135"
+  },
+  "1134741": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q42184"
+  },
+  "1136927": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q17514222"
+  },
+  "1137785": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q54371400"
+  },
+  "1137795": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q59565431"
+  },
+  "1137796": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q829662"
+  },
+  "1137797": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q107600584"
+  },
+  "1137993": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q5521452"
+  },
+  "1138666": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q21327350"
+  },
+  "1143633": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q105490952"
+  },
+  "1148870": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4793481"
+  },
+  "1149279": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q4793491"
+  },
+  "1152222": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q97151188"
+  },
+  "1155964": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q1111372"
+  },
+  "1156421": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q104096306"
+  },
+  "1156423": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q18658442"
+  },
+  "1156534": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q20390178"
+  },
+  "1156575": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q25416839"
+  },
+  "1179764": {
+    "labels": [
+      "inedible"
+    ],
+    "qid": "Q105125651"
+  },
+  "1179954": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q110745624"
+  },
+  "1189161": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q10441830"
+  },
+  "1192659": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q6812166"
+  },
+  "1199501": {
+    "labels": [
+      "psychoactive"
+    ],
+    "qid": "Q7255904"
+  },
+  "1227511": {
+    "labels": [
+      "choice"
+    ],
+    "qid": "Q12236686"
+  },
+  "1229052": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q44109348"
+  },
+  "1229278": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q2909377"
+  },
+  "1230633": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q22285527"
+  },
+  "1230647": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q22285557"
+  },
+  "1230655": {
+    "labels": [
+      "medicinal",
+      "edible"
+    ],
+    "qid": "Q21243069"
+  },
+  "1230660": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10693377"
+  },
+  "1231510": {
+    "labels": [
+      "medicinal"
+    ],
+    "qid": "Q47518626"
+  },
+  "1231524": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q48969989"
+  },
+  "1232190": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q10634802"
+  },
+  "1241396": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q2909375"
+  },
+  "1280949": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q922887"
+  },
+  "1376552": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q2841084"
+  },
+  "1377106": {
+    "labels": [
+      "edible"
+    ],
+    "qid": "Q92988933"
+  },
+  "1456532": {
+    "labels": [
+      "deadly"
+    ],
+    "qid": "Q10502130"
+  }
 }

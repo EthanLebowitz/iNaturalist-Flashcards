@@ -27,7 +27,7 @@ const EDIBILITY_MAP = {
 
 // Query A: P789 set directly on the taxon itself.
 const SPARQL_DIRECT = `
-SELECT ?inatId ?edibilityVal WHERE {
+SELECT ?taxon ?inatId ?edibilityVal WHERE {
   ?taxon wdt:P3151 ?inatId ;
          wdt:P789  ?edibilityVal .
 }
@@ -36,7 +36,7 @@ SELECT ?inatId ?edibilityVal WHERE {
 // Query B: for taxa with no direct P789, inherit from the nearest ancestor.
 // FILTER NOT EXISTS ensures we only include taxa that truly lack a direct value.
 const SPARQL_INHERITED = `
-SELECT ?inatId ?edibilityVal WHERE {
+SELECT ?taxon ?inatId ?edibilityVal WHERE {
   ?taxon wdt:P3151 ?inatId .
   FILTER NOT EXISTS { ?taxon wdt:P789 [] }
   ?taxon wdt:P171+ ?ancestor .
@@ -61,7 +61,7 @@ function qidFromUri(uri) {
 const PRIORITY = ["deadly","poisonous","allergenic","caution","psychoactive",
                   "inedible","edible cooked","medicinal","edible","choice"];
 
-function collectSets(bindings, sets = {}, skippedRef = { n: 0 }) {
+function collectSets(bindings, sets = {}, qids = {}, skippedRef = { n: 0 }) {
   for (const row of bindings) {
     const inatId    = row.inatId.value;
     const qid       = qidFromUri(row.edibilityVal.value);
@@ -69,27 +69,30 @@ function collectSets(bindings, sets = {}, skippedRef = { n: 0 }) {
     if (!edibility) { skippedRef.n++; continue; }
     if (!sets[inatId]) sets[inatId] = new Set();
     sets[inatId].add(edibility);
+    if (!qids[inatId]) qids[inatId] = qidFromUri(row.taxon.value);
   }
   return sets;
 }
 
 async function main() {
   const skipped = { n: 0 };
+  const directQids = {}, inheritedQids = {};
 
   console.log("Querying Wikidata (direct P789)...");
   const directData = await fetchWikidata(SPARQL_DIRECT);
   console.log(`  Got ${directData.results.bindings.length} rows`);
-  const directSets = collectSets(directData.results.bindings, {}, skipped);
+  const directSets = collectSets(directData.results.bindings, {}, directQids, skipped);
 
   console.log("Querying Wikidata (inherited P789, taxa with no direct value)...");
   const inheritedData = await fetchWikidata(SPARQL_INHERITED);
   console.log(`  Got ${inheritedData.results.bindings.length} rows`);
   // Only populate inherited sets for taxa not already covered by a direct assignment.
   const inheritedSets = {};
-  collectSets(inheritedData.results.bindings, inheritedSets, skipped);
+  collectSets(inheritedData.results.bindings, inheritedSets, inheritedQids, skipped);
 
   // Merge: direct values take full precedence; inherited is fallback only.
   const merged = { ...inheritedSets, ...directSets };
+  const mergedQids = { ...inheritedQids, ...directQids };
 
   const DANGER_SET = new Set(["deadly","poisonous","allergenic","caution","inedible"]);
   const EDIBLE_SET = new Set(["edible","choice","edible cooked"]);
@@ -99,7 +102,10 @@ async function main() {
     const hasDanger = [...set].some(v => DANGER_SET.has(v));
     const hasEdible = [...set].some(v => EDIBLE_SET.has(v));
     if (hasDanger && hasEdible) continue; // contradictory — omit entirely
-    out[inatId] = [...set].sort((a, b) => PRIORITY.indexOf(a) - PRIORITY.indexOf(b));
+    out[inatId] = {
+      labels: [...set].sort((a, b) => PRIORITY.indexOf(a) - PRIORITY.indexOf(b)),
+      qid: mergedQids[inatId] || null,
+    };
   }
 
   console.log(`  Mapped ${Object.keys(out).length} taxa (skipped ${skipped.n} unrecognised rows)`);

@@ -2649,7 +2649,7 @@ function getEdibility(entry) {
   var ids = [entry.taxon && entry.taxon.id].concat(entry.taxon && entry.taxon.ancestor_ids || []);
   for (var i = 0; i < ids.length; i++) {
     var v = mushroomEdibility[String(ids[i])];
-    if (v) return v; // array of edibility values at the most specific matching level
+    if (v) return v; // { labels: [...], qid: "Q..." } at the most specific matching level
   }
   return null;
 }
@@ -2667,10 +2667,10 @@ function showEdibilityBadge() {
   if (src) src.classList.remove('is-visible');
 
   if (window.currentDeckKey !== 'mushrooms') return;
-  var edibilities = getEdibility(window.currentEntry);
-  if (!edibilities || !edibilities.length) return;
+  var result = getEdibility(window.currentEntry);
+  if (!result || !result.labels || !result.labels.length) return;
 
-  edibilities.forEach(function(edibility) {
+  result.labels.forEach(function(edibility) {
     var meta = EDIBILITY_LABELS[edibility];
     if (!meta) return;
     var pill = document.createElement('span');
@@ -2680,6 +2680,13 @@ function showEdibilityBadge() {
   });
 
   if (el.children.length) {
+    if (src) {
+      var wikiUrl = result.qid
+        ? 'https://www.wikidata.org/wiki/' + result.qid
+        : 'https://www.wikidata.org';
+      var link = src.querySelector('a');
+      if (link) link.href = wikiUrl;
+    }
     // Defer to next frame so the browser registers the collapsed state first
     requestAnimationFrame(function() {
       el.classList.add('is-visible');
