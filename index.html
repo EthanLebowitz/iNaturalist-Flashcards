@@ -253,11 +253,26 @@ a:hover { color: var(--lavender); text-decoration: underline; }
   background: var(--surface0);
   border: 1px solid var(--teal);
   border-radius: 8px;
-  padding: 10px 14px;
+  /* padding lives on .answer-link so the full box is clickable */
   font-size: 16px;
   font-weight: 600;
   color: var(--text);
   text-align: left;
+}
+
+#answer .answer-link {
+  display: block;
+  padding: 10px 14px;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+
+#answer a.answer-link { cursor: pointer; }
+#answer a.answer-link:hover {
+  background: var(--surface1);
+  text-decoration: none;
 }
 
 /* ── Card rating ── */
@@ -716,7 +731,7 @@ select {
   justify-content: space-between;
   font-size: 13px;
   color: var(--subtext0);
-  padding: 2px 2px;
+  padding: 2px 2px 2px 2px;
   overflow: hidden;
   max-height: 0;
   opacity: 0;
@@ -1303,16 +1318,16 @@ window.DEFAULT_DECK = "tracking";
       <span class="toggle-slider"></span>
     </div>
   </label>
-  <div id="devClearRow" style="display:none">
-    <button class="subOptions wide" id="devClearBtn">Dev: Clear localStorage</button>
-  </div>
   <div class="sr-interval-row" id="srIntervalRow">
-    <span>Repeat after (minutes)</span>
+    <span>Show after (minutes)</span>
     <div class="sr-interval-stepper">
       <button class="sr-stepper-btn" id="srStepDown" aria-label="Decrease">−</button>
       <span class="sr-stepper-display" id="srIntervalDisplay">5</span>
       <button class="sr-stepper-btn" id="srStepUp" aria-label="Increase">+</button>
     </div>
+  </div>
+  <div id="devClearRow" style="display:none">
+    <button class="subOptions wide" id="devClearBtn">Dev: Clear localStorage</button>
   </div>
   <div class="modal" id="filterModal"><div class="filterContent">
 	<span class="close">&times;</span>
@@ -1745,8 +1760,16 @@ $(function(){
 });
 	
 function generateHTML(images, entryID, entry, total){ //generates html for a new entry
-	var answer = entry.taxon.preferred_common_name;
-	document.getElementById("answer").innerHTML = answer; //puts entry.species_guess in the answer div
+	var taxon = entry.taxon || {};
+	var answerName = taxon.preferred_common_name || taxon.name || "Unknown";
+	if (taxon.id) {
+		var taxonUrl = "https://www.inaturalist.org/taxa/" + taxon.id;
+		document.getElementById("answer").innerHTML =
+			"<a class='answer-link' href='" + taxonUrl + "' target='_blank' rel='noopener'>" + answerName + "</a>";
+	} else {
+		document.getElementById("answer").innerHTML =
+			"<span class='answer-link'>" + answerName + "</span>";
+	}
 	// Include the deck so a shared card opens in the right deck (correct dropdown + ELO/ratings pool).
 	// Default deck is omitted to keep tracking links clean and backward-compatible.
 	var deckParam = (window.currentDeckKey && window.currentDeckKey !== window.DEFAULT_DECK)
