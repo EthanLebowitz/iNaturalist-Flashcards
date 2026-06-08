@@ -102,7 +102,7 @@ a:hover { color: var(--lavender); text-decoration: underline; }
 }
 
 .controls-panel {
-  flex: 0 0 280px;
+  flex: 0 0 320px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -283,7 +283,7 @@ a:hover { color: var(--lavender); text-decoration: underline; }
 .eb--inedible    { --eb-color: var(--subtext0); --eb-bg: rgba(88,91,112,0.25);   --eb-border: var(--surface2); }
 .eb--caution     { --eb-color: var(--yellow);   --eb-bg: rgba(249,226,175,0.15); --eb-border: var(--yellow); }
 .eb--allergenic  { --eb-color: var(--yellow);   --eb-bg: rgba(249,226,175,0.15); --eb-border: var(--yellow); }
-.eb--psychoactive { --eb-color: var(--mauve);   --eb-bg: rgba(203,166,247,0.15); --eb-border: var(--mauve); }
+.eb--psychoactive { --eb-color: var(--blue);   --eb-bg: rgba(203,166,247,0.15); --eb-border: var(--blue); }
 .eb--poisonous   { --eb-color: var(--red);      --eb-bg: rgba(243,139,168,0.12); --eb-border: rgba(243,139,168,0.6); }
 .eb--deadly      { --eb-color: var(--red);      --eb-bg: rgba(243,139,168,0.20); --eb-border: var(--red); }
 
@@ -1315,7 +1315,7 @@ window.DEFAULT_DECK = "tracking";
 	<button type="submit" onclick="showAnswer()" class="options wide" id="showAnswer">Show Answer</button>
 	<div id="answer"></div>
   <div id="edibility-badge"></div>
-  <div id="edibility-source">Edibility data from <a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a> · not foraging advice</div>
+  <div id="edibility-source">Edibility data from <a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a>. Accuracy not guaranteed.</div>
   <div class="self-report-section" id="selfReport">
     <span class="self-report-label">Did you get it right?</span>
     <div class="self-report-btn-row">
@@ -2493,12 +2493,12 @@ var mushroomEdibility = null;
 var EDIBILITY_LABELS = {
   choice:        { icon: '★', text: 'Choice edible' },
   edible:        { icon: '✓', text: 'Edible' },
-  'edible cooked': { icon: '⚠', text: 'Edible when cooked' },
-  medicinal:     { icon: '⚕', text: 'Medicinal' },
-  inedible:      { icon: '✗', text: 'Inedible' },
+  'edible cooked': { icon: '🔥', text: 'Edible when cooked' },
+  medicinal:     { icon: '♥', text: 'Medicinal' },
+  inedible:      { icon: '⦸', text: 'Inedible' },
   caution:       { icon: '⚠', text: 'Caution' },
   allergenic:    { icon: '⚠', text: 'Allergenic' },
-  psychoactive:  { icon: '⚠', text: 'Psychoactive' },
+  psychoactive:  { icon: '☸', text: 'Psychoactive' },
   poisonous:     { icon: '☠', text: 'Poisonous' },
   deadly:        { icon: '☠', text: 'Deadly poisonous' },
 };
