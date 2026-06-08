@@ -25,13 +25,21 @@ const EDIBILITY_MAP = {
   Q19888591: "deadly",       // deadly mushroom
 };
 
-// For each iNat-mapped taxon, find the nearest P789 value on itself or any
-// Wikidata ancestor (via P171+). The OPTIONAL + ORDER BY rank ensures we get
-// the most specific (deepest) edibility assignment first.
-const SPARQL = `
+// Query A: P789 set directly on the taxon itself.
+const SPARQL_DIRECT = `
+SELECT ?inatId ?edibilityVal WHERE {
+  ?taxon wdt:P3151 ?inatId ;
+         wdt:P789  ?edibilityVal .
+}
+`.trim();
+
+// Query B: for taxa with no direct P789, inherit from the nearest ancestor.
+// FILTER NOT EXISTS ensures we only include taxa that truly lack a direct value.
+const SPARQL_INHERITED = `
 SELECT ?inatId ?edibilityVal WHERE {
   ?taxon wdt:P3151 ?inatId .
-  ?taxon wdt:P171* ?ancestor .
+  FILTER NOT EXISTS { ?taxon wdt:P789 [] }
+  ?taxon wdt:P171+ ?ancestor .
   ?ancestor wdt:P789 ?edibilityVal .
 }
 `.trim();
@@ -50,36 +58,51 @@ function qidFromUri(uri) {
   return uri.split("/").pop();
 }
 
+const PRIORITY = ["deadly","poisonous","allergenic","caution","psychoactive",
+                  "inedible","edible_cooked","medicinal","edible","choice"];
+
+function collectSets(bindings, sets = {}, skippedRef = { n: 0 }) {
+  for (const row of bindings) {
+    const inatId    = row.inatId.value;
+    const qid       = qidFromUri(row.edibilityVal.value);
+    const edibility = EDIBILITY_MAP[qid];
+    if (!edibility) { skippedRef.n++; continue; }
+    if (!sets[inatId]) sets[inatId] = new Set();
+    sets[inatId].add(edibility);
+  }
+  return sets;
+}
+
 async function main() {
-  console.log("Querying Wikidata...");
-  const data = await fetchWikidata(SPARQL);
-  const bindings = data.results.bindings;
-  console.log(`  Got ${bindings.length} rows`);
+  const skipped = { n: 0 };
+
+  console.log("Querying Wikidata (direct P789)...");
+  const directData = await fetchWikidata(SPARQL_DIRECT);
+  console.log(`  Got ${directData.results.bindings.length} rows`);
+  const directSets = collectSets(directData.results.bindings, {}, skipped);
+
+  console.log("Querying Wikidata (inherited P789, taxa with no direct value)...");
+  const inheritedData = await fetchWikidata(SPARQL_INHERITED);
+  console.log(`  Got ${inheritedData.results.bindings.length} rows`);
+  // Only populate inherited sets for taxa not already covered by a direct assignment.
+  const inheritedSets = {};
+  collectSets(inheritedData.results.bindings, inheritedSets, skipped);
+
+  // Merge: direct values take full precedence; inherited is fallback only.
+  const merged = { ...inheritedSets, ...directSets };
+
+  const DANGER_SET = new Set(["deadly","poisonous","allergenic","caution","inedible"]);
+  const EDIBLE_SET = new Set(["edible","choice","edible_cooked"]);
 
   const out = {};
-  let skipped = 0;
-
-  for (const row of bindings) {
-    const inatId     = row.inatId.value;           // already a plain string
-    const qid        = qidFromUri(row.edibilityVal.value);
-    const edibility  = EDIBILITY_MAP[qid];
-
-    if (!edibility) {
-      // Unlabeled blank-node or unknown QID — skip
-      skipped++;
-      continue;
-    }
-
-    // A taxon can have multiple edibility values in Wikidata (rare but possible).
-    // Keep the most severe / most informative one via priority order.
-    const PRIORITY = ["deadly","poisonous","allergenic","caution","psychoactive",
-                      "inedible","edible_cooked","medicinal","edible","choice"];
-    if (!out[inatId] || PRIORITY.indexOf(edibility) < PRIORITY.indexOf(out[inatId])) {
-      out[inatId] = edibility;
-    }
+  for (const [inatId, set] of Object.entries(merged)) {
+    const hasDanger = [...set].some(v => DANGER_SET.has(v));
+    const hasEdible = [...set].some(v => EDIBLE_SET.has(v));
+    if (hasDanger && hasEdible) continue; // contradictory — omit entirely
+    out[inatId] = [...set].sort((a, b) => PRIORITY.indexOf(a) - PRIORITY.indexOf(b));
   }
 
-  console.log(`  Mapped ${Object.keys(out).length} taxa (skipped ${skipped} unrecognised rows)`);
+  console.log(`  Mapped ${Object.keys(out).length} taxa (skipped ${skipped.n} unrecognised rows)`);
 
   mkdirSync(dirname(OUT), { recursive: true });
   writeFileSync(OUT, JSON.stringify(out, null, 2));

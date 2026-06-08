@@ -289,7 +289,11 @@ a:hover { color: var(--lavender); text-decoration: underline; }
 
 #edibility-badge {
   display: none;
-  width: fit-content;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.eb-pill {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -2504,34 +2508,41 @@ function getEdibility(entry) {
   var ids = [entry.taxon && entry.taxon.id].concat(entry.taxon && entry.taxon.ancestor_ids || []);
   for (var i = 0; i < ids.length; i++) {
     var v = mushroomEdibility[String(ids[i])];
-    if (v) return v;
+    if (v) return v; // array of edibility values at the most specific matching level
   }
   return null;
 }
 
 function showEdibilityBadge() {
-  var el = document.getElementById('edibility-badge');
+  var el  = document.getElementById('edibility-badge');
   var src = document.getElementById('edibility-source');
   if (!el) return;
-  el.className = ''; el.textContent = ''; el.style.display = 'none';
+  el.innerHTML = ''; el.style.display = 'none';
   if (src) src.style.display = 'none';
 
   if (window.currentDeckKey !== 'mushrooms') return;
-  var edibility = getEdibility(window.currentEntry);
-  if (!edibility) return;
-  var meta = EDIBILITY_LABELS[edibility];
-  if (!meta) return;
+  var edibilities = getEdibility(window.currentEntry);
+  if (!edibilities || !edibilities.length) return;
 
-  el.className = 'eb--' + edibility;
-  el.textContent = meta.icon + ' ' + meta.text;
-  el.style.display = 'inline-block';
-  if (src) src.style.display = 'block';
+  edibilities.forEach(function(edibility) {
+    var meta = EDIBILITY_LABELS[edibility];
+    if (!meta) return;
+    var pill = document.createElement('span');
+    pill.className = 'eb-pill eb--' + edibility;
+    pill.textContent = meta.icon + ' ' + meta.text;
+    el.appendChild(pill);
+  });
+
+  if (el.children.length) {
+    el.style.display = 'flex';
+    if (src) src.style.display = 'block';
+  }
 }
 
 function hideEdibilityBadge() {
-  var el = document.getElementById('edibility-badge');
+  var el  = document.getElementById('edibility-badge');
   var src = document.getElementById('edibility-source');
-  if (el) { el.className = ''; el.textContent = ''; el.style.display = 'none'; }
+  if (el) { el.innerHTML = ''; el.style.display = 'none'; }
   if (src) src.style.display = 'none';
 }
 // ─────────────────────────────────────────────────────────────────────────────
