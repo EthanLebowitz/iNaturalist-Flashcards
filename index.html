@@ -2829,7 +2829,7 @@ $(document).keyup(function(e) {
 
 <div class="modal" id="locationModal"><div class="locationContent">
   <h3 class="filter-heading">Would you like to set a location?</h3>
-  <p class="location-modal-desc">This will filter cards to observations near you. You can change this anytime in Filters.</p>
+  <p class="location-modal-desc">This will filter the flashcards to your region. You can change this anytime in Filters.</p>
   <button id="useCurrentLocBtn" class="subOptions wide">Use my current location</button>
   <div class="deck-select-row" style="margin-top:10px">
     <span>Radius (miles)</span>
@@ -2838,16 +2838,17 @@ $(document).keyup(function(e) {
       <input class="sr-stepper-display" id="radiusDisplay" type="number" min="50" max="5000" step="50" value="600" style="width:52px;background:none;border:none;color:inherit;text-align:center;font:inherit;-moz-appearance:textfield">
       <button class="sr-stepper-btn" id="radiusStepUp" aria-label="Increase">+</button>
     </div>
+    <div class="location-modal-msg" id="locationModalMsg"></div>
   </div>
   <div class="location-modal-or">or</div>
   <div class="deck-select-row">
     <span>Choose a region</span>
     <select id="locationRegionSelect"><option value="">— Any region —</option></select>
+	<button id="saveLocationBtn" class="options" style="padding:3px 10px;font-size:12px;">Save</button>
   </div>
-  <div class="location-modal-msg" id="locationModalMsg"></div>
-  <div class="location-modal-footer">
+  <div class="location-modal-or">or</div>
+  <div class="deck-select-row" style="justify-content:center;">
     <button id="skipLocationBtn" class="options">Skip for now</button>
-    <button id="saveLocationBtn" class="options">Save</button>
   </div>
 </div></div>
 </body>
