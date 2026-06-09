@@ -1874,11 +1874,12 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 		var currentImage = i+1;
 		var photoUrl = buildPhotoUrl(entry, i);
 		var photoName = (taxon.preferred_common_name || taxon.name || 'photo') + ' ' + currentImage;
-		HTML=HTML+"<div class='mySlides'>\n<div class='numbertext'>" + currentImage +"/" + images.length + "</div><img src='"+photoUrl+"' class='img' alt='"+photoName+"' id='img"+i+"'></div>\n";
+		HTML=HTML+"<div class='mySlides'>\n<img src='"+photoUrl+"' class='img' alt='"+photoName+"' id='img"+i+"'></div>\n";
 	}
 	HTML=HTML+"</div>";
 	if(images.length>1){ //only add prev/next arrows if there is more than 1 image
 		HTML=HTML+"\n\n<button class='prev' aria-label='Previous photo'>&#10094;</button>\n<button class='next' aria-label='Next photo'>&#10095;</button>\n";
+		HTML=HTML+"<div id='slideCounter' class='numbertext'>1/"+images.length+"</div>\n";
 	}
 	document.getElementById("slideshowContainer").innerHTML = HTML; //inject generated html into page
 	HTML="";
@@ -2226,6 +2227,8 @@ function updateDots(idx) {
 	for (var i = 0; i < dots.length; i++) {
 		dots[i].classList.toggle("active", i === idx - 1);
 	}
+	var counter = document.getElementById("slideCounter");
+	if (counter) counter.textContent = idx + "/" + dots.length;
 }
 
 function plusSlides(n) {
