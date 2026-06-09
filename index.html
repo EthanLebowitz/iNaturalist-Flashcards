@@ -137,7 +137,6 @@ a:hover { color: var(--lavender); text-decoration: underline; }
 }
 
 @media (hover: hover) { .img:hover { opacity: 0.85; } }
-.img { cursor: zoom-in; }
 
 /* ── Slide arrows ── */
 .prev, .next {
@@ -530,13 +529,6 @@ select {
   backdrop-filter: blur(4px);
 }
 
-/* ── Modal image ── */
-.modal-content {
-  margin: auto;
-  display: block;
-  max-width: 85%;
-  border-radius: 8px;
-}
 
 /* ── Modal panels ── */
 .filterContent, .infoContent {
@@ -919,7 +911,7 @@ select {
   .action-btn-row .subOptions { flex: 1; }
 }
 
-@media (max-width: 700px) { .modal-content { width: 100%; } }
+@media (max-width: 700px) { .filterContent, .infoContent { width: 100%; } }
 @media (max-width: 300px) { .prev, .next { font-size: 11px; } }
 
 </style>
@@ -1879,15 +1871,13 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 	document.getElementById("currentObs").innerHTML = "Current Card: "+(historyIndex+1);
 	document.getElementById("shuffled").innerHTML = "Shuffled";
 	var HTML="<div class='slideshow-track'>";
-	var modals="";
 	for(var i=0; i<images.length; i++){
 		var currentImage = i+1;
 		var photoUrl = buildPhotoUrl(entry, i);
 		var photoName = (taxon.preferred_common_name || taxon.name || 'photo') + ' ' + currentImage;
 		HTML=HTML+"<div class='mySlides'>\n<div class='numbertext'>" + currentImage +"/" + images.length + "</div><img src='"+photoUrl+"' class='img' alt='"+photoName+"' id='img"+i+"'></div>\n";
-		modals=modals+"<div id='modal"+i+"' class='modal'><span class='close'>&times;</span><img class='modal-content' id='modalImg"+i+"' alt='"+photoName+"'><div id='caption'></div></div>";
 	}
-	HTML=HTML+"</div>"+modals;
+	HTML=HTML+"</div>";
 	if(images.length>1){ //only add prev/next arrows if there is more than 1 image
 		HTML=HTML+"\n\n<button class='prev' aria-label='Previous photo'>&#10094;</button>\n<button class='next' aria-label='Next photo'>&#10095;</button>\n";
 	}
@@ -1899,7 +1889,6 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 	document.getElementById("dots").innerHTML = HTML; //inject into page
 	slideIndex = 1;
 	showSlides(slideIndex); //show slides
-	generateModals(images.length);
 	wireSlideshow(images.length);
 }
 	
@@ -2668,56 +2657,6 @@ $(function(){
 	})();
 });
 
-function openModal(idx) {
-	var modal = document.getElementById('modal' + idx);
-	var modalImg = document.getElementById('modalImg' + idx);
-	var img = document.getElementById('img' + idx);
-	if (!modal || !img) return;
-	modal.style.display = "block";
-	modalImg.src = img.src;
-}
-
-function closeAllModals() {
-	document.querySelectorAll('.modal[id^="modal"]').forEach(function(m) { m.style.display = "none"; });
-}
-
-function getOpenModalIndex() {
-	var modals = document.querySelectorAll('.modal[id^="modal"]');
-	for (var i = 0; i < modals.length; i++) {
-		if (modals[i].style.display === "block") return i;
-	}
-	return -1;
-}
-
-function generateModals(imageCount){
-	for(let i = 0; i < imageCount; i++){
-		var modal = document.getElementById('modal'+i);
-		var img = document.getElementById('img'+i);
-		(function(idx) {
-			img.onclick = function() { openModal(idx); };
-			modal.querySelector('.close').onclick = function() { modal.style.display = "none"; };
-
-			// Swipe within modal to go to prev/next photo
-			var mswipeX = null, mswipeY = null;
-			modal.addEventListener("touchstart", function(e) {
-				mswipeX = e.touches[0].clientX;
-				mswipeY = e.touches[0].clientY;
-			}, { passive: true });
-			modal.addEventListener("touchend", function(e) {
-				if (mswipeX === null) return;
-				var dx = e.changedTouches[0].clientX - mswipeX;
-				var dy = e.changedTouches[0].clientY - mswipeY;
-				mswipeX = null; mswipeY = null;
-				if (Math.abs(dx) < 30 || Math.abs(dx) < Math.abs(dy)) return;
-				var slides = document.getElementsByClassName("mySlides");
-				var next = (idx + (dx < 0 ? 1 : -1) + slides.length) % slides.length;
-				modal.style.display = "none";
-				plusSlides(dx < 0 ? 1 : -1);
-				openModal(slideIndex - 1);
-			}, { passive: true });
-		})(i);
-	}
-}
 
 // Single global modal-dismiss handlers (bound once, not per card)
 // ── Edibility badge ──────────────────────────────────────────────────────────
@@ -2810,9 +2749,6 @@ window.onclick = function(event) {
 		var m = document.getElementById(id);
 		if(m && event.target === m) m.style.display = "none";
 	});
-	document.querySelectorAll('.modal[id^="modal"]').forEach(function(m){
-		if(event.target === m) { m.style.display = "none"; }
-	});
 };
 $(document).keyup(function(e) {
 	if(e.keyCode === 27){
@@ -2823,16 +2759,8 @@ $(document).keyup(function(e) {
 	// Arrow keys: navigate photos within the current card (skip if typing in an input)
 	var tag = document.activeElement && document.activeElement.tagName;
 	if(tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-	if(e.keyCode === 37){ // left arrow
-		var mi = getOpenModalIndex();
-		if(mi >= 0){ closeAllModals(); plusSlides(-1); openModal(slideIndex-1); }
-		else { plusSlides(-1); }
-	}
-	if(e.keyCode === 39){ // right arrow
-		var mi = getOpenModalIndex();
-		if(mi >= 0){ closeAllModals(); plusSlides(1); openModal(slideIndex-1); }
-		else { plusSlides(1); }
-	}
+	if(e.keyCode === 37) { plusSlides(-1); }
+	if(e.keyCode === 39) { plusSlides(1); }
 });
 
 </script>
