@@ -11,10 +11,10 @@
   gtag('config', 'G-1PLNMCYXMQ');
 </script>
 
-<title>Animal Track Identification Flashcards</title>
+<title>Nature Flashcards</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Practice identifying North American animal tracks with flashcards generated from the iNaturalist tracking database. Filter by species and region, then reveal the answer to test yourself.">
+<meta name="description" content="Practice identifying species with flashcards generated from research grade iNaturalist observations.">
 <meta name="keywords" content="animal tracking, track identification, animal tracks, North America, wildlife tracking, iNaturalist, flashcards, fisher cat, raccoon, deer, bear, coyote, bobcat">
 <meta name="author" content="Ethan Lebowitz">
 <meta name="robots" content="index, follow">
@@ -23,21 +23,21 @@
 <!-- Open Graph / social sharing -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://track-cards.ethleb.com/">
-<meta property="og:title" content="Animal Track Identification Flashcards">
-<meta property="og:description" content="Practice identifying North American animal tracks with flashcards generated from the iNaturalist tracking database. Filter by species and region.">
+<meta property="og:title" content="Nature Flashcards">
+<meta property="og:description" content="Practice identifying species with flashcards generated from research grade iNaturalist observations.">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Animal Track Identification Flashcards">
-<meta name="twitter:description" content="Practice identifying North American animal tracks with flashcards generated from the iNaturalist tracking database. Filter by species and region.">
+<meta name="twitter:title" content="Nature Flashcards">
+<meta name="twitter:description" content="Practice identifying species with flashcards generated from research grade iNaturalist observations.">
 
 <!-- Structured data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Animal Track Identification Flashcards",
-  "description": "Practice identifying North American animal tracks with flashcards generated from the iNaturalist tracking database.",
+  "name": "Nature Flashcards",
+  "description": "Practice identifying species with flashcards generated from research grade iNaturalist observations.",
   "url": "https://track-cards.ethleb.com/",
   "author": { "@type": "Person", "name": "Ethan Lebowitz" },
   "applicationCategory": "EducationalApplication",
@@ -560,6 +560,25 @@ select {
 .close:hover, .close:focus {
   color: var(--text);
   cursor: pointer;
+}
+
+/* ── Welcome modal ── */
+.welcome-modal-heading {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 10px;
+}
+.welcome-modal-body {
+  font-size: 13px;
+  color: var(--subtext0);
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+.welcome-modal-divider {
+  border: none;
+  border-top: 1px solid var(--surface1);
+  margin: 16px 0;
 }
 
 /* ── Location modal ── */
@@ -2807,7 +2826,7 @@ function hideEdibilityBadge() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 window.onclick = function(event) {
-	['filterModal','infoModal','locationModal'].forEach(function(id){
+	['filterModal','infoModal'].forEach(function(id){
 		var m = document.getElementById(id);
 		if(m && event.target === m) m.style.display = "none";
 	});
@@ -2828,6 +2847,11 @@ $(document).keyup(function(e) {
 </script>
 
 <div class="modal" id="locationModal"><div class="locationContent">
+  <h2 class="welcome-modal-heading" style="text-align:center;">Nature Flashcards</h2>
+  <div class="welcome-modal-body">
+    These are flashcards generated from research grade observations on <a href="https://www.inaturalist.org" target="_blank" rel="noopener">iNaturalist</a>.
+  </div>
+  <hr class="welcome-modal-divider">
   <h3 class="filter-heading">Would you like to set a location?</h3>
   <p class="location-modal-desc">This will filter the flashcards to your region. You can change this anytime in Filters.</p>
   <button id="useCurrentLocBtn" class="subOptions wide">Use my current location</button>
