@@ -1508,11 +1508,16 @@ window.DEFAULT_DECK = "tracking";
   <div id="about">
 	  <h2>About</h2>
       <p>
-        This project is essentially crowd sourced tracking flashcards. All cards are generated from observations in the iNaturalist <a href="https://www.inaturalist.org/projects/north-american-animal-tracking-database">North American Animal Tracking Database</a>.
-        All observations used to generate cards have "research grade" identifications (meaning a critical mass of identifiers have aggreed on an identification) assuring for some degree of recognizability. As of the time of this writing there are about 27500 observations with research grade identifications. Clicking Show Answer will reveal iNaturalist's identification of the tracks. I can't guarantee that 100% of these will be right.
+        This project is essentially crowd sourced tracking flashcards. All cards are generated from <a href="https://www.inaturalist.org" target="_blank" rel="noopener">iNaturalist</a> observations.
+        All observations used to generate cards have "research grade" identifications 
+		(meaning a critical mass of identifiers have aggreed on an identification) assuring for some degree of 
+		recognizability. Clicking Show Answer will reveal iNaturalist's identification of the tracks. 
+		I can't guarantee that 100% of these will be right.
       </p><p>
-        By default Next runs through the cards from newest to oldest. Some cards will have more than one image associated with them. These can be navigated using the arrows. Clicking on an image will enlarge it. 
-        Cards are automatically shuffled. Filtering for species can be done with the Filter button. Filtered cards are also shuffled. I've only included filters for the most common species.
+        Some cards will have more than one image associated with them. These can be navigated 
+		using the arrows. 
+        Cards are automatically shuffled. Filtering for species can be done with the Filter button, but is currently only available 
+		for some decks. I've only included filters for the most common species.
 	  </p><p>
         If you like this site, check out my other projects or get in touch at <a href="https://ethleb.com?utm_source=drugstats&utm_medium=referral&utm_campaign=footer_link" target="_blank" className="text-[#89b4fa]">ethleb.com</a>.
       </p><p>
@@ -2849,7 +2854,9 @@ $(document).keyup(function(e) {
 <div class="modal" id="locationModal"><div class="locationContent">
   <h2 class="welcome-modal-heading" style="text-align:center;">Nature Flashcards</h2>
   <div class="welcome-modal-body">
-    These are flashcards generated from research grade observations on <a href="https://www.inaturalist.org" target="_blank" rel="noopener">iNaturalist</a>.
+    These are flashcards generated from research grade observations on <a href="https://www.inaturalist.org" target="_blank" rel="noopener">iNaturalist</a>. 
+	Try to identify the species using the location and images, and then click "Show Answer" to see if you were right. 
+	If you get it wrong, click "Missed it", and you will be given the card again later in the session.
   </div>
   <hr class="welcome-modal-divider">
   <h3 class="filter-heading">Would you like to set a location?</h3>
