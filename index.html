@@ -77,6 +77,7 @@ body {
   background-color: var(--base);
   color: var(--text);
   line-height: 1.5;
+  overflow: hidden;
 }
 
 .mySlides { flex: 0 0 100%; width: 100%; }
@@ -92,7 +93,7 @@ a:hover { color: var(--lavender); text-decoration: underline; }
   padding: 20px;
   gap: 20px;
   flex-wrap: wrap;
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .slideshow-panel {
@@ -126,12 +127,13 @@ a:hover { color: var(--lavender); text-decoration: underline; }
 }
 
 .img {
-  max-height: calc(100vh - 120px);
+  max-height: calc(100dvh - 140px);
   max-width: 100%;
   border-radius: 10px;
   transition: opacity 0.2s;
   display: block;
   margin: auto;
+  object-fit: contain;
 }
 
 @media (hover: hover) { .img:hover { opacity: 0.85; } }
@@ -873,7 +875,14 @@ select {
   display: none;
   flex-wrap: wrap;
   gap: 4px;
-  padding: 12px 4px 0;
+}
+
+.history-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--subtext0);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 .grid-tile {
   width: 22px;
@@ -891,11 +900,19 @@ select {
 
 /* ── Responsive ── */
 @media (min-width: 769px) {
-  .controls-panel { margin-top: 48px; }
+  .controls-panel { margin-top: 48px; max-height: calc(100dvh - 88px); overflow-y: auto; }
 }
 
 @media (max-width: 768px) {
-  .controls-panel { flex: 1 1 100%; width: 100%; }
+  /* Sticky-footer layout: slideshow fills remaining space, controls locked to bottom */
+  .page-layout { height: 100dvh; flex-direction: column; flex-wrap: nowrap; align-items: stretch; padding: 10px; gap: 10px; }
+  .slideshow-panel { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+  .show { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+  .slideshow-container { flex: 1 1 0; min-height: 0; margin: 0; }
+  .slideshow-track { height: 100%; }
+  .mySlides { height: 100%; display: flex; align-items: center; justify-content: center; }
+  .img { max-height: 100%; }
+  .controls-panel { flex: 0 0 auto; width: 100%; max-height: 280px; overflow-y: auto; }
   .filterContent, .infoContent { width: 95%; padding: 20px; }
   .infoContent { padding-top: 50px; }
   .action-btn-row { flex-direction: row; }
@@ -1496,12 +1513,16 @@ window.DEFAULT_DECK = "tracking";
     <div class="share-label">Share This Card</div>
     <div id="shareLink"></div>
   </div>
+  <div id="historySection" style="display:none">
+    <hr class="divider">
+    <span class="history-label">History</span>
+    <div id="sessionGrid" class="session-grid"></div>
+  </div>
   </div><!-- end more-body -->
   <button class="more-toggle" id="moreToggle">
     <span>More</span><span class="chevron"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
   </button>
 </div>
-<div id="sessionGrid" class="session-grid"></div>
 </div>
 
 
@@ -1922,9 +1943,11 @@ function parseEntry(entry) { //gets list of photo ids from entry
   
 window.renderSessionGrid = function renderSessionGrid() {
 	var grid = document.getElementById('sessionGrid');
+	var historySection = document.getElementById('historySection');
 	if(!grid) return;
-	if(sessionHistory.length === 0){ grid.style.display = 'none'; return; }
+	if(sessionHistory.length === 0){ grid.style.display = 'none'; if(historySection) historySection.style.display = 'none'; return; }
 	grid.style.display = 'flex';
+	if(historySection) historySection.style.display = 'block';
 	var html = '';
 	for(var i = 0; i < sessionHistory.length; i++){
 		var entry = sessionHistory[i];
