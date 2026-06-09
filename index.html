@@ -1346,8 +1346,8 @@ window.DEFAULT_DECK = "tracking";
 <div class="controls-panel">	
 	<button type="submit" onclick="showAnswer()" class="options wide" id="showAnswer">Show Answer</button>
 	<div id="answer"></div>
-  <div id="edibility-badge"></div>
-  <div id="edibility-source">Edibility data from <a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a>. Accuracy not guaranteed.</div>
+  <div id="edibility-badge" style="display:none"></div>
+  <div id="edibility-source" style="display:none">Edibility data from <a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a>. Accuracy not guaranteed.</div>
   <div class="self-report-section" id="selfReport">
     <span class="self-report-label">Did you get it right?</span>
     <div class="self-report-btn-row">
@@ -2777,7 +2777,9 @@ function showEdibilityBadge() {
       var link = src.querySelector('a');
       if (link) link.href = wikiUrl;
     }
-    // Defer to next frame so the browser registers the collapsed state first
+    // Restore display then defer so the browser sees the collapsed state before animating
+    el.style.display = '';
+    if (src) src.style.display = '';
     requestAnimationFrame(function() {
       el.classList.add('is-visible');
       if (src) src.classList.add('is-visible');
@@ -2792,7 +2794,13 @@ function hideEdibilityBadge() {
   el.classList.remove('is-visible');
   if (src) src.classList.remove('is-visible');
   // Clear innerHTML after transition so pills don't flash back during slide-in
-  el._hideTimer = setTimeout(function() { el.innerHTML = ''; el._hideTimer = null; }, 300);
+  el._hideTimer = setTimeout(function() {
+    el.innerHTML = '';
+    el.style.display = 'none';
+    var src2 = document.getElementById('edibility-source');
+    if (src2) src2.style.display = 'none';
+    el._hideTimer = null;
+  }, 300);
 }
 // ─────────────────────────────────────────────────────────────────────────────
 
