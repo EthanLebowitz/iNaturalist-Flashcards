@@ -896,15 +896,14 @@ select {
 }
 
 @media (max-width: 768px) {
-  /* Sticky-footer layout: slideshow fills remaining space, controls locked to bottom */
-  .page-layout { height: 100dvh; flex-direction: column; flex-wrap: nowrap; align-items: stretch; padding: 10px; gap: 10px; }
-  .slideshow-panel { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+  /* Overlay layout: slideshow fills viewport, controls float over the bottom */
+  .page-layout { position: relative; height: 100dvh; overflow: hidden; padding: 0; gap: 0; }
+  .slideshow-panel { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; padding: 10px; padding-bottom: var(--ctrl-h-live, 240px); }
   .show { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
-  .slideshow-container { flex: 1 1 0; min-height: 0; margin: 0; }
-  .slideshow-track { height: 100%; }
-  .mySlides { height: 100%; display: flex; align-items: center; justify-content: center; }
-  .img { max-height: 100%; }
-  .controls-panel { flex: 0 0 auto; width: 100%; max-height: calc(100dvh - 200px); overflow-y: auto; }
+  .slideshow-container { flex: 1 1 0; min-height: 0; margin: 0; display: flex; flex-direction: column; justify-content: safe center; }
+  .mySlides { display: flex; align-items: center; justify-content: center; }
+  .img { max-height: calc(100dvh - var(--ctrl-h-init, 240px) - 90px); }
+  .controls-panel { position: absolute; bottom: 0; left: 0; right: 0; width: auto; border-radius: 14px 14px 0 0; max-height: calc(100dvh - 60px); overflow-y: auto; z-index: 2; }
   .filterContent, .infoContent { width: 95%; padding: 20px; }
   .infoContent { padding-top: 50px; }
   .action-btn-row { flex-direction: row; }
@@ -1890,6 +1889,7 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 	slideIndex = 1;
 	showSlides(slideIndex); //show slides
 	wireSlideshow(images.length);
+	setTimeout(syncSlideshowBound, 250);
 }
 	
 function parseEntry(entry) { //gets list of photo ids from entry
@@ -2169,6 +2169,38 @@ async function nextEntry(direction) {
 	}
 }
 	
+
+// Snapshots collapsed controls height into --ctrl-h-init (fixes image max-height)
+// and --ctrl-h-live (drives padding-bottom for centering). Called once per card
+// and on resize. ResizeObserver below keeps --ctrl-h-live current as controls expand.
+function syncSlideshowBound() {
+	var panel = document.querySelector('.slideshow-panel');
+	var controls = document.querySelector('.controls-panel');
+	if (!panel || !controls) return;
+	if (window.innerWidth > 768) {
+		panel.style.removeProperty('--ctrl-h-init');
+		panel.style.removeProperty('--ctrl-h-live');
+		return;
+	}
+	var h = controls.offsetHeight + 'px';
+	panel.style.setProperty('--ctrl-h-init', h);
+	panel.style.setProperty('--ctrl-h-live', h);
+}
+window.addEventListener('resize', syncSlideshowBound);
+
+// Keeps --ctrl-h-live tracking the controls height as it changes (answer reveal,
+// more section, etc.) so the slideshow stays centered in the available space.
+(function() {
+	var observer = new ResizeObserver(function() {
+		if (window.innerWidth > 768) return;
+		var panel = document.querySelector('.slideshow-panel');
+		var controls = document.querySelector('.controls-panel');
+		if (panel && controls) panel.style.setProperty('--ctrl-h-live', controls.offsetHeight + 'px');
+	});
+	function start() { var c = document.querySelector('.controls-panel'); if (c) observer.observe(c); }
+	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+	else start();
+}());
 
 //////////////////////////slideshow
 var slideIndex = 1;
