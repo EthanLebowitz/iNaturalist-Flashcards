@@ -79,7 +79,7 @@ body {
   line-height: 1.5;
 }
 
-.mySlides { display: none; }
+.mySlides { flex: 0 0 100%; width: 100%; }
 
 a { color: var(--blue); text-decoration: none; }
 a:hover { color: var(--lavender); text-decoration: underline; }
@@ -117,6 +117,12 @@ a:hover { color: var(--lavender); text-decoration: underline; }
   position: relative;
   width: 100%;
   margin: auto;
+  overflow: hidden;
+}
+
+.slideshow-track {
+  display: flex;
+  will-change: transform;
 }
 
 .img {
@@ -183,12 +189,9 @@ a:hover { color: var(--lavender); text-decoration: underline; }
 .dot.active { background-color: var(--blue); transform: scale(1.5); }
 @media (hover: hover) { .dot:hover { background-color: var(--blue); transform: scale(1.5); } }
 
-/* ── Fade animation ── */
-.slide-fade { animation: fade 0.25s ease; }
-
-@keyframes fade {
-  from { opacity: 0.25; }
-  to   { opacity: 1; }
+/* ── Slideshow transition ── */
+.slideshow-track.is-animating {
+  transition: transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* ── Buttons ── */
@@ -1854,13 +1857,16 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 	document.getElementById("totalObs").innerHTML = totalEntries+" Cards";
 	document.getElementById("currentObs").innerHTML = "Current Card: "+(historyIndex+1);
 	document.getElementById("shuffled").innerHTML = "Shuffled";
-	var HTML="";
+	var HTML="<div class='slideshow-track'>";
+	var modals="";
 	for(var i=0; i<images.length; i++){
 		var currentImage = i+1;
 		var photoUrl = buildPhotoUrl(entry, i);
 		var photoName = (taxon.preferred_common_name || taxon.name || 'photo') + ' ' + currentImage;
-		HTML=HTML+"<div class='mySlides'>\n<div class='numbertext'>" + currentImage +"/" + images.length + "</div><img src='"+photoUrl+"' class='img' alt='"+photoName+"' id='img"+i+"'></div>\n<div id='modal"+i+"' class='modal'><span class='close'>&times;</span><img class='modal-content' id='modalImg"+i+"' alt='"+photoName+"'><div id='caption'></div></div>";
+		HTML=HTML+"<div class='mySlides'>\n<div class='numbertext'>" + currentImage +"/" + images.length + "</div><img src='"+photoUrl+"' class='img' alt='"+photoName+"' id='img"+i+"'></div>\n";
+		modals=modals+"<div id='modal"+i+"' class='modal'><span class='close'>&times;</span><img class='modal-content' id='modalImg"+i+"' alt='"+photoName+"'><div id='caption'></div></div>";
 	}
+	HTML=HTML+"</div>"+modals;
 	if(images.length>1){ //only add prev/next arrows if there is more than 1 image
 		HTML=HTML+"\n\n<button class='prev' aria-label='Previous photo'>&#10094;</button>\n<button class='next' aria-label='Next photo'>&#10095;</button>\n";
 	}
@@ -2155,37 +2161,56 @@ async function nextEntry(direction) {
 //////////////////////////slideshow
 var slideIndex = 1;
 
+function getTrack() { return document.querySelector("#slideshowContainer .slideshow-track"); }
+
+function setTrackPos(track, idx, animate) {
+	if (animate) {
+		track.classList.add("is-animating");
+	} else {
+		track.classList.remove("is-animating");
+	}
+	track.style.transform = "translateX(" + (-(idx - 1) * 100) + "%)";
+}
+
+function updateDots(idx) {
+	var dots = document.getElementsByClassName("dot");
+	for (var i = 0; i < dots.length; i++) {
+		dots[i].classList.toggle("active", i === idx - 1);
+	}
+}
+
 function plusSlides(n) {
-	showSlides(slideIndex += n);
+	var slides = document.getElementsByClassName("mySlides");
+	var next = slideIndex + n;
+	if (next < 1) next = slides.length;
+	if (next > slides.length) next = 1;
+	slideIndex = next;
+	var track = getTrack();
+	if (track) setTrackPos(track, slideIndex, true);
+	updateDots(slideIndex);
 }
 
 function currentSlide(n) {
-	showSlides(slideIndex = n);
+	var slides = document.getElementsByClassName("mySlides");
+	slideIndex = Math.max(1, Math.min(slides.length, n));
+	var track = getTrack();
+	if (track) setTrackPos(track, slideIndex, true);
+	updateDots(slideIndex);
 }
 
 function showSlides(n) {
 	var slides = document.getElementsByClassName("mySlides");
-	var dots = document.getElementsByClassName("dot");
 	if (n > slides.length) { slideIndex = 1; }
 	if (n < 1) { slideIndex = slides.length; }
-	for (var i = 0; i < slides.length; i++) {
-		slides[i].style.display = "none";
-	}
-	for (var i = 0; i < dots.length; i++) {
-		dots[i].classList.remove("active");
-	}
-	var current = slides[slideIndex - 1];
-	current.style.display = "block";
-	// Re-trigger fade by removing and re-adding the animation class
-	current.classList.remove("slide-fade");
-	void current.offsetWidth; // force reflow
-	current.classList.add("slide-fade");
-	dots[slideIndex - 1].classList.add("active");
+	var track = getTrack();
+	if (track) setTrackPos(track, slideIndex, false);
+	updateDots(slideIndex);
 }
 
-// Wire slideshow arrows and dots (called after generateHTML injects them)
+// Wire slideshow arrows, dots, and touch swipe (called after generateHTML injects them)
 function wireSlideshow(imageCount) {
 	var container = document.getElementById("slideshowContainer");
+	var track = container.querySelector(".slideshow-track");
 	var prevBtn = container.querySelector(".prev");
 	var nextBtn = container.querySelector(".next");
 	if (prevBtn) prevBtn.onclick = function() { plusSlides(-1); };
@@ -2196,21 +2221,56 @@ function wireSlideshow(imageCount) {
 		(function(idx) { dots[idx].onclick = function() { currentSlide(idx + 1); }; })(i);
 	}
 
-	// Touch swipe on slideshow container
-	var swipeStartX = null;
-	var swipeStartY = null;
+	if (!track || imageCount < 2) return;
+
+	// Real-time swipe: follow finger, then snap
+	var touchStartX = null;
+	var touchStartY = null;
+	var dragging = false;
+	var containerWidth = 0;
+
 	container.addEventListener("touchstart", function(e) {
-		swipeStartX = e.touches[0].clientX;
-		swipeStartY = e.touches[0].clientY;
+		touchStartX = e.touches[0].clientX;
+		touchStartY = e.touches[0].clientY;
+		dragging = false;
+		containerWidth = container.offsetWidth;
+		track.classList.remove("is-animating");
 	}, { passive: true });
+
+	container.addEventListener("touchmove", function(e) {
+		if (touchStartX === null) return;
+		var dx = e.touches[0].clientX - touchStartX;
+		var dy = e.touches[0].clientY - touchStartY;
+		if (!dragging) {
+			if (Math.abs(dy) > Math.abs(dx)) { touchStartX = null; return; } // vertical scroll
+			dragging = true;
+		}
+		var base = -(slideIndex - 1) * 100;
+		var offset = (dx / containerWidth) * 100;
+		// Rubber-band at edges
+		var slides = document.getElementsByClassName("mySlides");
+		if ((slideIndex === 1 && dx > 0) || (slideIndex === slides.length && dx < 0)) {
+			offset = offset * 0.25;
+		}
+		track.style.transform = "translateX(" + (base + offset) + "%)";
+	}, { passive: true });
+
 	container.addEventListener("touchend", function(e) {
-		if (swipeStartX === null) return;
-		var dx = e.changedTouches[0].clientX - swipeStartX;
-		var dy = e.changedTouches[0].clientY - swipeStartY;
-		swipeStartX = null;
-		swipeStartY = null;
-		if (Math.abs(dx) < 30 || Math.abs(dx) < Math.abs(dy)) return; // not a horizontal swipe
-		plusSlides(dx < 0 ? 1 : -1);
+		if (!dragging) { touchStartX = null; return; }
+		var dx = e.changedTouches[0].clientX - touchStartX;
+		touchStartX = null;
+		dragging = false;
+		var slides = document.getElementsByClassName("mySlides");
+		var threshold = containerWidth * 0.2;
+		if (dx < -threshold && slideIndex < slides.length) {
+			plusSlides(1);
+		} else if (dx > threshold && slideIndex > 1) {
+			plusSlides(-1);
+		} else {
+			// snap back (at edge or short swipe)
+			track.classList.add("is-animating");
+			setTrackPos(track, slideIndex, true);
+		}
 	}, { passive: true });
 }
 
