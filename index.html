@@ -1864,7 +1864,7 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 			setTimeout(function() { shareLinkEl.innerHTML = iconClipboard + '<span>' + shareLink + '</span>'; }, 1500);
 		});
 	};
-	document.getElementById("location").innerHTML = entry.place_guess;
+	document.getElementById("location").innerHTML = '<img src="assets/logo-transparent-cropped.png" style="height:1em;width:1em;vertical-align:middle;margin-right:4px;filter:invert(1) opacity(0.7);"> ' + entry.place_guess;
 	document.getElementById("linkObs").innerHTML = "<a href='"+entry.uri+"'>Go To Observation</a>";
 	document.getElementById("totalObs").innerHTML = totalEntries+" Cards";
 	document.getElementById("currentObs").innerHTML = "Current Card: "+(historyIndex+1);
