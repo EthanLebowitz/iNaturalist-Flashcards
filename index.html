@@ -1567,6 +1567,7 @@ window.reportResults = {};    // cardId → 'correct'|'incorrect', session-scope
 window.lastReportDueAt = {};  // cardId → dueAt ms, populated by submitReport for loadAttempt feedback
 window.srReviewCards = new Set(); // card IDs currently being shown as SR re-reviews; gets fresh buttons
 var selfReportShownForCurrentCard = false;
+var HIDE_ANSWER_HIDES_SELF_REPORT = true; // set false to keep self-report visible when answer is hidden
 var srEnabled = (function(){
   try { return localStorage.getItem('srEnabled') !== 'false'; } catch(e) { return true; }
 })();
@@ -1618,6 +1619,11 @@ function showAnswer(){
 		$("#answer").slideUp(200);
 		document.getElementById("showAnswer").innerHTML = "Show Answer";
 		hideEdibilityBadge();
+		if(HIDE_ANSWER_HIDES_SELF_REPORT){
+			document.getElementById('selfReport').classList.remove('is-visible');
+			document.getElementById('srInfoPanel').classList.remove('is-visible');
+			selfReportShownForCurrentCard = false;
+		}
 	}
 	else{
 		$("#answer").slideDown(200);
