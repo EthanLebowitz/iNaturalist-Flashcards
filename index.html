@@ -1900,6 +1900,8 @@ function parseEntry(entry) { //gets list of photo ids from entry
 	markSeen(entryID);
 	window.location.hash=""; //set anchor as id
 
+	collapseMore();
+
 	// Reset self-report UI and edibility badge for the new card
 	selfReportShownForCurrentCard = false;
 	hideEdibilityBadge();
@@ -2492,6 +2494,16 @@ setupFilterModal();
 })();
 
 // More section toggle
+function collapseMore() {
+	if (window.innerWidth > 768) return;
+	var $body = $('#moreBody');
+	if (!$body.is(':visible')) return;
+	$body.slideUp(200);
+	var toggle = document.getElementById('moreToggle');
+	toggle.classList.remove('open');
+	toggle.querySelector('span:first-child').textContent = 'More';
+}
+
 document.getElementById('moreToggle').addEventListener('click', function(){
 	var $body = $('#moreBody');
 	var isOpen = $body.is(':visible');
@@ -2499,6 +2511,11 @@ document.getElementById('moreToggle').addEventListener('click', function(){
 	else { $body.slideDown(200); }
 	this.classList.toggle('open', !isOpen);
 	this.querySelector('span:first-child').textContent = isOpen ? 'More' : 'Less';
+});
+
+document.addEventListener('click', function(e) {
+	if (window.innerWidth > 768) return;
+	if (!e.target.closest('.controls-panel')) collapseMore();
 });
 
 function setupInfoModal(){
