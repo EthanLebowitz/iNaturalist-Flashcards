@@ -2467,6 +2467,8 @@ setupFilterModal();
 // More section toggle
 function collapseMore() {
 	if (window.innerWidth > 768) return;
+	var filterModal = document.getElementById('filterModal');
+	if (filterModal && filterModal.style.display === 'block') return;
 	var $body = $('#moreBody');
 	if (!$body.is(':visible')) return;
 	$body.slideUp(200);
