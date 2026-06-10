@@ -1138,7 +1138,7 @@ window.DEFAULT_DECK = "tracking";
     if (result === 'correct') gotBtn.classList.add('active');
     else missedBtn.classList.add('active');
 
-    track("self_report", { deck: dk(), result: result, taxon_id: (entry && entry.taxon ? entry.taxon.id : null) });
+    track("self_report", { deck: dk(), result: result, taxon_id: (entry && entry.taxon ? entry.taxon.id : null), time_on_card_ms: window._cardShownAt ? Date.now() - window._cardShownAt : null });
 
     // Update session cache so the grid and button state restore correctly on navigation
     if (!window.reportResults) window.reportResults = {};
@@ -1673,6 +1673,7 @@ async function anchorCheck(){
 	var anchor = location.hash.replace('#','');
 	if(anchor !== ""){
 		var prelimData = await getData("https://api.inaturalist.org/v1/observations/"+anchor);
+		window._pendingNavMethod = 'anchor';
 		pushToHistory(prelimData.results[0]);
 	}
 }
@@ -1825,7 +1826,14 @@ function parseEntry(entry) { //gets list of photo ids from entry
 	var entryID = entry.id; //gets entry ID
 	window.currentCardId = entryID;
 	window.currentEntry = entry;
-	if (window.track) window.track('card_shown', { deck: window.currentDeckKey, taxon_id: (entry.taxon ? entry.taxon.id : null) });
+	window._cardShownAt = Date.now();
+	if (window.track) window.track('card_view', {
+		deck: window.currentDeckKey,
+		card_id: String(entryID),
+		taxon_id: (entry.taxon ? entry.taxon.id : null),
+		nav_method: window._pendingNavMethod || 'initial'
+	});
+	window._pendingNavMethod = null;
 	markSeen(entryID);
 	window.location.hash=""; //set anchor as id
 
@@ -1881,6 +1889,13 @@ window.renderSessionGrid = function renderSessionGrid() {
 
 function navigateToHistoryIndex(i) {
 	if(i < 0 || i >= sessionHistory.length) return;
+	if (window.track) window.track('history_navigate', {
+		deck: window.currentDeckKey,
+		card_id: window.currentCardId ? String(window.currentCardId) : null,
+		time_on_card_ms: window._cardShownAt ? Date.now() - window._cardShownAt : null,
+		target_index: i
+	});
+	window._pendingNavMethod = 'history';
 	historyIndex = i;
 	window.location.hash = '';
 	$('#answer').hide();
@@ -2115,7 +2130,12 @@ async function fetchAndPushCard() {
 
 async function nextEntry(direction) {
 	if(anchored){ anchored = false; }
-	if (window.track) window.track('card_navigate', { deck: window.currentDeckKey, direction: direction === 0 ? 'prev' : 'next' });
+	if (window.track) window.track('card_navigate', {
+		deck: window.currentDeckKey,
+		direction: direction === 0 ? 'prev' : 'next',
+		time_on_card_ms: window._cardShownAt ? Date.now() - window._cardShownAt : null
+	});
+	window._pendingNavMethod = direction === 0 ? 'prev' : 'next';
 	window.location.hash = "";
 	if(direction === 0){ // Prev — always use session history, never fetch
 		if(historyIndex > 0){
@@ -2353,6 +2373,7 @@ setupFilterModal();
 	try { if (localStorage.getItem('adaptiveEnabled') === 'false') toggle.checked = false; } catch(e) {}
 	toggle.addEventListener('change', function(){
 		try { localStorage.setItem('adaptiveEnabled', this.checked ? 'true' : 'false'); } catch(e) {}
+		if (window.track) window.track('setting_change', { deck: window.currentDeckKey, setting: 'adaptive_species', value: this.checked });
 	});
 })();
 
@@ -2481,7 +2502,10 @@ document.getElementById('moreToggle').addEventListener('click', function(){
 	var $body = $('#moreBody');
 	var isOpen = $body.is(':visible');
 	if(isOpen){ $body.slideUp(200); }
-	else { $body.slideDown(200); }
+	else {
+		$body.slideDown(200);
+		if (window.track) window.track('more_panel_open', { deck: window.currentDeckKey, card_id: window.currentCardId ? String(window.currentCardId) : null });
+	}
 	this.classList.toggle('open', !isOpen);
 	this.querySelector('span:first-child').textContent = isOpen ? 'More' : 'Less';
 });
@@ -2495,6 +2519,7 @@ function setupInfoModal(){
 	var infoModal = document.getElementById('infoModal');
 	document.getElementById("infoButton").onclick = function() {
 		infoModal.style.display = "block";
+		if (window.track) window.track('more_info_open', { deck: window.currentDeckKey, card_id: window.currentCardId ? String(window.currentCardId) : null });
 	};
 	infoModal.querySelector('.close').onclick = function() {
 		infoModal.style.display = "none";
@@ -2780,6 +2805,25 @@ window.onclick = function(event) {
 		if(m && event.target === m) m.style.display = "none";
 	});
 };
+
+document.addEventListener('click', function(e) {
+	var a = e.target.closest('a[href]');
+	if (!a) return;
+	var href = a.getAttribute('href') || '';
+	if (!href || href.charAt(0) === '#' || href.indexOf('javascript') === 0) return;
+	var linkType = 'external';
+	if (href.indexOf('inaturalist.org/observations') !== -1) linkType = 'inat_obs';
+	else if (href.indexOf('inaturalist.org/taxa') !== -1) linkType = 'inat_taxon';
+	else if (href.indexOf('inaturalist.org') !== -1) linkType = 'inat_other';
+	else if (href.indexOf('reddit.com') !== -1) linkType = 'reddit';
+	else if (href.indexOf('ethleb.com') !== -1) linkType = 'author_site';
+	else if (href.indexOf('wikidata.org') !== -1) linkType = 'wikidata';
+	if (window.track) window.track('link_follow', {
+		deck: window.currentDeckKey,
+		card_id: window.currentCardId ? String(window.currentCardId) : null,
+		link_type: linkType
+	});
+});
 $(document).keyup(function(e) {
 	if(e.keyCode === 27){
 		document.querySelectorAll('.modal').forEach(function(m){ m.style.display = "none"; });
