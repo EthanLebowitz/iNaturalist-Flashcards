@@ -1600,11 +1600,11 @@ async function generateEntryIndexesList(){ //generates list of deck slots using 
 		document.getElementById("entryTotal").innerHTML = "processing..."; //indicates that it's processing
 		for(var a=0; a<filterURLs.length; a++){
 			var URL = filterURLs[a].replace("${page}", page).replace("${perpage}", 1);
-			var internalTotalEntries = await getData(URL).then(function(rData) {
-				return Math.min(rData.total_results, 10000);
-			}).catch(function() { return 0; });
-			totalEntries += internalTotalEntries;
-			for(var i=0; i<internalTotalEntries; i++){ //build deck: [urlIndex, offset] per card
+			var filterResult = await getData(URL).then(function(rData) {
+				return { total: rData.total_results, capped: Math.min(rData.total_results, 10000) };
+			}).catch(function() { return { total: 0, capped: 0 }; });
+			totalEntries += filterResult.total;
+			for(var i=0; i<filterResult.capped; i++){ //build deck: [urlIndex, offset] per card
 				entryIndexes.push([a, i]);
 			}
 			if(a === filterURLs.length - 1){ // must run after all filter URLs are processed; async response timing makes this unreliable if placed outside the loop
@@ -1614,11 +1614,11 @@ async function generateEntryIndexesList(){ //generates list of deck slots using 
 		}
 	}
 	else{ //if there are no filters
-		var internalTotalEntries = await getData(buildObsUrl({ page: 1, perPage: 1 }))
-			.then(function(rData){ return Math.min(rData.total_results, 10000); })
-			.catch(function(e){ console.error('deck count fetch failed:', e); return 0; });
-		totalEntries += internalTotalEntries;
-		for(var i=0; i<internalTotalEntries; i++){ //only one URL so urlIndex is always 0
+		var noFilterResult = await getData(buildObsUrl({ page: 1, perPage: 1 }))
+			.then(function(rData){ return { total: rData.total_results, capped: Math.min(rData.total_results, 10000) }; })
+			.catch(function(e){ console.error('deck count fetch failed:', e); return { total: 0, capped: 0 }; });
+		totalEntries += noFilterResult.total;
+		for(var i=0; i<noFilterResult.capped; i++){ //only one URL so urlIndex is always 0
 			entryIndexes.push([0, i]);
 		}
 		shuffle(entryIndexes);
