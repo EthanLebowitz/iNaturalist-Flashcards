@@ -18,11 +18,11 @@
 <meta name="keywords" content="wildlife, plant identification, mushroom identification, animal identification, bird identification, insect identification, wildlife tracking, iNaturalist, flashcards">
 <meta name="author" content="Ethan Lebowitz">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://track-cards.ethleb.com/">
+<link rel="canonical" href="https://flashcards.ethleb.com/">
 
 <!-- Open Graph / social sharing -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://track-cards.ethleb.com/">
+<meta property="og:url" content="https://flashcards.ethleb.com/">
 <meta property="og:title" content="Nature Flashcards">
 <meta property="og:description" content="Practice identifying species with flashcards generated from research grade iNaturalist observations.">
 
@@ -38,7 +38,7 @@
   "@type": "WebApplication",
   "name": "Nature Flashcards",
   "description": "Practice identifying species with flashcards generated from research grade iNaturalist observations.",
-  "url": "https://track-cards.ethleb.com/",
+  "url": "https://flashcards.ethleb.com/",
   "author": { "@type": "Person", "name": "Ethan Lebowitz" },
   "applicationCategory": "EducationalApplication",
   "operatingSystem": "All"
@@ -1780,7 +1780,7 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 	// Default deck is omitted to keep tracking links clean and backward-compatible.
 	var deckParam = (window.currentDeckKey && window.currentDeckKey !== window.DEFAULT_DECK)
 		? "?deck=" + encodeURIComponent(window.currentDeckKey) : "";
-	var shareLink = "https://track-cards.ethleb.com/" + deckParam + "#" + entry.id;
+	var shareLink = "https://flashcards.ethleb.com/" + deckParam + "#" + entry.id;
 	var shareLinkEl = document.getElementById("shareLink");
 	var iconClipboard = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="9" y="2" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
 	var iconCheck = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:#94e2d5"><polyline points="20 6 9 17 4 12"/></svg>';
