@@ -2644,6 +2644,12 @@ $(function(){
 				cb.value = loc.value;
 				cb.dataset.name = loc.name;
 				cb.id = 'dynamicLocationCb';
+				cb.addEventListener('change', function(){
+					var anyChecked = document.querySelectorAll('#regionList input[type="checkbox"]:not(#allRegions):checked').length > 0;
+					var allRegionsCb = document.getElementById('allRegions');
+					if(allRegionsCb) allRegionsCb.checked = !anyChecked;
+					applyCheckboxFilters();
+				});
 				var label = document.createElement('label');
 				label.className = 'filter-item';
 				label.appendChild(cb);
