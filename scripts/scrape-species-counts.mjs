@@ -75,9 +75,8 @@ async function scrapeDecks(keys) {
     }
 
     const maxCount = Math.max(...species.map(s => s.count), 1);
-    const logMax = Math.log(maxCount + 1);
     for (const s of species) {
-      s.w = Math.log(s.count + 1) / logMax; // log-normalised commonality in [0,1]
+      s.w = s.count / maxCount; // linear commonality in [0,1] — niche species near 0
     }
     // Sort descending by count for readability
     species.sort((a, b) => b.count - a.count);

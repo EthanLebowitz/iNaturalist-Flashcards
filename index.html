@@ -1490,7 +1490,7 @@ function deckQueryString(){
 	return Object.keys(q).map(function(k){ return "&" + k + "=" + q[k]; }).join("");
 }
 let INAT_BASE = "https://api.inaturalist.org/v1/observations?identified=true&photos=true&quality_grade=research&order=desc&order_by=created_at" + deckQueryString();
-window.speciesCommonality = new Map(); // taxonId (number) → { taxonId, name, count, w, ancestorIds }
+window.speciesCommonality = new Map(); // taxonId (number) → { taxonId, name, count, w (linear 0–1), ancestorIds }
 async function loadSpeciesCommonality(deckKey) {
 	window.speciesCommonality = new Map();
 	try {
@@ -1924,6 +1924,11 @@ function weightedDraw(candidates) {
 
 // Fraction of draws that go through the targeted-species path (vs. Pool A / shuffled deck).
 var TARGET_FRACTION = 0.5;
+// Exponents for the species score formula: score = w^COMMONALITY_POWER * (1-p)^ACCURACY_POWER.
+// Both default to 1 (linear). Raise COMMONALITY_POWER to favour very common species more strongly;
+// raise ACCURACY_POWER to favour species the user keeps missing more strongly.
+var COMMONALITY_POWER = 1;
+var ACCURACY_POWER = 1;
 
 // Stage 1: Thompson-sample a target species weighted by commonality × (1 − rolling accuracy).
 // Returns { taxonId, count } or null if no commonality data or all species filtered out.
@@ -1940,7 +1945,7 @@ function drawTargetSpecies(activeTaxonIds, activePlaceIds) {
 		var correct = recent.filter(function(r){ return r === 'c'; }).length;
 		var incorrect = recent.length - correct;
 		var pSample = sampleBeta(correct + 1, incorrect + 1);
-		var score = data.w * (1 - pSample);
+		var score = Math.pow(data.w, COMMONALITY_POWER) * Math.pow(1 - pSample, ACCURACY_POWER);
 		candidates.push({ taxonId: taxonId, score: score, count: data.count });
 	});
 	if (candidates.length === 0) return null;
