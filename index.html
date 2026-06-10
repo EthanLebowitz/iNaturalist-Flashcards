@@ -593,6 +593,42 @@ select {
   color: var(--text);
   position: relative;
 }
+/* ── Adaptive info modal ── */
+.adaptiveInfoContent {
+  background-color: var(--mantle);
+  margin: 0 auto;
+  padding: 28px 32px;
+  border: 1px solid var(--surface1);
+  border-radius: 14px;
+  width: 380px;
+  max-width: 90%;
+  color: var(--text);
+  position: relative;
+}
+.adaptive-info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text);
+  background: transparent;
+  color: var(--text);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  margin-left: 6px;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+  vertical-align: middle;
+  padding: 0;
+}
+.adaptive-info-icon:hover {
+  opacity: 0.7;
+}
+
 .location-modal-desc {
   font-size: 13px;
   color: var(--subtext0);
@@ -1281,13 +1317,20 @@ window.DEFAULT_DECK = "tracking";
     <span>Deck</span>
     <select id="deckSelect"></select>
   </div>
-  <label class="deck-select-row" style="cursor:pointer;user-select:none;">
-    <span>Adaptive Species Selection</span>
+  <div class="deck-select-row" style="cursor:pointer;user-select:none;" id="adaptiveToggleRow">
+    <span>Adaptive Species Selection<button class="adaptive-info-icon" id="adaptiveInfoBtn" type="button" aria-label="Learn about adaptive species selection">i</button></span>
     <div class="toggle-switch">
       <input type="checkbox" id="adaptiveToggle" checked>
       <span class="toggle-slider"></span>
     </div>
-  </label>
+  </div>
+  <div class="modal" id="adaptiveInfoModal"><div class="adaptiveInfoContent">
+    <span class="close" id="adaptiveInfoClose">&times;</span>
+    <h3 class="welcome-modal-heading">Adaptive Species Selection</h2>
+    <div class="welcome-modal-body" id="adaptiveInfoBody">
+      When enabled, species you have recently been getting wrong will appear more frequently, while species you've been getting right will be suppressed.
+    </div>
+  </div></div>
   <div id="devClearRow" style="display:none">
     <button class="subOptions wide" id="devClearBtn">Dev: Clear localStorage</button>
   </div>
@@ -2283,6 +2326,26 @@ function setupFilterModal(){
 }
 
 setupFilterModal();
+
+// Adaptive Species Selection info modal
+(function(){
+	var btn = document.getElementById('adaptiveInfoBtn');
+	var modal = document.getElementById('adaptiveInfoModal');
+	var closeBtn = document.getElementById('adaptiveInfoClose');
+	var row = document.getElementById('adaptiveToggleRow');
+	var toggle = document.getElementById('adaptiveToggle');
+	row.addEventListener('click', function(e){
+		if (e.target === btn || btn.contains(e.target)) return;
+		toggle.checked = !toggle.checked;
+		toggle.dispatchEvent(new Event('change'));
+	});
+	btn.addEventListener('click', function(e){
+		e.stopPropagation();
+		modal.style.display = 'block';
+	});
+	closeBtn.addEventListener('click', function(){ modal.style.display = 'none'; });
+	modal.addEventListener('click', function(e){ if (e.target === modal) modal.style.display = 'none'; });
+})();
 
 // Adaptive Species Selection toggle
 (function(){
