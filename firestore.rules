@@ -29,7 +29,7 @@ service cloud.firestore {
         allow delete: if false;
       }
 
-      // Flashcard SR attempt records, per deck — private, read covers the dueAt <= now query
+      // Flashcard attempt records, per deck — eloScored flag + history
       match /decks/{deckKey}/attempts/{cardId} {
         allow read, write: if isUser(userId);
         allow delete: if false;
@@ -41,6 +41,12 @@ service cloud.firestore {
         allow create: if isUser(userId)
           && request.resource.data.rating in [1, -1];
         allow update, delete: if false;
+      }
+
+      // Per-species rolling accuracy (last ~10 results), per deck
+      match /decks/{deckKey}/species/{taxonId} {
+        allow read, write: if isUser(userId);
+        allow delete: if false;
       }
     }
   }

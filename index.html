@@ -750,47 +750,6 @@ select {
   min-height: 1.4em;
   text-align: center;
 }
-.sr-info-panel {
-  display: none;
-  align-items: flex-start;
-  gap: 8px;
-  margin-top: -2px;
-  margin-bottom: 10px;
-  padding: 8px 10px;
-  background: rgba(249,226,175,0.13);
-  border: 1px solid rgba(249,226,175,0.35);
-  border-radius: 8px;
-  font-size: 12px;
-  color: var(--yellow);
-  line-height: 1.4;
-}
-.sr-info-panel.is-visible { display: flex; }
-.sr-info-text { flex: 1; }
-.sr-info-dismiss {
-  flex: 0 0 auto;
-  background: none;
-  border: none;
-  color: var(--yellow);
-  opacity: 0.7;
-  font-size: 16px;
-  line-height: 1;
-  cursor: pointer;
-  padding: 0 2px;
-}
-.sr-info-dismiss:hover { opacity: 1; }
-
-/* ── SR slide toggle ── */
-.sr-toggle-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 13px;
-  color: var(--subtext0);
-  padding: 2px 2px;
-  cursor: pointer;
-  user-select: none;
-}
-.sr-toggle-row:hover { color: var(--text); }
 .deck-select-row {
   display: flex;
   align-items: center;
@@ -798,24 +757,6 @@ select {
   font-size: 13px;
   color: var(--subtext0);
   padding: 2px 2px;
-}
-.sr-interval-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 13px;
-  color: var(--subtext0);
-  padding: 2px 2px 2px 2px;
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  pointer-events: none;
-  transition: max-height 0.2s ease, opacity 0.15s;
-}
-.sr-interval-row.is-visible {
-  max-height: 40px;
-  opacity: 1;
-  pointer-events: auto;
 }
 .sr-interval-stepper {
   display: flex;
@@ -1025,7 +966,7 @@ window.DEFAULT_DECK = "tracking";
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
   import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-  import { getFirestore, doc, getDoc, setDoc, getDocs, collection, increment, serverTimestamp, runTransaction, query, where, Timestamp, deleteField } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+  import { getFirestore, doc, getDoc, setDoc, getDocs, collection, increment, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyD_StgI5Ka3wdHFVjjfxH7p2_W1P4eUpJg",
@@ -1052,10 +993,6 @@ window.DEFAULT_DECK = "tracking";
   track("deck_view", { deck: dk() });
   let currentUser = null;
   let poolACache = null;
-  let srDueCards = new Map(); // cardId (number) → attemptData for currently-due SR cards
-
-  let SR_INTERVALS_MS = 60000 * (function(){ try { return Math.max(1, parseInt(localStorage.getItem('srIntervalMin') || '5', 10)) || 5; } catch(e){ return 5; } }());
-  window.setSRInterval = function(ms){ SR_INTERVALS_MS = ms; };
 
   function dk() { return window.currentDeckKey || 'tracking'; }
   function cardsCol() { return collection(db, 'decks', dk(), 'cards'); }
@@ -1064,6 +1001,8 @@ window.DEFAULT_DECK = "tracking";
   function attemptsCol() { return collection(db, 'users', currentUser.uid, 'decks', dk(), 'attempts'); }
   function attemptDoc(id) { return doc(db, 'users', currentUser.uid, 'decks', dk(), 'attempts', String(id)); }
   function ratingDoc(id) { return doc(db, 'users', currentUser.uid, 'decks', dk(), 'ratings', String(id)); }
+  function speciesCol() { return collection(db, 'users', currentUser.uid, 'decks', dk(), 'species'); }
+  function speciesDoc(taxonId) { return doc(db, 'users', currentUser.uid, 'decks', dk(), 'species', String(taxonId)); }
 
   async function loadPoolA() {
     const snap = await getDocs(cardsCol());
@@ -1072,58 +1011,53 @@ window.DEFAULT_DECK = "tracking";
     console.log('Pool A loaded:', poolACache.length, 'cards');
   }
 
-  async function loadDueSRCards() {
+  async function loadSpeciesStats() {
     if (!currentUser) return;
-    srDueCards = new Map();
-    const q = query(
-      attemptsCol(),
-      where('dueAt', '<=', Timestamp.now())
-    );
-    const snap = await getDocs(q);
-    snap.forEach(d => srDueCards.set(Number(d.id), { id: Number(d.id), ...d.data() }));
-    console.log('SR due cards loaded:', srDueCards.size);
+    window.speciesStatsCache = new Map();
+    const snap = await getDocs(speciesCol());
+    snap.forEach(d => window.speciesStatsCache.set(d.id, d.data()));
   }
 
   onAuthStateChanged(auth, (user) => {
     currentUser = user;
     if (user) {
       if (typeof window.gtag === "function") window.gtag("set", { user_id: user.uid });
-      loadPoolA(); loadDueSRCards();
+      loadPoolA(); loadSpeciesStats();
     }
   });
   signInAnonymously(auth);
 
   window.reloadDeckData = async function() {
     poolACache = null;
-    srDueCards = new Map();
-    if (currentUser) { await loadPoolA(); await loadDueSRCards(); }
+    window.speciesStatsCache = new Map();
+    if (currentUser) { await loadPoolA(); await loadSpeciesStats(); }
   };
 
-  function _formatDuration(ms) {
-    var s = Math.round(ms / 1000);
-    if (s < 60) return s + 's';
-    var m = Math.round(s / 60);
-    if (m < 60) return m + 'm';
-    var h = Math.round(m / 60);
-    if (h < 24) return h + 'h';
-    return Math.round(h / 24) + 'd';
-  }
-
-  function _applyAttemptUI(result, dueAtMs) {
+  function _applyAttemptUI(result) {
     const gotBtn = document.getElementById('gotItBtn');
     const missedBtn = document.getElementById('missedItBtn');
-    const feedback = document.getElementById('selfReportFeedback');
     gotBtn.disabled = true;
     missedBtn.disabled = true;
     gotBtn.classList.remove('active');
     missedBtn.classList.remove('active');
     if (result === 'correct') gotBtn.classList.add('active');
     else if (result === 'incorrect') missedBtn.classList.add('active');
-    if (dueAtMs && feedback) {
-      var diff = dueAtMs - Date.now();
-      feedback.textContent = diff > 0 ? 'Review in ' + _formatDuration(diff) : 'Due for review';
-    }
   }
+
+  // Returns Pool A cards that belong to a specific taxon, optionally filtered by place.
+  window.getSpeciesPoolA = function(taxonId, activePlaceIds, seenSet) {
+    if (!poolACache) return [];
+    return poolACache.filter(function(card) {
+      if (seenSet && seenSet.has(card.id)) return false;
+      var ancestors = card.ancestorIds || [];
+      if (!ancestors.includes(taxonId) && card.taxonId !== taxonId) return false;
+      if (activePlaceIds && activePlaceIds.length > 0) {
+        var places = card.placeIds || [];
+        if (!activePlaceIds.some(function(id){ return places.includes(id); })) return false;
+      }
+      return true;
+    });
+  };
 
   // Returns Pool A candidates matching the active filters, excluding already-seen cards.
   window.getFilteredPoolA = function(taxonIdChoices, regionIdChoices, seenSet) {
@@ -1144,53 +1078,14 @@ window.DEFAULT_DECK = "tracking";
     });
   };
 
-  // Returns the most-overdue due SR card matching active filters, or null. Removes it from the
-  // local cache to prevent double-serving within the same session.
-  window.getDueCard = function(taxonIdChoices, regionIdChoices) {
-    if (!srDueCards.size) return null;
-    const activeTaxonIds = taxonIdChoices.map(v => parseInt(v.split('=')[1]));
-    const activePlaceIds = regionIdChoices.map(v => parseInt(v.split('=')[1]));
-    var candidates = [];
-    srDueCards.forEach(function(card) {
-      if (activeTaxonIds.length > 0) {
-        const ancestors = card.ancestorIds || [];
-        if (!activeTaxonIds.some(id => ancestors.includes(id))) return;
-      }
-      if (activePlaceIds.length > 0) {
-        const places = card.placeIds || [];
-        if (!activePlaceIds.some(id => places.includes(id))) return;
-      }
-      candidates.push(card);
-    });
-    if (!candidates.length) return null;
-    candidates.sort((a, b) => a.dueAt.toMillis() - b.dueAt.toMillis());
-    var winner = candidates[0];
-    srDueCards.delete(winner.id);
-    return winner;
-  };
-
-  // Hydrates the self-report button state when navigating to a card.
-  window.loadAttempt = async function(cardId) {
-    const feedback = document.getElementById('selfReportFeedback');
-    if (feedback) feedback.textContent = '';
-    // SR re-reviews always get fresh buttons regardless of prior submission
-    if (window.srReviewCards && window.srReviewCards.has(Number(cardId))) return;
-    // Session cache: due time was saved in window.lastReportDueAt on submission
+  // Hydrates the self-report button state when navigating to a card (session only).
+  window.loadAttempt = function(cardId) {
     if (window.reportResults && window.reportResults[Number(cardId)]) {
-      var cachedDueMs = window.lastReportDueAt && window.lastReportDueAt[Number(cardId)];
-      _applyAttemptUI(window.reportResults[Number(cardId)], cachedDueMs || null);
-      return;
+      _applyAttemptUI(window.reportResults[Number(cardId)]);
     }
-    if (!currentUser) return;
-    const snap = await getDoc(attemptDoc(cardId));
-    if (!snap.exists()) return;
-    const d = snap.data();
-    // Only update if the card hasn't changed since the async read started
-    if (window.currentCardId !== Number(cardId) && window.currentCardId !== cardId) return;
-    _applyAttemptUI(d.lastResult, d.dueAt ? d.dueAt.toMillis() : null);
   };
 
-  // Records a self-report: updates ELO (first time only) and SR schedule.
+  // Records a self-report: updates ELO (first time only) and per-species rolling accuracy.
   window.submitReport = async function(result) {
     const cardId = window.currentCardId;
     const entry = window.currentEntry;
@@ -1198,7 +1093,6 @@ window.DEFAULT_DECK = "tracking";
 
     const gotBtn = document.getElementById('gotItBtn');
     const missedBtn = document.getElementById('missedItBtn');
-    const feedback = document.getElementById('selfReportFeedback');
 
     // Optimistic UI
     gotBtn.disabled = true;
@@ -1215,9 +1109,7 @@ window.DEFAULT_DECK = "tracking";
     window.reportResults[Number(cardId)] = result;
     if (typeof window.renderSessionGrid === 'function') window.renderSessionGrid();
 
-    // Show the spaced-repetition cue, then auto-advance after a brief pause so it's visible.
-    // The Firestore write below continues in the background.
-    if (feedback) feedback.textContent = result === 'incorrect' ? 'Review in ' + _formatDuration(SR_INTERVALS_MS) : '';
+    // Auto-advance; Firestore write continues in the background
     setTimeout(function(){ if (window.currentCardId === cardId) nextEntry(1); }, 0);
 
     if (!currentUser) return;
@@ -1226,16 +1118,15 @@ window.DEFAULT_DECK = "tracking";
     const ancestorIds = entry && entry.taxon && entry.taxon.ancestor_ids ? entry.taxon.ancestor_ids : [];
     const placeIds = entry && entry.place_ids ? entry.place_ids : [];
 
-    const userRef  = poolDoc();
-    const cardRef  = cardDoc(cardId);
+    const userRef    = poolDoc();
+    const cardRef    = cardDoc(cardId);
     const attemptRef = attemptDoc(cardId);
-
-    var newDueAtMs;
+    const speciesRef = taxonId ? speciesDoc(taxonId) : null;
 
     await runTransaction(db, async (txn) => {
-      const [userSnap, cardSnap, attemptSnap] = await Promise.all([
-        txn.get(userRef), txn.get(cardRef), txn.get(attemptRef)
-      ]);
+      const reads = [txn.get(userRef), txn.get(cardRef), txn.get(attemptRef)];
+      if (speciesRef) reads.push(txn.get(speciesRef));
+      const [userSnap, cardSnap, attemptSnap, speciesSnap] = await Promise.all(reads);
 
       const S = result === 'correct' ? 1 : 0;
       const userElo     = userSnap.exists()    ? (userSnap.data().elo    || 1500) : 1500;
@@ -1262,8 +1153,7 @@ window.DEFAULT_DECK = "tracking";
         incorrectCount: increment(result === 'incorrect' ? 1 : 0)
       }, { merge: true });
 
-      // SR — incorrect queues the card (always 1-minute interval); correct removes it from the queue
-      const attemptData = {
+      txn.set(attemptRef, {
         eloScored: true,
         firstResult,
         lastResult: result,
@@ -1271,28 +1161,22 @@ window.DEFAULT_DECK = "tracking";
         ancestorIds, placeIds,
         history: [...history, { result, ts: Date.now() }],
         updatedAt: serverTimestamp()
-      };
-      if (result === 'incorrect') {
-        newDueAtMs = Date.now() + SR_INTERVALS_MS;
-        attemptData.dueAt = Timestamp.fromMillis(newDueAtMs);
-      } else if (attemptSnap.exists() && attemptSnap.data().dueAt) {
-        // Was in SR queue from a prior miss — clear it
-        attemptData.dueAt = deleteField();
+      }, { merge: true });
+
+      // Per-species rolling accuracy (last 10)
+      if (speciesRef) {
+        const existing = speciesSnap && speciesSnap.exists() ? (speciesSnap.data().recent || []) : [];
+        const newRecent = [...existing, result === 'correct' ? 'c' : 'i'].slice(-10);
+        txn.set(speciesRef, { recent: newRecent, updatedAt: serverTimestamp() }, { merge: true });
       }
-      txn.set(attemptRef, attemptData, { merge: true });
     });
 
-    // Card has been reported — remove SR re-review flag so back-navigation shows submitted state
-    if (window.srReviewCards) window.srReviewCards.delete(Number(cardId));
-
-    // Cache due time (incorrect only) so loadAttempt can restore feedback without a second read
-    if (!window.lastReportDueAt) window.lastReportDueAt = {};
-    if (newDueAtMs) {
-      window.lastReportDueAt[Number(cardId)] = newDueAtMs;
-    }
-    // If the user navigated back to this card while the write was in flight, refresh its feedback.
-    if (window.currentCardId === cardId && feedback) {
-      feedback.textContent = newDueAtMs ? 'Review in ' + _formatDuration(newDueAtMs - Date.now()) : '';
+    // Update in-memory species cache so drawTargetSpecies sees the new result immediately
+    if (taxonId && window.speciesStatsCache) {
+      const existing = (window.speciesStatsCache.get(String(taxonId)) || {}).recent || [];
+      window.speciesStatsCache.set(String(taxonId), {
+        recent: [...existing, result === 'correct' ? 'c' : 'i'].slice(-10)
+      });
     }
   };
 
@@ -1377,10 +1261,6 @@ window.DEFAULT_DECK = "tracking";
     </div>
     <div class="self-report-feedback" id="selfReportFeedback"></div>
   </div>
-  <div class="sr-info-panel" id="srInfoPanel">
-    <span class="sr-info-text">Missed cards will be shown again in a few minutes. This can be configured in settings.</span>
-    <button class="sr-info-dismiss" id="srInfoDismiss" aria-label="Dismiss">&times;</button>
-  </div>
   <div class="rating-section">
     <span class="rating-label">Is this a good flashcard?</span>
     <button id="thumbsUp" class="rating-btn" onclick="submitRating(1)" title="Thumbs up">👍</button>
@@ -1401,21 +1281,13 @@ window.DEFAULT_DECK = "tracking";
     <span>Deck</span>
     <select id="deckSelect"></select>
   </div>
-  <label class="sr-toggle-row">
-    <span>Show missed cards again</span>
+  <label class="deck-select-row" style="cursor:pointer;user-select:none;">
+    <span>Adaptive Species Selection</span>
     <div class="toggle-switch">
-      <input type="checkbox" id="srToggle">
+      <input type="checkbox" id="adaptiveToggle" checked>
       <span class="toggle-slider"></span>
     </div>
   </label>
-  <div class="sr-interval-row" id="srIntervalRow">
-    <span>Show after (minutes)</span>
-    <div class="sr-interval-stepper">
-      <button class="sr-stepper-btn" id="srStepDown" aria-label="Decrease">−</button>
-      <span class="sr-stepper-display" id="srIntervalDisplay">5</span>
-      <button class="sr-stepper-btn" id="srStepUp" aria-label="Increase">+</button>
-    </div>
-  </div>
   <div id="devClearRow" style="display:none">
     <button class="subOptions wide" id="devClearBtn">Dev: Clear localStorage</button>
   </div>
@@ -1564,15 +1436,9 @@ var anchored = (location.hash != "");
 var IDsAt10kMarkers = []; //entry ID for the 10,000th entry, the 20,000th entry, etc.
 
 window.reportResults = {};    // cardId → 'correct'|'incorrect', session-scoped for grid rendering
-window.lastReportDueAt = {};  // cardId → dueAt ms, populated by submitReport for loadAttempt feedback
-window.srReviewCards = new Set(); // card IDs currently being shown as SR re-reviews; gets fresh buttons
+window.speciesStatsCache = new Map(); // taxonId (string) → { recent: ['c'|'i', ...] }
 var selfReportShownForCurrentCard = false;
 var HIDE_ANSWER_HIDES_SELF_REPORT = true; // set false to keep self-report visible when answer is hidden
-var srEnabled = (function(){
-  try { return localStorage.getItem('srEnabled') !== 'false'; } catch(e) { return true; }
-})();
-var sessionFetchCount = 0; // total fetchAndPushCard calls this session (for SR 1-in-3 cap)
-var sessionSRCount = 0;    // SR cards served this session
 
 // ---- seen-card tracking (localStorage; isolated per deck) ----
 function seenKey(){ return "seenCards:" + (window.currentDeckKey || 'tracking'); }
@@ -1594,25 +1460,6 @@ function saveLocationFilter(obj){ try { if(obj) localStorage.setItem('locationFi
 
 $('#answer').hide(); //hide the answer
 
-// One-time hint: shown only the very first time the self-report buttons appear, ever.
-// The "shown" flag is set immediately on display so it never reappears, across sessions,
-// whether or not the user explicitly dismisses it.
-function maybeShowSRInfo(){
-	var panel = document.getElementById('srInfoPanel');
-	if(!panel) return;
-	var shown = false;
-	try { shown = !!localStorage.getItem('srInfoShown'); } catch(e){}
-	if(shown) return;
-	panel.classList.add('is-visible');
-	try { localStorage.setItem('srInfoShown', '1'); } catch(e){}
-}
-(function(){
-	var btn = document.getElementById('srInfoDismiss');
-	if(btn) btn.onclick = function(){
-		document.getElementById('srInfoPanel').classList.remove('is-visible');
-	};
-})();
-
 function showAnswer(){
 	var isVisible = document.getElementById("answer").offsetWidth > 0 || document.getElementById("answer").offsetHeight > 0;
 	if(isVisible){
@@ -1621,7 +1468,6 @@ function showAnswer(){
 		hideEdibilityBadge();
 		if(HIDE_ANSWER_HIDES_SELF_REPORT){
 			document.getElementById('selfReport').classList.remove('is-visible');
-			document.getElementById('srInfoPanel').classList.remove('is-visible');
 			selfReportShownForCurrentCard = false;
 		}
 	}
@@ -1634,7 +1480,6 @@ function showAnswer(){
 			selfReportShownForCurrentCard = true;
 			requestAnimationFrame(function() {
 				document.getElementById('selfReport').classList.add('is-visible');
-				maybeShowSRInfo();
 			});
 		}
 	}
@@ -1645,6 +1490,18 @@ function deckQueryString(){
 	return Object.keys(q).map(function(k){ return "&" + k + "=" + q[k]; }).join("");
 }
 let INAT_BASE = "https://api.inaturalist.org/v1/observations?identified=true&photos=true&quality_grade=research&order=desc&order_by=created_at" + deckQueryString();
+window.speciesCommonality = new Map(); // taxonId (number) → { taxonId, name, count, w, ancestorIds }
+async function loadSpeciesCommonality(deckKey) {
+	window.speciesCommonality = new Map();
+	try {
+		var resp = await fetch('data/species-counts/' + deckKey + '.json');
+		if (!resp.ok) return;
+		var json = await resp.json();
+		var arr = json.species || [];
+		arr.forEach(function(s) { window.speciesCommonality.set(s.taxonId, s); });
+	} catch(e) {}
+}
+loadSpeciesCommonality(window.currentDeckKey);
 function buildObsUrl(opts) {
 	var url = INAT_BASE + "&page=" + opts.page + "&per_page=" + (opts.perPage || 1);
 	if(opts.marker) url += "&id_below=" + opts.marker;
@@ -1672,11 +1529,7 @@ function initializePostIndexGen(){ //sets up first card fetch after index genera
 	sessionHistory = [];
 	historyIndex = -1;
 	data = null; //clear stale fetch data so fetchAndPushCard always does a fresh request on reinit
-	sessionFetchCount = 0;
-	sessionSRCount = 0;
 	window.reportResults = {};
-	window.lastReportDueAt = {};
-	window.srReviewCards = new Set();
 	prefetchedNext = null;
 	document.getElementById("totalObs").innerHTML = totalEntries+" Cards Generated";
 	document.getElementById("entryTotal").innerHTML = totalEntries+" Cards Generated";
@@ -1939,7 +1792,6 @@ function parseEntry(entry) { //gets list of photo ids from entry
 	selfReportShownForCurrentCard = false;
 	hideEdibilityBadge();
 	document.getElementById('selfReport').classList.remove('is-visible');
-	document.getElementById('srInfoPanel').classList.remove('is-visible');
 	var gotBtn = document.getElementById('gotItBtn');
 	var missedBtn = document.getElementById('missedItBtn');
 	gotBtn.classList.remove('active');
@@ -1947,8 +1799,8 @@ function parseEntry(entry) { //gets list of photo ids from entry
 	gotBtn.disabled = false;
 	missedBtn.disabled = false;
 	document.getElementById('selfReportFeedback').textContent = '';
-	// Restore session-cached report state on back-navigation; SR re-reviews get fresh buttons
-	if(window.reportResults[entryID] && !window.srReviewCards.has(entryID)){
+	// Restore session-cached report state on back-navigation
+	if(window.reportResults[entryID]){
 		gotBtn.disabled = true;
 		missedBtn.disabled = true;
 		if(window.reportResults[entryID] === 'correct') gotBtn.classList.add('active');
@@ -2070,6 +1922,39 @@ function weightedDraw(candidates) {
 	return normalised > bestScore ? winner : null;
 }
 
+// Fraction of draws that go through the targeted-species path (vs. Pool A / shuffled deck).
+var TARGET_FRACTION = 0.5;
+
+// Stage 1: Thompson-sample a target species weighted by commonality × (1 − rolling accuracy).
+// Returns { taxonId, count } or null if no commonality data or all species filtered out.
+function drawTargetSpecies(activeTaxonIds, activePlaceIds) {
+	if (!window.speciesCommonality || window.speciesCommonality.size === 0) return null;
+	var candidates = [];
+	window.speciesCommonality.forEach(function(data, taxonId) {
+		if (activeTaxonIds.length > 0) {
+			var ancestors = data.ancestorIds || [];
+			if (!activeTaxonIds.some(function(id){ return ancestors.includes(id) || id === taxonId; })) return;
+		}
+		var stats = window.speciesStatsCache ? window.speciesStatsCache.get(String(taxonId)) : null;
+		var recent = stats ? (stats.recent || []) : [];
+		var correct = recent.filter(function(r){ return r === 'c'; }).length;
+		var incorrect = recent.length - correct;
+		var pSample = sampleBeta(correct + 1, incorrect + 1);
+		var score = data.w * (1 - pSample);
+		candidates.push({ taxonId: taxonId, score: score, count: data.count });
+	});
+	if (candidates.length === 0) return null;
+	var total = candidates.reduce(function(s, c){ return s + c.score; }, 0);
+	if (total <= 0) return null;
+	var r = Math.random() * total;
+	var cumulative = 0;
+	for (var i = 0; i < candidates.length; i++) {
+		cumulative += candidates[i].score;
+		if (r <= cumulative) return candidates[i];
+	}
+	return candidates[candidates.length - 1];
+}
+
 // Builds the full-resolution photo URL for entry photo index i.
 // Must produce a byte-identical URL to generateHTML so the browser cache is hit on render.
 function buildPhotoUrl(entry, i) {
@@ -2111,31 +1996,42 @@ function prefetchNextCard() {
 }
 
 async function fetchNextCard() {
-	// Tier 1: Due SR card — capped at 1-in-3 of total fetches this session
-	if(srEnabled && typeof window.getDueCard === 'function'){
-		if(sessionSRCount / (sessionFetchCount + 1) < 1/3){
-			var dueCard = window.getDueCard(taxonIdChoices, regionIdChoices);
-			if(dueCard){
-				var srResult = await getData("https://api.inaturalist.org/v1/observations/" + dueCard.id);
-				if(srResult && srResult.results && srResult.results[0]){
-					window.srReviewCards.add(srResult.results[0].id);
-					sessionSRCount++;
-					sessionFetchCount++;
-					return srResult.results[0];
+	// Tier 1: Targeted-species path (commonality × accuracy-gap sampling)
+	var adaptiveToggle = document.getElementById('adaptiveToggle');
+	if ((!adaptiveToggle || adaptiveToggle.checked) && Math.random() < TARGET_FRACTION) {
+		var activeTaxonIds = taxonIdChoices.map(function(v){ return parseInt(v.split('=')[1]); });
+		var activePlaceIds = regionIdChoices.map(function(v){ return parseInt(v.split('=')[1]); });
+		var target = drawTargetSpecies(activeTaxonIds, activePlaceIds);
+		if (target) {
+			// Stage 2a: pick a quality-rated card in Pool A for this species
+			if (typeof window.getSpeciesPoolA === 'function') {
+				var speciesCandidates = window.getSpeciesPoolA(target.taxonId, activePlaceIds, seenCards);
+				var poolWinner = Math.random() < 0.5 ? weightedDraw(speciesCandidates) : thompsonDraw(speciesCandidates);
+				if (poolWinner) {
+					var poolResult = await getData("https://api.inaturalist.org/v1/observations/" + poolWinner.id);
+					if (poolResult && poolResult.results && poolResult.results[0]) return poolResult.results[0];
 				}
+			}
+			// Stage 2b: fetch a fresh random observation for this species from iNat
+			var maxPage = Math.min(target.count, 10000);
+			var randomPage = Math.ceil(Math.random() * maxPage);
+			var regionParam = regionIdChoices.length > 0 ? regionIdChoices[Math.floor(Math.random() * regionIdChoices.length)] : '';
+			var freshData = await getData(buildObsUrl({ page: randomPage, perPage: 1, filter: '&taxon_id=' + target.taxonId + regionParam }));
+			if (freshData && freshData.results && freshData.results[0]) {
+				var freshEntry = freshData.results[0];
+				if (!seenCards.has(freshEntry.id)) return freshEntry;
 			}
 		}
 	}
-	sessionFetchCount++;
 
 	// Tier 2: Pool A
 	if(typeof window.getFilteredPoolA === 'function'){
 		var candidates = window.getFilteredPoolA(taxonIdChoices, regionIdChoices, seenCards);
 		var winner = Math.random() < 0.5 ? weightedDraw(candidates) : thompsonDraw(candidates);
 		if(winner){
-			var result = await getData("https://api.inaturalist.org/v1/observations/" + winner.id);
-			if(result && result.results && result.results[0]){
-				return result.results[0];
+			var obsResult = await getData("https://api.inaturalist.org/v1/observations/" + winner.id);
+			if(obsResult && obsResult.results && obsResult.results[0]){
+				return obsResult.results[0];
 			}
 		}
 	}
@@ -2383,41 +2279,12 @@ function setupFilterModal(){
 
 setupFilterModal();
 
-// SR toggle + interval stepper
+// Adaptive Species Selection toggle
 (function(){
-	var toggle = document.getElementById('srToggle');
-	var intervalRow = document.getElementById('srIntervalRow');
-	var display = document.getElementById('srIntervalDisplay');
-	var stepDown = document.getElementById('srStepDown');
-	var stepUp = document.getElementById('srStepUp');
-
-	var srIntervalMin = 5;
-	try { var saved = parseInt(localStorage.getItem('srIntervalMin'), 10); if(saved >= 1) srIntervalMin = saved; } catch(e) {}
-	display.textContent = srIntervalMin;
-
-	function setInterval(mins){
-		srIntervalMin = Math.max(1, Math.min(1440, mins));
-		display.textContent = srIntervalMin;
-		try { localStorage.setItem('srIntervalMin', String(srIntervalMin)); } catch(e) {}
-		if(typeof window.setSRInterval === 'function') window.setSRInterval(srIntervalMin * 60000);
-		if (window.track) window.track('sr_interval_changed', { minutes: srIntervalMin });
-	}
-
-	stepDown.addEventListener('click', function(){ setInterval(srIntervalMin - 1); });
-	stepUp.addEventListener('click',   function(){ setInterval(srIntervalMin + 1); });
-
-	function updateIntervalVisibility(){
-		if(srEnabled){ intervalRow.classList.add('is-visible'); }
-		else { intervalRow.classList.remove('is-visible'); }
-	}
-
-	toggle.checked = srEnabled;
-	updateIntervalVisibility();
-
+	var toggle = document.getElementById('adaptiveToggle');
+	try { if (localStorage.getItem('adaptiveEnabled') === 'false') toggle.checked = false; } catch(e) {}
 	toggle.addEventListener('change', function(){
-		srEnabled = this.checked;
-		try { localStorage.setItem('srEnabled', String(srEnabled)); } catch(e) {}
-		updateIntervalVisibility();
+		try { localStorage.setItem('adaptiveEnabled', this.checked ? 'true' : 'false'); } catch(e) {}
 	});
 })();
 
@@ -2486,8 +2353,9 @@ setupFilterModal();
 		iteration = 0; sessionHistory = []; historyIndex = -1;
 		page = 1; linkIndex = 0; IDsAt10kMarkers = [];
 		seenCards = loadSeenForDeck();
-		window.reportResults = {}; window.lastReportDueAt = {}; window.srReviewCards = new Set();
+		window.reportResults = {};
 		prefetchedNext = null;
+		loadSpeciesCommonality(key);
 		renderSessionGrid();
 
 		try {
