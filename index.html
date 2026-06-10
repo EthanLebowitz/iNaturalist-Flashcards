@@ -283,6 +283,20 @@ a:hover { color: var(--lavender); text-decoration: underline; }
   text-decoration: none;
 }
 
+.answer-names {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 8px;
+}
+
+.answer-scientific {
+  font-size: 16px;
+  font-weight: 400;
+  font-style: italic;
+  opacity: 0.6;
+}
+
 /* ── Edibility pill ── */
 .eb--choice      { --eb-color: var(--green);    --eb-bg: rgba(166,227,161,0.15); --eb-border: var(--green); }
 .eb--edible      { --eb-color: var(--green);    --eb-bg: rgba(166,227,161,0.10); --eb-border: rgba(166,227,161,0.5); }
@@ -1769,13 +1783,16 @@ $(function(){
 function generateHTML(images, entryID, entry, total){ //generates html for a new entry
 	var taxon = entry.taxon || {};
 	var answerName = taxon.preferred_common_name || taxon.name || "Unknown";
+	var namesHTML = (taxon.preferred_common_name && taxon.name)
+		? "<span class='answer-names'><span>" + answerName + "</span><span class='answer-scientific'>(" + taxon.name + ")</span></span>"
+		: "<span>" + answerName + "</span>";
 	if (taxon.id) {
 		var taxonUrl = "https://www.inaturalist.org/taxa/" + taxon.id;
 		document.getElementById("answer").innerHTML =
-			"<a class='answer-link' href='" + taxonUrl + "' target='_blank' rel='noopener'>" + answerName + "<svg style='flex-shrink:0;margin-left:10px;opacity:0.6' width='17' height='17' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/><polyline points='15 3 21 3 21 9'/><line x1='10' y1='14' x2='21' y2='3'/></svg></a>";
+			"<a class='answer-link' href='" + taxonUrl + "' target='_blank' rel='noopener'>" + namesHTML + "<svg style='flex-shrink:0;margin-left:10px;opacity:0.6' width='17' height='17' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/><polyline points='15 3 21 3 21 9'/><line x1='10' y1='14' x2='21' y2='3'/></svg></a>";
 	} else {
 		document.getElementById("answer").innerHTML =
-			"<span class='answer-link'>" + answerName + "</span>";
+			"<span class='answer-link'>" + namesHTML + "</span>";
 	}
 	// Include the deck so a shared card opens in the right deck (correct dropdown + ELO/ratings pool).
 	// Default deck is omitted to keep tracking links clean and backward-compatible.
