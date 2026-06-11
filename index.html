@@ -1012,6 +1012,7 @@ window.DEFAULT_DECK = "tracking";
   var d = new URLSearchParams(location.search).get('deck');
   var valid = d && window.MODES[d] && window.MODES[d].type === "deck";
   window.currentDeckKey = valid ? d : window.DEFAULT_DECK;
+  document.title = window.MODES[window.currentDeckKey].label + ' Flashcards';
 })();
 </script>
 <script type="module">
@@ -2436,6 +2437,7 @@ setupFilterModal();
 		if(key === window.currentDeckKey) return;
 		if (window.track) window.track('deck_switch', { deck: key, from_deck: window.currentDeckKey });
 		window.currentDeckKey = key;
+		document.title = window.MODES[key].label + ' Flashcards';
 		var p = new URLSearchParams(location.search);
 		p.set('deck', key);
 		history.pushState(null, '', location.pathname + '?' + p.toString());
