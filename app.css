@@ -75,6 +75,7 @@ a:hover { color: var(--lavender); text-decoration: underline; }
 	border-radius: 14px;
 	padding: 16px;
 }
+.controls-panel > * { flex-shrink: 0; }
 
 /* ── Slideshow ── */
 .slideshow-container {
@@ -767,7 +768,7 @@ select {
 .more-toggle:hover { color: var(--text); background: var(--surface0); border-radius: 8px; }
 .more-toggle .chevron { display: inline-flex; align-items: center; transition: transform 0.2s; }
 .more-toggle.open .chevron { transform: rotate(180deg); }
-.more-body { display: flex; flex-direction: column; gap: 8px; }
+.more-body { display: flex; flex-direction: column; gap: 8px; flex-shrink: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
 
 /* ── Self-report section ── */
 .self-report-section {
@@ -899,6 +900,7 @@ select {
 	display: none;
 	flex-wrap: wrap;
 	gap: 4px;
+	padding: 4px;
 }
 
 .history-label {
@@ -924,7 +926,7 @@ select {
 
 /* ── Responsive ── */
 @media (min-width: 769px) {
-	.controls-panel { margin-top: 48px; max-height: calc(100dvh - 88px); overflow-y: auto; }
+	.controls-panel { margin-top: 48px; max-height: calc(100dvh - 88px); overflow: hidden; }
 }
 
 @media (max-width: 768px) {
@@ -935,7 +937,7 @@ select {
 	.slideshow-container { margin: auto 0 0; }
 	#dots { margin-bottom: auto; }
 	.img { max-height: calc(100dvh - var(--ctrl-h-init, 240px) - 90px); }
-	.controls-panel { position: absolute; bottom: 0; left: 0; right: 0; width: auto; border-radius: 14px 14px 0 0; max-height: calc(100dvh - 60px); overflow-y: auto; z-index: 2; }
+	.controls-panel { position: absolute; bottom: 0; left: 0; right: 0; width: auto; border-radius: 14px 14px 0 0; max-height: calc(100dvh - 60px); overflow: hidden; z-index: 2; }
 	.filterContent, .infoContent { width: 95%; padding: 20px; }
 	.infoContent { padding-top: 50px; }
 	.action-btn-row { flex-direction: row; }
