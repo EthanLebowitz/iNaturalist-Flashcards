@@ -510,7 +510,7 @@ select {
 
 
 /* ── Modal panels ── */
-.filterContent, .infoContent {
+.filterContent {
   background-color: var(--mantle);
   margin: 0 auto;
   padding: 28px 32px;
@@ -518,6 +518,19 @@ select {
   border-radius: 14px;
   width: 70%;
   max-width: 600px;
+  min-height: 80%;
+  color: var(--text);
+  position: relative;
+}
+
+.infoContent {
+  background-color: var(--mantle);
+  margin: 0 auto;
+  padding: 28px 32px;
+  border: 1px solid var(--surface1);
+  border-radius: 14px;
+  width: 70%;
+  max-width: 800px;
   min-height: 80%;
   color: var(--text);
   position: relative;
@@ -697,7 +710,7 @@ select {
   padding-top: 12px;
 }
 #deck-links h3 {
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 8px;
@@ -709,11 +722,11 @@ select {
   gap: 6px;
 }
 #deck-links ul li a {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--blue);
   background: var(--surface0);
   border-radius: 6px;
-  padding: 3px 10px;
+  padding: 5px 12px;
   display: inline-block;
 }
 #deck-links ul li a:hover {
