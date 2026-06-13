@@ -392,6 +392,7 @@ function parseEntry(entry) { //gets list of photo ids from entry
 	window.currentCardId = entryID;
 	window.currentEntry = entry;
 	window._cardShownAt = Date.now();
+	// logSpeciesMultiplier(entry);
 	if (window.track) window.track('card_view', {
 		deck: window.currentDeckKey,
 		card_id: String(entryID),
@@ -483,11 +484,17 @@ function pushToHistory(entry) {
 	setTimeout(prefetchNextCard, 0);
 }
 
-// Sample from Gamma(a) using the log-sum method (exact for integer a >= 1)
+// Sample from Gamma(a) for real-valued a >= 1 via Marsaglia-Tsang.
 function sampleGamma(a) {
-	var s = 0;
-	for(var i = 0; i < a; i++) s -= Math.log(Math.random() || 1e-10);
-	return s;
+	var d = a - 1/3, c = 1 / Math.sqrt(9 * d);
+	while (true) {
+		var x, v;
+		do { x = (Math.random() * 2 - 1) * 3; v = 1 + c * x; } while (v <= 0);
+		v = v * v * v;
+		var u = Math.random() || 1e-10;
+		if (u < 1 - 0.0331 * (x * x) * (x * x)) return d * v;
+		if (Math.log(u) < 0.5 * x * x + d * (1 - v + Math.log(v))) return d * v;
+	}
 }
 
 // Sample from Beta(a, b) via the Gamma ratio
@@ -505,7 +512,25 @@ var TARGET_FRACTION = 0.5;
 // Both default to 1 (linear). Raise COMMONALITY_POWER to favour very common species more strongly;
 // raise ACCURACY_POWER to favour species the user keeps missing more strongly.
 var COMMONALITY_POWER = 1;
-var ACCURACY_POWER = 1;
+var ACCURACY_POWER = 2;
+// Recency decay: each attempt at age k from the newest contributes weight γ^k to the Beta posterior.
+// Lower γ = more reactive to recent results; 0.75 gives ~4-attempt effective memory.
+var RECENCY_DECAY = 0.75;
+// Beta prior pseudo-count per side. Keeps unseen species at p=0.5 and keeps Gamma shape ≥ 1.
+var ACCURACY_PRIOR = 1;
+
+// Returns decay-weighted Beta parameters for a species' recent array (oldest→newest).
+// Entry at distance age from the newest contributes RECENCY_DECAY^age weight.
+function speciesBetaParams(recent) {
+	var wc = 0, wi = 0;
+	var n = recent.length;
+	for (var i = 0; i < n; i++) {
+		var age = n - 1 - i; // 0 for newest
+		var w = Math.pow(RECENCY_DECAY, age);
+		if (recent[i] === 'c') wc += w; else wi += w;
+	}
+	return { alpha: wc + ACCURACY_PRIOR, beta: wi + ACCURACY_PRIOR };
+}
 
 // Stage 1: Thompson-sample a target species weighted by commonality × (1 − rolling accuracy).
 // Uses localSpeciesCommonality (geo-restricted) when a region filter is active, else global.
@@ -521,9 +546,8 @@ function drawTargetSpecies(activeTaxonIds) {
 		}
 		var stats = window.speciesStatsCache ? window.speciesStatsCache.get(String(taxonId)) : null;
 		var recent = stats ? (stats.recent || []) : [];
-		var correct = recent.filter(function(r){ return r === 'c'; }).length;
-		var incorrect = recent.length - correct;
-		var pSample = sampleBeta(correct + 1, incorrect + 1);
+		var bp = speciesBetaParams(recent);
+		var pSample = sampleBeta(bp.alpha, bp.beta);
 		var score = Math.pow(data.w, COMMONALITY_POWER) * Math.pow(1 - pSample, ACCURACY_POWER);
 		candidates.push({ taxonId: taxonId, score: score, count: data.count });
 	});
@@ -537,6 +561,34 @@ function drawTargetSpecies(activeTaxonIds) {
 		if (r <= cumulative) return candidates[i];
 	}
 	return candidates[candidates.length - 1];
+}
+
+// Logs the targeted-species draw multiplier for the card's species, using the same
+// decay-weighted Beta params as drawTargetSpecies. Reports E[1-p] = β/(α+β) and the
+// ratio vs. the never-seen baseline of 0.5 (>1 = boosted, <1 = suppressed).
+function logSpeciesMultiplier(entry) {
+	var taxonId = entry && entry.taxon ? entry.taxon.id : null;
+	if (taxonId == null) return;
+	var pool = window.localSpeciesCommonality || window.speciesCommonality;
+	var data = pool ? pool.get(taxonId) : null;
+	var w = data ? data.w : null;
+	var stats = window.speciesStatsCache ? window.speciesStatsCache.get(String(taxonId)) : null;
+	var recent = stats ? (stats.recent || []) : [];
+	var bp = speciesBetaParams(recent);
+	var accuracyFactor = bp.beta / (bp.alpha + bp.beta); // E[1 - pSample]
+	var score = (w != null)
+		? Math.pow(w, COMMONALITY_POWER) * Math.pow(accuracyFactor, ACCURACY_POWER)
+		: null;
+	var name = (entry.taxon && (entry.taxon.preferred_common_name || entry.taxon.name)) || taxonId;
+	console.log(
+		'[species multiplier] ' + name + ' (taxon ' + taxonId + ')' +
+		' | recent: ' + (recent.join('') || '—') +
+		' | γ=' + RECENCY_DECAY + ' α=' + bp.alpha.toFixed(2) + ' β=' + bp.beta.toFixed(2) +
+		' | commonality w: ' + (w != null ? w.toFixed(3) : 'n/a') +
+		' | accuracy factor: ' + accuracyFactor.toFixed(3) +
+		' (' + (accuracyFactor / 0.5).toFixed(2) + '× vs baseline)' +
+		' | combined score: ' + (score != null ? score.toFixed(4) : 'n/a (not in commonality data)')
+	);
 }
 
 // Builds the full-resolution photo URL for entry photo index i.
