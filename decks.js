@@ -177,5 +177,5 @@ window.DEFAULT_DECK = "tracking";
       window.currentDeckKey = valid ? d : window.DEFAULT_DECK;
     }
   }
-  document.title = window.MODES[window.currentDeckKey].label + ' Flashcards';
+  document.title = window.MODES[window.currentDeckKey].seo.title;
 })();
