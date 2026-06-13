@@ -217,6 +217,29 @@ async function anchorCheck(){
 	}
 }
 
+// Fetches a geo-restricted species commonality map from iNat when a region filter is active.
+// drawTargetSpecies prefers this over the global speciesCommonality, so adaptive draws are
+// restricted to species actually present near the user.
+window.localSpeciesCommonality = null;
+var _localSpeciesSig = null;
+async function loadLocalSpeciesCounts() {
+	var geo = regionIdChoices.find(function(v){ return /(?:^|&)lat=/.test(v); });
+	var placeIds = regionIdChoices.map(function(v){ var m = /(?:^|&)place_id=(\d+)/.exec(v); return m ? m[1] : null; }).filter(Boolean);
+	if (!geo && placeIds.length === 0) { window.localSpeciesCommonality = null; _localSpeciesSig = null; return; }
+	var sig = regionIdChoices.join('|');
+	if (sig === _localSpeciesSig) return; // already loaded for this filter
+	var regionParam = geo || ('&place_id=' + placeIds.join(','));
+	var data = await getData('https://api.inaturalist.org/v1/observations/species_counts?quality_grade=research&per_page=500' + deckQueryString() + regionParam);
+	if (regionIdChoices.join('|') !== sig) return; // filter changed mid-flight, discard
+	var map = new Map(), max = 1;
+	(data.results || []).forEach(function(r){ max = Math.max(max, r.count); });
+	(data.results || []).forEach(function(r){
+		map.set(r.taxon.id, { taxonId: r.taxon.id, count: r.count, w: r.count / max, ancestorIds: r.taxon.ancestor_ids || [] });
+	});
+	window.localSpeciesCommonality = map;
+	_localSpeciesSig = sig;
+}
+
 function applyCheckboxFilters(preserveAnchor){
 	if(anchored && !preserveAnchor){anchored=false;}
 	var df = (window.MODES[window.currentDeckKey] && window.MODES[window.currentDeckKey].filters) || {};
@@ -257,6 +280,7 @@ function applyCheckboxFilters(preserveAnchor){
 	generateURLs();
 	generateEntryIndexesList();
 	$('#answer').hide();
+	loadLocalSpeciesCounts();
 }
 
 // Wire up filter checkboxes
@@ -404,8 +428,6 @@ function parseEntry(entry) { //gets list of photo ids from entry
 		images.push(entry.photos[i].id);
 	}
 	generateHTML(images, entryID, entry);
-	if(typeof window.loadRating === 'function') window.loadRating(entryID);
-	if(typeof window.loadAttempt === 'function') window.loadAttempt(entryID);
 	renderSessionGrid();
 }
 
@@ -474,54 +496,10 @@ function sampleBeta(a, b) {
 	return ga / (ga + gb);
 }
 
-// Thompson sampling over Pool A candidates (quality turn).
-// Returns the winning card object, or null if a random iNat card (Beta(1,1)) won.
-function thompsonDraw(candidates) {
-	if(!candidates || candidates.length === 0) return null;
-	var bestCard = null, bestScore = -1;
-	candidates.forEach(function(card) {
-		var score = sampleBeta((card.thumbsUp || 0) + 1, (card.thumbsDown || 0) + 1);
-		if(score > bestScore){ bestScore = score; bestCard = card; }
-	});
-	// A random unseen iNat card is modelled as Beta(1,1) = Math.random().
-	// If the best Pool A card can't beat that, serve a fresh random card instead.
-	return bestScore > Math.random() ? bestCard : null;
-}
-
-// Weighted draw favouring cards with shaky ELO (few reports), penalising downvoted cards (refine turn).
-// ratingBoost decays from 1.0 → 0 as n approaches ELO_TARGET, then holds at EXPLORE_WEIGHT.
-// thumbsQuality = Beta expected value in (0,1] — penalises downvoted cards smoothly.
-var ELO_TARGET = 8;
-var EXPLORE_WEIGHT = 0.3;
 // Prefetch: false = preload only the first photo (lighter); true = preload every photo (smoother slideshow).
 var PREFETCH_ALL_IMAGES = false;
-function ratingDrawWeight(card) {
-	var n = (card.correctCount || 0) + (card.incorrectCount || 0);
-	var boost = n > 0 && n < ELO_TARGET ? (1 - n / ELO_TARGET) : EXPLORE_WEIGHT;
-	var thumbsQuality = ((card.thumbsUp || 0) + 1) / ((card.thumbsUp || 0) + (card.thumbsDown || 0) + 2);
-	return boost * thumbsQuality;
-}
-function weightedDraw(candidates) {
-	if(!candidates || candidates.length === 0) return null;
-	var weights = candidates.map(ratingDrawWeight);
-	var total = weights.reduce(function(s, w) { return s + w; }, 0);
-	if(total <= 0) return null;
-	// Compete against the same Beta(1,1) baseline as thompsonDraw.
-	var bestScore = Math.random();
-	var winner = null;
-	var cumulative = 0;
-	var r = Math.random() * total;
-	for(var i = 0; i < candidates.length; i++){
-		cumulative += weights[i];
-		if(r <= cumulative){ winner = candidates[i]; break; }
-	}
-	if(!winner) winner = candidates[candidates.length - 1];
-	// Only serve if the best normalised weight beats the baseline.
-	var normalised = Math.max.apply(null, weights) / (total / candidates.length);
-	return normalised > bestScore ? winner : null;
-}
 
-// Fraction of draws that go through the targeted-species path (vs. Pool A / shuffled deck).
+// Fraction of draws that go through the targeted-species path (vs. shuffled deck).
 var TARGET_FRACTION = 0.5;
 // Exponents for the species score formula: score = w^COMMONALITY_POWER * (1-p)^ACCURACY_POWER.
 // Both default to 1 (linear). Raise COMMONALITY_POWER to favour very common species more strongly;
@@ -530,11 +508,13 @@ var COMMONALITY_POWER = 1;
 var ACCURACY_POWER = 1;
 
 // Stage 1: Thompson-sample a target species weighted by commonality × (1 − rolling accuracy).
+// Uses localSpeciesCommonality (geo-restricted) when a region filter is active, else global.
 // Returns { taxonId, count } or null if no commonality data or all species filtered out.
-function drawTargetSpecies(activeTaxonIds, activePlaceIds) {
-	if (!window.speciesCommonality || window.speciesCommonality.size === 0) return null;
+function drawTargetSpecies(activeTaxonIds) {
+	var pool = window.localSpeciesCommonality || window.speciesCommonality;
+	if (!pool || pool.size === 0) return null;
 	var candidates = [];
-	window.speciesCommonality.forEach(function(data, taxonId) {
+	pool.forEach(function(data, taxonId) {
 		if (activeTaxonIds.length > 0) {
 			var ancestors = data.ancestorIds || [];
 			if (!activeTaxonIds.some(function(id){ return ancestors.includes(id) || id === taxonId; })) return;
@@ -604,19 +584,8 @@ async function fetchNextCard() {
 	var adaptiveToggle = document.getElementById('adaptiveToggle');
 	if ((!adaptiveToggle || adaptiveToggle.checked) && Math.random() < TARGET_FRACTION) {
 		var activeTaxonIds = taxonIdChoices.map(function(v){ return parseInt(v.split('=')[1]); });
-		var activePlaceIds = regionIdChoices.map(function(v){ return parseInt(v.split('=')[1]); });
-		var target = drawTargetSpecies(activeTaxonIds, activePlaceIds);
+		var target = drawTargetSpecies(activeTaxonIds);
 		if (target) {
-			// Stage 2a: pick a quality-rated card in Pool A for this species
-			if (typeof window.getSpeciesPoolA === 'function') {
-				var speciesCandidates = window.getSpeciesPoolA(target.taxonId, activePlaceIds, seenCards);
-				var poolWinner = Math.random() < 0.5 ? weightedDraw(speciesCandidates) : thompsonDraw(speciesCandidates);
-				if (poolWinner) {
-					var poolResult = await getData("https://api.inaturalist.org/v1/observations/" + poolWinner.id);
-					if (poolResult && poolResult.results && poolResult.results[0]) return poolResult.results[0];
-				}
-			}
-			// Stage 2b: fetch a fresh random observation for this species from iNat
 			var maxPage = Math.min(target.count, 10000);
 			var randomPage = Math.ceil(Math.random() * maxPage);
 			var regionParam = regionIdChoices.length > 0 ? regionIdChoices[Math.floor(Math.random() * regionIdChoices.length)] : '';
@@ -628,18 +597,7 @@ async function fetchNextCard() {
 		}
 	}
 
-	// Tier 2: Pool A
-	if(typeof window.getFilteredPoolA === 'function'){
-		var candidates = window.getFilteredPoolA(taxonIdChoices, regionIdChoices, seenCards);
-		var winner = Math.random() < 0.5 ? weightedDraw(candidates) : thompsonDraw(candidates);
-		if(winner){
-			var obsResult = await getData("https://api.inaturalist.org/v1/observations/" + winner.id);
-			if(obsResult && obsResult.results && obsResult.results[0]){
-				return obsResult.results[0];
-			}
-		}
-	}
-	// Tier 3: Shuffled deck
+	// Tier 2: Shuffled deck
 	if(iteration < totalEntries - 1) iteration++;
 	var slot = entryIndexes[iteration];
 	if(!slot) return null;

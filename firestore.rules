@@ -2,46 +2,11 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    function isAuthed() {
-      return request.auth != null;
-    }
     function isUser(userId) {
       return request.auth != null && request.auth.uid == userId;
     }
 
-    // Shared card stats, per deck
-    match /decks/{deckKey}/cards/{cardId} {
-      allow read, write: if isAuthed();
-      allow delete: if false;
-    }
-
-    // Reserved: shared game item stats (e.g. puzzles), per game
-    match /games/{gameKey}/{document=**} {
-      allow read, write: if isAuthed();
-      allow delete: if false;
-    }
-
     match /users/{userId} {
-
-      // Player ELO pool for any mode (deck or game)
-      match /pools/{modeKey} {
-        allow read, write: if isUser(userId);
-        allow delete: if false;
-      }
-
-      // Flashcard attempt records, per deck — eloScored flag + history
-      match /decks/{deckKey}/attempts/{cardId} {
-        allow read, write: if isUser(userId);
-        allow delete: if false;
-      }
-
-      // Thumbs ratings, per deck — write-once
-      match /decks/{deckKey}/ratings/{cardId} {
-        allow read: if isUser(userId);
-        allow create: if isUser(userId)
-          && request.resource.data.rating in [1, -1];
-        allow update, delete: if false;
-      }
 
       // Per-species rolling accuracy (last ~10 results), per deck
       match /decks/{deckKey}/species/{taxonId} {
