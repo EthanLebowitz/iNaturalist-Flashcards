@@ -217,6 +217,7 @@ window.submitReport = async function(result) {
 window.loadRating = async function(cardId) {
 	const upBtn = document.getElementById('thumbsUp');
 	const downBtn = document.getElementById('thumbsDown');
+	if (!upBtn || !downBtn) return;
 	upBtn.className = 'rating-btn';
 	downBtn.className = 'rating-btn';
 	upBtn.disabled = false;
@@ -237,10 +238,10 @@ window.submitRating = async function(value) {
 	if (!currentUser || !cardId) return;
 	const upBtn = document.getElementById('thumbsUp');
 	const downBtn = document.getElementById('thumbsDown');
-	upBtn.disabled = true;
-	downBtn.disabled = true;
-	if (value === 1) upBtn.classList.add('active-up');
-	else downBtn.classList.add('active-down');
+	if (upBtn) upBtn.disabled = true;
+	if (downBtn) downBtn.disabled = true;
+	if (upBtn && value === 1) upBtn.classList.add('active-up');
+	else if (downBtn) downBtn.classList.add('active-down');
 	const ratingRef = ratingDoc(cardId);
 	if ((await getDoc(ratingRef)).exists()) return;
 	track("card_rating", { deck: dk(), rating: value === 1 ? "up" : "down" });
