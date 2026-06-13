@@ -446,11 +446,11 @@ function navigateToHistoryIndex(i) {
 }
 
 function shuffle(a) { //shuffles a list
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
+		for (let i = a.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[a[i], a[j]] = [a[j], a[i]];
+		}
+		return a;
 }
 
 function pushToHistory(entry) {
@@ -1210,92 +1210,92 @@ $(function(){
 var mushroomEdibility = null;
 
 (function loadMushroomEdibility(){
-  fetch('/data/mushroom-edibility.json')
-    .then(function(r){ return r.json(); })
-    .then(function(d){ mushroomEdibility = d; })
-    .catch(function(){ mushroomEdibility = {}; });
+	fetch('/data/mushroom-edibility.json')
+		.then(function(r){ return r.json(); })
+		.then(function(d){ mushroomEdibility = d; })
+		.catch(function(){ mushroomEdibility = {}; });
 })();
 
 var EDIBILITY_LABELS = {
-  choice:        { icon: '★', text: 'Choice edible' },
-  edible:        { icon: '✓', text: 'Edible' },
-  'edible cooked': { icon: '🔥', text: 'Edible when cooked' },
-  medicinal:     { icon: '♥', text: 'Medicinal' },
-  inedible:      { icon: '⦸', text: 'Inedible' },
-  caution:       { icon: '⚠', text: 'Caution' },
-  allergenic:    { icon: '⚠', text: 'Allergenic' },
-  psychoactive:  { icon: '☸', text: 'Psychoactive' },
-  poisonous:     { icon: '☠', text: 'Poisonous' },
-  deadly:        { icon: '☠', text: 'Deadly poisonous' },
+	choice:        { icon: '★', text: 'Choice edible' },
+	edible:        { icon: '✓', text: 'Edible' },
+	'edible cooked': { icon: '🔥', text: 'Edible when cooked' },
+	medicinal:     { icon: '♥', text: 'Medicinal' },
+	inedible:      { icon: '⦸', text: 'Inedible' },
+	caution:       { icon: '⚠', text: 'Caution' },
+	allergenic:    { icon: '⚠', text: 'Allergenic' },
+	psychoactive:  { icon: '☸', text: 'Psychoactive' },
+	poisonous:     { icon: '☠', text: 'Poisonous' },
+	deadly:        { icon: '☠', text: 'Deadly poisonous' },
 };
 
 function getEdibility(entry) {
-  if (!mushroomEdibility || !entry) return null;
-  var ids = [entry.taxon && entry.taxon.id].concat(entry.taxon && entry.taxon.ancestor_ids || []);
-  for (var i = 0; i < ids.length; i++) {
-    var v = mushroomEdibility[String(ids[i])];
-    if (v) return v; // { labels: [...], qid: "Q..." } at the most specific matching level
-  }
-  return null;
+	if (!mushroomEdibility || !entry) return null;
+	var ids = [entry.taxon && entry.taxon.id].concat(entry.taxon && entry.taxon.ancestor_ids || []);
+	for (var i = 0; i < ids.length; i++) {
+		var v = mushroomEdibility[String(ids[i])];
+		if (v) return v; // { labels: [...], qid: "Q..." } at the most specific matching level
+	}
+	return null;
 }
 
 function showEdibilityBadge() {
-  var el  = document.getElementById('edibility-badge');
-  var src = document.getElementById('edibility-source');
-  if (!el) return;
+	var el  = document.getElementById('edibility-badge');
+	var src = document.getElementById('edibility-source');
+	if (!el) return;
 
-  // Clear any pending hide-transition cleanup
-  if (el._hideTimer) { clearTimeout(el._hideTimer); el._hideTimer = null; }
+	// Clear any pending hide-transition cleanup
+	if (el._hideTimer) { clearTimeout(el._hideTimer); el._hideTimer = null; }
 
-  el.innerHTML = '';
-  el.classList.remove('is-visible');
-  if (src) src.classList.remove('is-visible');
+	el.innerHTML = '';
+	el.classList.remove('is-visible');
+	if (src) src.classList.remove('is-visible');
 
-  if (window.currentDeckKey !== 'mushrooms') return;
-  var result = getEdibility(window.currentEntry);
-  if (!result || !result.labels || !result.labels.length) return;
+	if (window.currentDeckKey !== 'mushrooms') return;
+	var result = getEdibility(window.currentEntry);
+	if (!result || !result.labels || !result.labels.length) return;
 
-  result.labels.forEach(function(edibility) {
-    var meta = EDIBILITY_LABELS[edibility];
-    if (!meta) return;
-    var pill = document.createElement('span');
-    pill.className = 'eb-pill eb--' + edibility.replace(/\s+/g, '-');
-    pill.textContent = meta.icon + ' ' + meta.text;
-    el.appendChild(pill);
-  });
+	result.labels.forEach(function(edibility) {
+		var meta = EDIBILITY_LABELS[edibility];
+		if (!meta) return;
+		var pill = document.createElement('span');
+		pill.className = 'eb-pill eb--' + edibility.replace(/\s+/g, '-');
+		pill.textContent = meta.icon + ' ' + meta.text;
+		el.appendChild(pill);
+	});
 
-  if (el.children.length) {
-    if (src) {
-      var wikiUrl = result.qid
-        ? 'https://www.wikidata.org/wiki/' + result.qid
-        : 'https://www.wikidata.org';
-      var link = src.querySelector('a');
-      if (link) link.href = wikiUrl;
-    }
-    // Restore display then defer so the browser sees the collapsed state before animating
-    el.style.display = '';
-    if (src) src.style.display = '';
-    requestAnimationFrame(function() {
-      el.classList.add('is-visible');
-      if (src) src.classList.add('is-visible');
-    });
-  }
+	if (el.children.length) {
+		if (src) {
+			var wikiUrl = result.qid
+				? 'https://www.wikidata.org/wiki/' + result.qid
+				: 'https://www.wikidata.org';
+			var link = src.querySelector('a');
+			if (link) link.href = wikiUrl;
+		}
+		// Restore display then defer so the browser sees the collapsed state before animating
+		el.style.display = '';
+		if (src) src.style.display = '';
+		requestAnimationFrame(function() {
+			el.classList.add('is-visible');
+			if (src) src.classList.add('is-visible');
+		});
+	}
 }
 
 function hideEdibilityBadge() {
-  var el  = document.getElementById('edibility-badge');
-  var src = document.getElementById('edibility-source');
-  if (!el) return;
-  el.classList.remove('is-visible');
-  if (src) src.classList.remove('is-visible');
-  // Clear innerHTML after transition so pills don't flash back during slide-in
-  el._hideTimer = setTimeout(function() {
-    el.innerHTML = '';
-    el.style.display = 'none';
-    var src2 = document.getElementById('edibility-source');
-    if (src2) src2.style.display = 'none';
-    el._hideTimer = null;
-  }, 300);
+	var el  = document.getElementById('edibility-badge');
+	var src = document.getElementById('edibility-source');
+	if (!el) return;
+	el.classList.remove('is-visible');
+	if (src) src.classList.remove('is-visible');
+	// Clear innerHTML after transition so pills don't flash back during slide-in
+	el._hideTimer = setTimeout(function() {
+		el.innerHTML = '';
+		el.style.display = 'none';
+		var src2 = document.getElementById('edibility-source');
+		if (src2) src2.style.display = 'none';
+		el._hideTimer = null;
+	}, 300);
 }
 // ─────────────────────────────────────────────────────────────────────────────
 

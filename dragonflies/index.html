@@ -70,7 +70,7 @@
 <div class="page-layout">
 <div class="slideshow-panel"><div class="show">
 	<div id="location"></div>
-  	<div class="slideshow-container" id="slideshowContainer">
+		<div class="slideshow-container" id="slideshowContainer">
 
 
 	</div>
@@ -80,54 +80,54 @@
 <div class="controls-panel">
 	<button type="submit" onclick="showAnswer()" class="options wide" id="showAnswer">Show Answer</button>
 	<div id="answer"></div>
-  <div id="edibility-badge" style="display:none"></div>
-  <div id="edibility-source" style="display:none">Edibility data from <a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a>. Accuracy not guaranteed.</div>
-  <div class="self-report-section" id="selfReport">
-    <span class="self-report-label">Did you get it right?</span>
-    <div class="self-report-btn-row">
-      <button class="report-btn report-btn--incorrect" id="missedItBtn" onclick="submitReport('incorrect')">Missed it</button>
-      <button class="report-btn report-btn--correct" id="gotItBtn" onclick="submitReport('correct')">Got it</button>
-    </div>
-    <div class="self-report-feedback" id="selfReportFeedback"></div>
-  </div>
-  <div class="rating-section">
-    <span class="rating-label">Is this a good flashcard?</span>
-    <button id="thumbsUp" class="rating-btn" onclick="submitRating(1)" title="Thumbs up">👍</button>
-    <button id="thumbsDown" class="rating-btn" onclick="submitRating(-1)" title="Thumbs down">👎</button>
-  </div>
+	<div id="edibility-badge" style="display:none"></div>
+	<div id="edibility-source" style="display:none">Edibility data from <a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a>. Accuracy not guaranteed.</div>
+	<div class="self-report-section" id="selfReport">
+		<span class="self-report-label">Did you get it right?</span>
+		<div class="self-report-btn-row">
+			<button class="report-btn report-btn--incorrect" id="missedItBtn" onclick="submitReport('incorrect')">Missed it</button>
+			<button class="report-btn report-btn--correct" id="gotItBtn" onclick="submitReport('correct')">Got it</button>
+		</div>
+		<div class="self-report-feedback" id="selfReportFeedback"></div>
+	</div>
+	<div class="rating-section">
+		<span class="rating-label">Is this a good flashcard?</span>
+		<button id="thumbsUp" class="rating-btn" onclick="submitRating(1)" title="Thumbs up">👍</button>
+		<button id="thumbsDown" class="rating-btn" onclick="submitRating(-1)" title="Thumbs down">👎</button>
+	</div>
 	<hr class="divider">
 	<div class="btn-row">
 	<button type="submit" onclick="nextEntry(0)" class="options">&#8592; Prev</button>
 	<button type="submit" onclick="nextEntry(1)" class="options">Next &#8594;</button>
 	</div>
-  <hr class="divider">
-  <div class="more-body" id="moreBody" style="display:none">
+	<hr class="divider">
+	<div class="more-body" id="moreBody" style="display:none">
 <div class="action-btn-row">
-  <button type="submit" id="filterButton" class="subOptions wide">Filters (None)</button>
-  <button type="submit" class="subOptions wide" id="infoButton">More Info</button>
-  </div>
-  <div class="deck-select-row">
-    <span>Deck</span>
-    <select id="deckSelect"></select>
-  </div>
-  <div class="deck-select-row" style="cursor:pointer;user-select:none;" id="adaptiveToggleRow">
-    <span>Adaptive Species Selection<button class="adaptive-info-icon" id="adaptiveInfoBtn" type="button" aria-label="Learn about adaptive species selection">i</button></span>
-    <div class="toggle-switch">
-      <input type="checkbox" id="adaptiveToggle" checked>
-      <span class="toggle-slider"></span>
-    </div>
-  </div>
-  <div class="modal" id="adaptiveInfoModal"><div class="adaptiveInfoContent">
-    <span class="close" id="adaptiveInfoClose">&times;</span>
-    <h3 class="welcome-modal-heading">Adaptive Species Selection</h2>
-    <div class="welcome-modal-body" id="adaptiveInfoBody">
-      When enabled, species you have recently been getting wrong will appear more frequently, while species you've been getting right will be suppressed.
-    </div>
-  </div></div>
-  <div id="devClearRow" style="display:none">
-    <button class="subOptions wide" id="devClearBtn">Dev: Clear localStorage</button>
-  </div>
-  <div class="modal" id="filterModal"><div class="filterContent">
+	<button type="submit" id="filterButton" class="subOptions wide">Filters (None)</button>
+	<button type="submit" class="subOptions wide" id="infoButton">More Info</button>
+	</div>
+	<div class="deck-select-row">
+		<span>Deck</span>
+		<select id="deckSelect"></select>
+	</div>
+	<div class="deck-select-row" style="cursor:pointer;user-select:none;" id="adaptiveToggleRow">
+		<span>Adaptive Species Selection<button class="adaptive-info-icon" id="adaptiveInfoBtn" type="button" aria-label="Learn about adaptive species selection">i</button></span>
+		<div class="toggle-switch">
+			<input type="checkbox" id="adaptiveToggle" checked>
+			<span class="toggle-slider"></span>
+		</div>
+	</div>
+	<div class="modal" id="adaptiveInfoModal"><div class="adaptiveInfoContent">
+		<span class="close" id="adaptiveInfoClose">&times;</span>
+		<h3 class="welcome-modal-heading">Adaptive Species Selection</h2>
+		<div class="welcome-modal-body" id="adaptiveInfoBody">
+			When enabled, species you have recently been getting wrong will appear more frequently, while species you've been getting right will be suppressed.
+		</div>
+	</div></div>
+	<div id="devClearRow" style="display:none">
+		<button class="subOptions wide" id="devClearBtn">Dev: Clear localStorage</button>
+	</div>
+	<div class="modal" id="filterModal"><div class="filterContent">
 	<span class="close">&times;</span>
 	<div class="filter-section" id="speciesFilterSection">
 	<h3 class="filter-heading">Filter by Species</h3>
@@ -204,16 +204,16 @@
 	</div>
 	</div>
 	<div id="entryTotal"></div>
-  </div></div>
-  <div class="modal" id="infoModal"><div class="infoContent">
+	</div></div>
+	<div class="modal" id="infoModal"><div class="infoContent">
 	<span class="close">&times;</span>
-  <div id="datInfo">
-    <div id="linkObs"></div>
-    <div id="totalObs"></div>
-    <div id="currentObs"></div>
+	<div id="datInfo">
+		<div id="linkObs"></div>
+		<div id="totalObs"></div>
+		<div id="currentObs"></div>
 	<div id="shuffled"></div>
-  </div>
-  <div id="about">
+	</div>
+	<div id="about">
 	  <div id="deck-intro-about">
 	    <h2>Dragonfly & Damselfly Identification Flashcards</h2>
 	    <p>These are dragonfly and damselfly flashcards generated from research grade iNaturalist observations for practicing identification of dragonflies and damselflies. For most decks there are hundreds of thousands or millions such observations, so it's like an infinite dragonfly and damselfly quiz!</p>
@@ -222,9 +222,9 @@
 	    <p>I hope you enjoy!</p>
 	    <p>Ethan Lebowitz</p>
 	  </div>
-	  <div id="deck-links">
-	    <h3>Other Decks:</h3>
-	    <ul>
+		<div id="deck-links">
+			<h3>Other Decks:</h3>
+			<ul>
 	      <li><a href="/tracks/">Tracks</a></li>
 	      <li><a href="/skulls/">Skulls & Bones</a></li>
 	      <li><a href="/mushrooms/">Mushrooms</a></li>
@@ -237,58 +237,58 @@
 	      <li><a href="/snakes/">Snakes</a></li>
 	      <li><a href="/herps/">Reptiles & Amphibians</a></li>
 	      <li><a href="/edibles/">Wild Edible Plants</a></li>
-	    </ul>
-	  </div>
-  </div></div></div>
-  <div class="share-section">
-    <hr class="divider">
-    <div class="share-label">Share This Card</div>
-    <div id="shareLink"></div>
-  </div>
-  <div id="historySection" style="display:none">
-    <hr class="divider">
-    <span class="history-label">History</span>
-    <div id="sessionGrid" class="session-grid"></div>
-  </div>
-  </div><!-- end more-body -->
-  <button class="more-toggle" id="moreToggle">
-    <span>More</span><span class="chevron"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-  </button>
+			</ul>
+		</div>
+	</div></div></div>
+	<div class="share-section">
+		<hr class="divider">
+		<div class="share-label">Share This Card</div>
+		<div id="shareLink"></div>
+	</div>
+	<div id="historySection" style="display:none">
+		<hr class="divider">
+		<span class="history-label">History</span>
+		<div id="sessionGrid" class="session-grid"></div>
+	</div>
+	</div><!-- end more-body -->
+	<button class="more-toggle" id="moreToggle">
+		<span>More</span><span class="chevron"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+	</button>
 </div>
 </div>
 
 <script src="/app.js"></script>
 
 <div class="modal" id="locationModal"><div class="locationContent">
-  <h2 class="welcome-modal-heading" style="text-align:center;">Species Flashcards</h2>
-  <div class="welcome-modal-body">
-    These are flashcards generated from research grade observations on <a href="https://www.inaturalist.org" target="_blank" rel="noopener">iNaturalist</a>.
+	<h2 class="welcome-modal-heading" style="text-align:center;">Species Flashcards</h2>
+	<div class="welcome-modal-body">
+		These are flashcards generated from research grade observations on <a href="https://www.inaturalist.org" target="_blank" rel="noopener">iNaturalist</a>.
 	Try to identify the species using the location and images, and then click "Show Answer" to see if you were right.
 	If you get it wrong, click "Missed it", and you will be given the card again later in the session.
-  </div>
-  <hr class="welcome-modal-divider">
-  <h3 class="filter-heading">Would you like to set a location?</h3>
-  <p class="location-modal-desc">This will filter the flashcards to your region. You can change this anytime in Filters.</p>
-  <button id="useCurrentLocBtn" class="subOptions wide">Use my current location</button>
-  <div class="deck-select-row" style="margin-top:10px">
-    <span>Radius (miles)</span>
-    <div class="sr-interval-stepper">
-      <button class="sr-stepper-btn" id="radiusStepDown" aria-label="Decrease">−</button>
-      <input class="sr-stepper-display" id="radiusDisplay" type="number" min="50" max="5000" step="50" value="600" style="width:52px;background:none;border:none;color:inherit;text-align:center;font:inherit;-moz-appearance:textfield">
-      <button class="sr-stepper-btn" id="radiusStepUp" aria-label="Increase">+</button>
-    </div>
-    <div class="location-modal-msg" id="locationModalMsg"></div>
-  </div>
-  <div class="location-modal-or">or</div>
-  <div class="deck-select-row">
-    <span>Choose a region</span>
-    <select id="locationRegionSelect"><option value="">— Any region —</option></select>
+	</div>
+	<hr class="welcome-modal-divider">
+	<h3 class="filter-heading">Would you like to set a location?</h3>
+	<p class="location-modal-desc">This will filter the flashcards to your region. You can change this anytime in Filters.</p>
+	<button id="useCurrentLocBtn" class="subOptions wide">Use my current location</button>
+	<div class="deck-select-row" style="margin-top:10px">
+		<span>Radius (miles)</span>
+		<div class="sr-interval-stepper">
+			<button class="sr-stepper-btn" id="radiusStepDown" aria-label="Decrease">−</button>
+			<input class="sr-stepper-display" id="radiusDisplay" type="number" min="50" max="5000" step="50" value="600" style="width:52px;background:none;border:none;color:inherit;text-align:center;font:inherit;-moz-appearance:textfield">
+			<button class="sr-stepper-btn" id="radiusStepUp" aria-label="Increase">+</button>
+		</div>
+		<div class="location-modal-msg" id="locationModalMsg"></div>
+	</div>
+	<div class="location-modal-or">or</div>
+	<div class="deck-select-row">
+		<span>Choose a region</span>
+		<select id="locationRegionSelect"><option value="">— Any region —</option></select>
 	<button id="saveLocationBtn" class="options" style="padding:3px 10px;font-size:12px;">Save</button>
-  </div>
-  <div class="location-modal-or">or</div>
-  <div class="deck-select-row" style="justify-content:center;">
-    <button id="skipLocationBtn" class="options">Skip for now</button>
-  </div>
+	</div>
+	<div class="location-modal-or">or</div>
+	<div class="deck-select-row" style="justify-content:center;">
+		<button id="skipLocationBtn" class="options">Skip for now</button>
+	</div>
 </div></div>
 </body>
 </html>
