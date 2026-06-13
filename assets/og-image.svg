@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#1e1e2e"/>
+  <image xlink:href="logo-transparent.png" x="400" y="115" width="400" height="400" opacity="0.85"/>
+  <text x="600" y="555" font-family="Georgia, serif" font-size="52" font-weight="bold" text-anchor="middle" fill="#cdd6f4">Nature Flashcards</text>
+  <text x="600" y="605" font-family="Georgia, serif" font-size="26" text-anchor="middle" fill="#89b4fa">flashcards.ethleb.com</text>
+</svg>
