@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" rx="20" fill="#1e1e2e"/>
-  <!-- Stipe: long, slightly curved right — drawn behind cap -->
-  <path d="M 43,50 Q 46,67 48,87 L 60,87 Q 62,67 57,50 Z" fill="#cdd6f4"/>
-  <!-- Cap dome -->
-  <path d="M 11,46 Q 11,7 50,7 Q 89,7 89,46 Z" fill="#89b4fa"/>
-  <!-- Cap underside -->
-  <path d="M 11,46 Q 50,61 89,46 Z" fill="#b4befe"/>
-</svg>

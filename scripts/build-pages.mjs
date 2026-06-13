@@ -71,7 +71,7 @@ ${GA_SNIPPET}
 <meta name="author" content="Ethan Lebowitz">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="${url}">
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.png">
 
 <!-- Open Graph / social sharing -->
 <meta property="og:type" content="website">
