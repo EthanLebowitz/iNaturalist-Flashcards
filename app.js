@@ -344,8 +344,7 @@ function generateHTML(images, entryID, entry, total){ //generates html for a new
 	for(var i=0; i<images.length; i++){
 		var currentImage = i+1;
 		var photoUrl = buildPhotoUrl(entry, i);
-		var photoName = (taxon.preferred_common_name || taxon.name || 'photo') + ' ' + currentImage;
-		HTML=HTML+"<div class='mySlides'>\n<img src='"+photoUrl+"' class='img' alt='"+photoName+"' id='img"+i+"'></div>\n";
+		HTML=HTML+"<div class='mySlides'>\n<img src='"+photoUrl+"' class='img' alt='Photo "+currentImage+"' id='img"+i+"'></div>\n";
 	}
 	HTML=HTML+"</div>";
 	if(images.length>1){ //only add prev/next arrows if there is more than 1 image
