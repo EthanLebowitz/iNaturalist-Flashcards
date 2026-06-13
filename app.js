@@ -957,75 +957,15 @@ setupFilterModal();
 		document.getElementById('filterButton').innerHTML = 'Filters (None)';
 	}
 
-	async function switchDeck(key){
-		if(!window.MODES[key] || window.MODES[key].type !== 'deck') return;
-		if(key === window.currentDeckKey) return;
+	function switchDeck(key){
+		var mode = window.MODES[key];
+		if(!mode || !mode.slug) return;
 		if (window.track) window.track('deck_switch', { deck: key, from_deck: window.currentDeckKey });
-		window.currentDeckKey = key;
-		document.title = window.MODES[key].label + ' Flashcards';
-		// Navigate to the deck's canonical slug URL
-		var slug = window.MODES[key].slug || '/';
-		history.pushState(null, '', slug);
-
-		document.getElementById('slideshowContainer').innerHTML = '';
-		document.getElementById('dots').innerHTML = '';
-		document.getElementById('answer').innerHTML = '';
-		$('#answer').hide();
-		document.getElementById('showAnswer').innerHTML = 'Show Answer';
-		document.getElementById('entryTotal').innerHTML = 'Loading…';
-
-		resetFilterCheckboxes();
-		applyDeckFilterVisibility();
-
-		INAT_BASE = "https://api.inaturalist.org/v1/observations?identified=true&photos=true&quality_grade=research&order=desc&order_by=created_at" + deckQueryString();
-
-		anchored = false; // user-initiated deck change drops any shared-card anchor
-		taxonIdChoices = []; regionIdChoices = [];
-		speciesChoices = []; regionChoices = [];
-		iteration = 0; sessionHistory = []; historyIndex = -1;
-		page = 1; linkIndex = 0; IDsAt10kMarkers = [];
-		seenCards = loadSeenForDeck();
-		window.reportResults = {};
-		prefetchedNext = null;
-		loadSpeciesCommonality(key);
-		renderSessionGrid();
-
-		try {
-			if(typeof window.reloadDeckData === 'function') await window.reloadDeckData();
-		} catch(e) { console.error('reloadDeckData:', e); }
-		// Re-apply saved location filter for decks that support region filtering
-		var newDf = (window.MODES[window.currentDeckKey] && window.MODES[window.currentDeckKey].filters) || {};
-		var savedLoc = newDf.region ? loadLocationFilter() : null;
-		if(savedLoc && typeof window.applyLocationFilter === 'function'){
-			window.applyLocationFilter(savedLoc);
-		} else {
-			generateURLs();
-			generateEntryIndexesList();
-		}
+		location.assign(mode.slug);
 	}
 
 	sel.addEventListener('change', function(){ switchDeck(this.value); });
 
-	window.addEventListener('popstate', function(){
-		// Resolve deck from current pathname (slug lookup) with ?deck= param fallback
-		var pathDeck = null;
-		Object.keys(window.MODES).forEach(function(k){
-			var slug = window.MODES[k].slug;
-			if(slug && slug !== '/' && location.pathname === slug) pathDeck = k;
-		});
-		if(!pathDeck && (location.pathname === '/' || location.pathname === '/index.html')){
-			pathDeck = window.DEFAULT_DECK;
-		}
-		if(!pathDeck){
-			var d = new URLSearchParams(location.search).get('deck');
-			pathDeck = (d && window.MODES[d] && window.MODES[d].type === 'deck') ? d : window.DEFAULT_DECK;
-		}
-		var next = pathDeck;
-		if(next !== window.currentDeckKey){
-			sel.value = next;
-			switchDeck(next);
-		}
-	});
 })();
 
 // Dev tools (local only)

@@ -2,7 +2,7 @@ window.MODES = {
   tracking: {
     type: "deck",
     label: "Tracks",
-    slug: "/",
+    slug: "/tracks/",
     query: { project_id: 962 },
     filters: { species: true, region: true },
     seo: {

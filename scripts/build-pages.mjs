@@ -1,6 +1,6 @@
-// Generates per-deck landing pages and sitemap.xml from index.html body.
+// Generates per-deck landing pages and sitemap.xml from template.html.
 // Run: node scripts/build-pages.mjs
-// Re-run whenever a deck is added or the body HTML changes.
+// Re-run whenever a deck is added or template.html changes.
 
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
@@ -17,21 +17,36 @@ vm.createContext(ctx);
 vm.runInContext(decksJs, ctx);
 const MODES = ctx.window.MODES;
 
-// All decks with a non-root slug get a generated page.
 const DECKS = Object.entries(MODES)
-  .filter(([, deck]) => deck.slug && deck.slug !== '/')
+  .filter(([, deck]) => deck.slug)
   .map(([key, deck]) => ({ key, ...deck }));
+
+// Extract body HTML from template.html
+const templateHtml = readFileSync(join(root, 'template.html'), 'utf-8');
+const bodyMatch = templateHtml.match(/<body>([\s\S]*)<\/body>/);
+if (!bodyMatch) { console.error('Could not extract <body> from template.html'); process.exit(1); }
+const bodyHtml = bodyMatch[1];
 
 // Single description template — only seo.label and seo.labelSingular differ per deck.
 function deckDescription(seo) {
-  return seo ? `These are ${seo.labelSingular} flashcards generated from research grade iNaturalist observations for practicing identification of ${seo.label}. For most decks there are hundreds of thousands or millions such observations, so it's like an infinite ${seo.labelSingular} quiz!` : '';
+  return `These are ${seo.labelSingular} flashcards generated from research grade iNaturalist observations for practicing identification of ${seo.label}. For most decks there are hundreds of thousands or millions such observations, so it's like an infinite ${seo.labelSingular} quiz!`;
 }
 
-// Extract body HTML from index.html (generator uses this as the shared app shell)
-const indexHtml = readFileSync(join(root, 'index.html'), 'utf-8');
-const bodyMatch = indexHtml.match(/<body>([\s\S]*)<\/body>/);
-if (!bodyMatch) { console.error('Could not extract <body> from index.html'); process.exit(1); }
-const bodyHtml = bodyMatch[1];
+function deckIntroHtml(deck) {
+  const seo = deck.seo;
+  return `\t  <div id="deck-intro-about">
+\t    <h2>${seo.h1}</h2>
+\t    <p>${deckDescription(seo)}</p>
+\t    <p>An observation being classified as "research grade" means that it has been agreed on by a critical mass of identifiers on iNaturalist. This helps ensure some quality, but since all IDs are done by the community there may be some mistakes.</p>
+\t    <p>If you like this site, check out my other projects or get in touch at <a href="https://ethleb.com?utm_source=drugstats&utm_medium=referral&utm_campaign=footer_link" target="_blank" className="text-[#89b4fa]">ethleb.com</a>. Also, this site is open source, and you can <a href="https://github.com/EthanLebowitz/iNaturalist-Flashcards" target="_blank" rel="noopener">view the code or contribute on github</a>!</p>
+\t    <p>I hope you enjoy!</p>
+\t    <p>Ethan Lebowitz</p>
+\t  </div>`;
+}
+
+function deckLinksHtml() {
+  return DECKS.map(d => `\t      <li><a href="${d.slug}">${d.label}</a></li>`).join('\n');
+}
 
 const GA_SNIPPET = `<!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1PLNMCYXMQ"></script>
@@ -98,37 +113,16 @@ ${GA_SNIPPET}
 <script type="module" src="/firebase.js"></script>`;
 }
 
-// Per-deck intro injected inside the About panel. Replaces the DECK_INTRO_START/END block.
-function deckIntroHtml(deck) {
-  const seo = deck.seo;
-  return `\t  <div id="deck-intro-about">
-\t    <h2>${seo.h1}</h2>
-\t    <p>${deckDescription(seo)}</p>
-\t    <p>A observation being classified as "research grade" means that it has been agreed on by a critical mass of identifiers on iNaturalist. This helps insure some quality, but since all IDs are done by the community there may be some mistakes.</p>
-\t    <p>If you like this site, check out my other projects or get in touch at <a href="https://ethleb.com?utm_source=drugstats&utm_medium=referral&utm_campaign=footer_link" target="_blank" className="text-[#89b4fa]">ethleb.com</a>. Also, this site is open source, and you can view the code or contribute <a href="https://github.com/EthanLebowitz/iNaturalist-Flashcards" target="_blank" rel="noopener">here</a>!</p>
-\t    <p>I hope you enjoy!</p>
-\t    <p>Ethan Lebowitz</p>
-\t  </div>`;
-}
-
-// Update index.html's tracking deck intro in-place (keep markers so future runs still work)
-const trackingDeck = { key: 'tracking', ...MODES['tracking'] };
-const updatedIndexHtml = indexHtml.replace(
-  /([ \t]*<!-- DECK_INTRO_START -->)[\s\S]*?(<!-- DECK_INTRO_END -->)/,
-  `$1\n${deckIntroHtml(trackingDeck)}\n\t  $2`
-);
-writeFileSync(join(root, 'index.html'), updatedIndexHtml, 'utf-8');
-console.log('Updated /index.html intro');
+const links = deckLinksHtml();
 
 DECKS.forEach(function(deck) {
   const slugDir = deck.slug.replace(/^\//, '').replace(/\/$/, '');
   const dir = join(root, slugDir);
   mkdirSync(dir, { recursive: true });
 
-  const bodyWithIntro = bodyHtml.replace(
-    /\t  <!-- DECK_INTRO_START -->[\s\S]*?<!-- DECK_INTRO_END -->/,
-    deckIntroHtml(deck)
-  );
+  const body = bodyHtml
+    .replace(/[ \t]*<!-- DECK_INTRO_START -->[\s\S]*?<!-- DECK_INTRO_END -->/, deckIntroHtml(deck))
+    .replace(/[ \t]*<!-- DECK_LINKS_START -->[\s\S]*?<!-- DECK_LINKS_END -->/, links);
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -136,7 +130,7 @@ DECKS.forEach(function(deck) {
 ${shellHead(deck)}
 </head>
 <body>
-${bodyWithIntro}</body>
+${body}</body>
 </html>`;
 
   writeFileSync(join(dir, 'index.html'), html, 'utf-8');
@@ -146,10 +140,9 @@ ${bodyWithIntro}</body>
 // sitemap.xml
 const today = new Date().toISOString().split('T')[0];
 const baseUrl = 'https://flashcards.ethleb.com';
-const urls = [
-  baseUrl + '/',
-  ...DECKS.map(d => baseUrl + d.slug),
-].map(u => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join('\n');
+const urls = DECKS
+  .map(d => `  <url><loc>${baseUrl}${d.slug}</loc><lastmod>${today}</lastmod></url>`)
+  .join('\n');
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
