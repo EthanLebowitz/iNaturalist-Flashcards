@@ -121,6 +121,7 @@ DECKS.forEach(function(deck) {
   mkdirSync(dir, { recursive: true });
 
   const body = bodyHtml
+    .replace(/<!-- DECK_H1_START -->[\s\S]*?<!-- DECK_H1_END -->/, deck.seo.h1)
     .replace(/[ \t]*<!-- DECK_INTRO_START -->[\s\S]*?<!-- DECK_INTRO_END -->/, deckIntroHtml(deck))
     .replace(/[ \t]*<!-- DECK_LINKS_START -->[\s\S]*?<!-- DECK_LINKS_END -->/, links);
 
